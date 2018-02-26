@@ -38,17 +38,21 @@ public class StaticFilesRouter implements Router {
 
         configureWebJars(appContext);
 
+        configureFolder(appContext + "/css/:file", "public/css");
 
-        configureFolder(appContext + "/partials/:file", "public/partials");
-
-        configureFolder(appContext + "/icons/:file", "public/icons");
         configureFolder(appContext + "/js/:file", "public/js");
         configureFolder(appContext + "/js/services/:file", "public/js/services");
         configureFolder(appContext + "/js/controllers/:file", "public/js/controllers");
 
-        configureFolder(appContext + "/images/:file", "public/images");
-        configureFolder(appContext + "/css/:file", "public/css");
-        configureFolder(appContext + "/views/*", "public/views");
+        configureFolder(appContext + "/img/:file", "public/img");
+        configureFolder(appContext + "/img/avatars/:file", "public/img/avatars");
+
+        configureFolder(appContext + "/views/:file", "public/views");
+        configureFolder(appContext + "/views/common/:file", "public/views/common");
+        configureFolder(appContext + "/views/common/layouts/:file", "public/views/common/layouts");
+        configureFolder(appContext + "/views/components/:file", "public/views/components");
+        configureFolder(appContext + "/views/icons/:file", "public/views/icons");
+        configureFolder(appContext + "/views/pages/:file", "public/views/pages");
 
 
         configureFile(appContext + "/index.html", "public/index.html");
