@@ -30,6 +30,11 @@
         <webjar-angular-breadcrumb.version>0.5.0</webjar-angular-breadcrumb.version>
         <webjar-angular-loading-bar.version>0.9.0</webjar-angular-loading-bar.version>
         <webjar-oclazyload.vesion>1.1.0</webjar-oclazyload.vesion>
+        <webjar-font-awesome.version>4.7.0</webjar-font-awesome.version>
+        <webjar-simple-line-icons.version>2.4.1</webjar-simple-line-icons.version>
+        <webjar-flag-icon-css.version>2.4.0</webjar-flag-icon-css.version>
+        <webjar-charjs.version>2.7.0</webjar-charjs.version>
+        <webjar-angular-chartjs.version>1.1.1</webjar-angular-chartjs.version>
     </properties>
 
     <dependencies>
@@ -159,7 +164,31 @@
             <artifactId>angular-loading-bar</artifactId>
             <version>${webjar-angular-loading-bar.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>${webjar-font-awesome.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>simple-line-icons</artifactId>
+            <version>${webjar-simple-line-icons.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>flag-icon-css</artifactId>
+            <version>${webjar-flag-icon-css.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>chartjs</artifactId>
+            <version>${webjar-charjs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-chart.js</artifactId>
+            <version>${webjar-angular-chartjs.version}</version>
+        </dependency>
     </dependencies>
 
 

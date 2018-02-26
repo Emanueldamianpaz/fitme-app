@@ -48,6 +48,8 @@ public class StaticFilesRouter implements Router {
 
         configureFolder(appContext + "/images/:file", "public/images");
         configureFolder(appContext + "/css/:file", "public/css");
+        configureFolder(appContext + "/views/*", "public/views");
+
 
         configureFile(appContext + "/index.html", "public/index.html");
         configureFile(appContext + "/", "public/index.html");
