@@ -17,6 +17,19 @@
         <guice-multibindings.version>4.1.0</guice-multibindings.version>
         <guava.version>20.0</guava.version>
         <jool.version>0.9.12</jool.version>
+
+        <webjar-locator.version>0.32</webjar-locator.version>
+
+        <webjar-jquery.version>3.3.1</webjar-jquery.version>
+        <webjar-pooperjs.version>1.13.0</webjar-pooperjs.version>
+        <webjar-bootstrap.version>4.0.0</webjar-bootstrap.version>
+        <webjar-angular.version>1.6.9</webjar-angular.version>
+        <webjar-angular-animate.version>1.6.9</webjar-angular-animate.version>
+        <webjar-angular-sanitize.version>1.6.9</webjar-angular-sanitize.version>
+        <webjar-angular-ui-router.version>1.0.14</webjar-angular-ui-router.version>
+        <webjar-angular-breadcrumb.version>0.5.0</webjar-angular-breadcrumb.version>
+        <webjar-angular-loading-bar.version>0.9.0</webjar-angular-loading-bar.version>
+        <webjar-oclazyload.vesion>1.1.0</webjar-oclazyload.vesion>
     </properties>
 
     <dependencies>
@@ -82,6 +95,69 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
+        </dependency>
+
+        <!-- Webjars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>${webjar-locator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${webjar-jquery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>popper.js</artifactId>
+            <version>${webjar-pooperjs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjar-bootstrap.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular</artifactId>
+            <version>${webjar-angular.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-animate</artifactId>
+            <version>${webjar-angular-animate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-sanitize</artifactId>
+            <version>${webjar-angular-sanitize.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-ui-router</artifactId>
+            <version>${webjar-angular-ui-router.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>ocLazyLoad</artifactId>
+            <version>${webjar-oclazyload.vesion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-breadcrumb</artifactId>
+            <version>${webjar-angular-breadcrumb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-loading-bar</artifactId>
+            <version>${webjar-angular-loading-bar.version}</version>
         </dependency>
 
     </dependencies>

@@ -9,13 +9,16 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import com.google.inject.Inject;
 import conf.Enviroment;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.http.MimeTypes;
 
 import com.google.common.io.Files;
 import com.google.common.reflect.ClassPath;
 
+import org.webjars.WebJarAssetLocator;
 import spark.utils.IOUtils;
 
 public class StaticFilesRouter implements Router {
@@ -23,8 +26,18 @@ public class StaticFilesRouter implements Router {
     private final MimeTypes jettyMimeType = new MimeTypes();
     private final String appContext = Enviroment.APP_CONTEXT.getProperty();
 
+    private WebJarAssetLocator locator;
+
+    @Inject
+    public StaticFilesRouter(WebJarAssetLocator locator) {
+        this.locator = locator;
+    }
+
     @Override
     public void routeServices() {
+
+        configureWebJars(appContext);
+
 
         configureFolder(appContext + "/partials/:file", "public/partials");
 
@@ -39,6 +52,23 @@ public class StaticFilesRouter implements Router {
         configureFile(appContext + "/index.html", "public/index.html");
         configureFile(appContext + "/", "public/index.html");
     }
+
+
+    private void configureWebJars(String appContext) {
+
+        String fullContext = appContext + "/webjars/:library/*";
+
+        get(fullContext, (req, res) -> {
+
+            String library = req.params("library");
+            String relativePath = StringUtils.removePattern(req.uri(), "/" + appContext + "/webjars/" + library);
+
+            String fullPath = locator.getFullPath(library, relativePath);
+
+            return writeFileToOutput(fullPath, res);
+        });
+    }
+
 
     private void configureFolder(String fullContext, String resoureFolder) {
         get(fullContext, (req, res) -> {
