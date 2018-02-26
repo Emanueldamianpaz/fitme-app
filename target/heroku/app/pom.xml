@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ar.davinci.edu</groupId>
+    <artifactId>fitme-app</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <httpclient.version>4.5.3</httpclient.version>
+        <jackson.version>2.8.6</jackson.version>
+        <commons-lang.version>3.5</commons-lang.version>
+        <spark-core.version>2.5.5</spark-core.version>
+        <guice.version>4.1.0</guice.version>
+        <guice-multibindings.version>4.1.0</guice-multibindings.version>
+        <guava.version>20.0</guava.version>
+        <jool.version>0.9.12</jool.version>
+
+        <webjar-locator.version>0.32</webjar-locator.version>
+
+        <webjar-jquery.version>3.3.1</webjar-jquery.version>
+        <webjar-pooperjs.version>1.13.0</webjar-pooperjs.version>
+        <webjar-bootstrap.version>4.0.0</webjar-bootstrap.version>
+        <webjar-angular.version>1.6.9</webjar-angular.version>
+        <webjar-angular-animate.version>1.6.9</webjar-angular-animate.version>
+        <webjar-angular-sanitize.version>1.6.9</webjar-angular-sanitize.version>
+        <webjar-angular-ui-router.version>1.0.14</webjar-angular-ui-router.version>
+        <webjar-angular-breadcrumb.version>0.5.0</webjar-angular-breadcrumb.version>
+        <webjar-angular-loading-bar.version>0.9.0</webjar-angular-loading-bar.version>
+        <webjar-oclazyload.vesion>1.1.0</webjar-oclazyload.vesion>
+        <webjar-font-awesome.version>4.7.0</webjar-font-awesome.version>
+        <webjar-simple-line-icons.version>2.4.1</webjar-simple-line-icons.version>
+        <webjar-flag-icon-css.version>2.4.0</webjar-flag-icon-css.version>
+        <webjar-charjs.version>2.7.0</webjar-charjs.version>
+        <webjar-angular-chartjs.version>1.1.1</webjar-angular-chartjs.version>
+    </properties>
+
+    <dependencies>
+        <!--  Core  -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jool</artifactId>
+            <version>${jool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>${spark-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-multibindings</artifactId>
+            <version>${guice-multibindings.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
+        <!-- Webjars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>${webjar-locator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${webjar-jquery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>popper.js</artifactId>
+            <version>${webjar-pooperjs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjar-bootstrap.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular</artifactId>
+            <version>${webjar-angular.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-animate</artifactId>
+            <version>${webjar-angular-animate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-sanitize</artifactId>
+            <version>${webjar-angular-sanitize.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-ui-router</artifactId>
+            <version>${webjar-angular-ui-router.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>ocLazyLoad</artifactId>
+            <version>${webjar-oclazyload.vesion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-breadcrumb</artifactId>
+            <version>${webjar-angular-breadcrumb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-loading-bar</artifactId>
+            <version>${webjar-angular-loading-bar.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>${webjar-font-awesome.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>simple-line-icons</artifactId>
+            <version>${webjar-simple-line-icons.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>flag-icon-css</artifactId>
+            <version>${webjar-flag-icon-css.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>chartjs</artifactId>
+            <version>${webjar-charjs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-chart.js</artifactId>
+            <version>${webjar-angular-chartjs.version}</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <!-- This tells Maven to include all dependencies -->
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>0.4.4</version>
+                <configuration>
+                    <jdkVersion>1.8</jdkVersion>
+                    <appName>${artifactId}</appName>
+                    <processTypes>
+                        <web>java -jar ./target/${artifactId}-${version}-jar-with-dependencies.jar</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
