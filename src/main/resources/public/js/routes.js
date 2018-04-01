@@ -2,12 +2,7 @@ angular
 .module('app')
 .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$breadcrumbProvider', function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $breadcrumbProvider) {
 
-  $urlRouterProvider.otherwise('/dashboard');
-
-  $ocLazyLoadProvider.config({
-    // Set to true if you want to see what and when is dynamically loaded
-    debug: true
-  });
+  $urlRouterProvider.otherwise('/login');
 
   $breadcrumbProvider.setOptions({
     prefixStateName: 'app.main',
@@ -57,15 +52,13 @@ angular
   .state('app.main', {
     url: '/dashboard',
     templateUrl: 'views/main.html',
-    //page title goes here
     ncyBreadcrumb: {
-      label: 'Home',
+      label: 'Inicio',
     },
     //page subtitle goes here
     params: { subtitle: 'Welcome to ROOT powerfull Bootstrap & AngularJS UI Kit' },
     resolve: {
       loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
-        // you can lazy load files for an existing module
         return $ocLazyLoad.load([
           {
             serie: true,
@@ -78,14 +71,13 @@ angular
         ]);
       }],
       loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-        // you can lazy load controllers
         return $ocLazyLoad.load({
           files: ['js/controllers/main.js']
         });
       }]
     }
   })
-  .state('appSimple', {
+  .state('fitme', {
     abstract: true,
     templateUrl: 'views/common/layouts/simple.html',
     resolve: {
@@ -104,20 +96,19 @@ angular
     }
   })
 
-  // Additional Pages
-  .state('appSimple.login', {
+  .state('fitme.login', {
     url: '/login',
     templateUrl: 'views/pages/login.html'
   })
-  .state('appSimple.register', {
+  .state('fitme.register', {
     url: '/register',
     templateUrl: 'views/pages/register.html'
   })
-  .state('appSimple.404', {
+  .state('fitme.404', {
     url: '/404',
     templateUrl: 'views/pages/404.html'
   })
-  .state('appSimple.500', {
+  .state('fitme.500', {
     url: '/500',
     templateUrl: 'views/pages/500.html'
   })
