@@ -24,11 +24,18 @@
         <webjar-pooperjs.version>1.13.0</webjar-pooperjs.version>
         <webjar-bootstrap.version>4.0.0</webjar-bootstrap.version>
         <webjar-angular.version>1.6.9</webjar-angular.version>
+        <webjar-angular-cookies.version>1.6.9</webjar-angular-cookies.version>
+
         <webjar-angular-animate.version>1.6.9</webjar-angular-animate.version>
         <webjar-angular-sanitize.version>1.6.9</webjar-angular-sanitize.version>
         <webjar-angular-ui-router.version>1.0.14</webjar-angular-ui-router.version>
         <webjar-angular-breadcrumb.version>0.5.0</webjar-angular-breadcrumb.version>
         <webjar-angular-loading-bar.version>0.9.0</webjar-angular-loading-bar.version>
+        <webjar-angular-translate.version>2.13.1</webjar-angular-translate.version>
+        <webjar-angular-translate-storage-local.version>2.10.0</webjar-angular-translate-storage-local.version>
+        <webjar-angular-translate-storage-cookie.version>2.5.2</webjar-angular-translate-storage-cookie.version>
+        <webjar-angular-translate-loader-static-files.version>2.13.1
+        </webjar-angular-translate-loader-static-files.version>
         <webjar-oclazyload.vesion>1.1.0</webjar-oclazyload.vesion>
         <webjar-font-awesome.version>4.7.0</webjar-font-awesome.version>
         <webjar-simple-line-icons.version>2.4.1</webjar-simple-line-icons.version>
@@ -133,6 +140,11 @@
         </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-cookies</artifactId>
+            <version>${webjar-angular-cookies.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
             <artifactId>angular-animate</artifactId>
             <version>${webjar-angular-animate.version}</version>
         </dependency>
@@ -146,24 +158,48 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>angular-ui-router</artifactId>
             <version>${webjar-angular-ui-router.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>ocLazyLoad</artifactId>
             <version>${webjar-oclazyload.vesion}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>angular-breadcrumb</artifactId>
             <version>${webjar-angular-breadcrumb.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>angular-loading-bar</artifactId>
             <version>${webjar-angular-loading-bar.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>
@@ -189,8 +225,33 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>angular-chart.js</artifactId>
             <version>${webjar-angular-chartjs.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angular-translate</artifactId>
+            <version>${webjar-angular-translate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angular-translate-storage-local</artifactId>
+            <version>${webjar-angular-translate-storage-local.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angular-translate-storage-cookie</artifactId>
+            <version>${webjar-angular-translate-storage-cookie.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angular-translate-loader-static-files</artifactId>
+            <version>${webjar-angular-translate-loader-static-files.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.google.oauth-client</groupId>
             <artifactId>google-oauth-client</artifactId>

@@ -1,0 +1,39 @@
+{
+  "app": {
+    "title": "FitMe"
+  },
+  "commons": {
+    "new": "Nuevo",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "accept": "Aceptar",
+    "back": "Atrás",
+    "fields": "Campos",
+    "remove": "Quitar",
+    "show": "Ver",
+    "logout": "Salir",
+    "are-you-sure": "¿Está seguro?",
+    "yes-no": {
+      "true": "Si",
+      "false": "No"
+    },
+    "name": "Nombre",
+    "description": "Descripción",
+    "actions": "Acciones",
+    "search-by": "Buscar por",
+    "type": "Tipo",
+    "all": "Todos",
+    "code": "Código",
+    "brand": "Marca",
+    "inspect": "Inspeccionar",
+    "no-results": "Sin resultados",
+    "shrug": "¯\\_(ツ)_/¯",
+    "search": "Buscar",
+    "errors": "Errores",
+    "info": "Info"
+  },
+  "menu": {
+    "dashboard": "Dashboard"
+  }
+}

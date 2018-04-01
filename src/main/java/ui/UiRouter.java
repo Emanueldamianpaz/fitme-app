@@ -1,6 +1,6 @@
 package ui;
 
-import conf.Enviroment;
+import infraestructure.conf.Enviroment;
 import spark.Router;
 import spark.Spark;
 
@@ -12,6 +12,5 @@ public class UiRouter implements Router {
     public void routeServices() {
         Spark.redirect.any("/" + appContext, "/" + appContext + "/");
     }
-
 
 }

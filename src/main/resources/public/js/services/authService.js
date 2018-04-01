@@ -1,4 +1,4 @@
-app.service('AuthService', AuthService);
+fitme.service('AuthService', AuthService);
 
 function AuthService() {
 

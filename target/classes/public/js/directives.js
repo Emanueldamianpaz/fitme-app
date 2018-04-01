@@ -1,16 +1,14 @@
-angular
-.module('app')
-.directive('includeReplace', includeReplace)
-.directive('a', preventClickDirective)
-.directive('a', bootstrapCollapseDirective)
-.directive('a', navigationDirective)
-.directive('button', layoutToggleDirective)
-.directive('a', layoutToggleDirective)
-.directive('button', collapseMenuTogglerDirective)
-.directive('div', bootstrapCarouselDirective)
-.directive('toggle', bootstrapTooltipsPopoversDirective)
-.directive('tab', bootstrapTabsDirective)
-.directive('button', cardCollapseDirective)
+fitme.directive('includeReplace', includeReplace);
+fitme.directive('a', preventClickDirective);
+fitme.directive('a', bootstrapCollapseDirective);
+fitme.directive('a', navigationDirective);
+fitme.directive('button', layoutToggleDirective);
+fitme.directive('a', layoutToggleDirective);
+fitme.directive('button', collapseMenuTogglerDirective);
+fitme.directive('div', bootstrapCarouselDirective);
+fitme.directive('toggle', bootstrapTooltipsPopoversDirective);
+fitme.directive('tab', bootstrapTabsDirective);
+fitme.directive('button', cardCollapseDirective);
 
 function includeReplace() {
   var directive = {
@@ -84,7 +82,6 @@ function navigationDirective() {
 }
 
 //Dynamic resize .sidebar-nav
-sidebarNavDynamicResizeDirective.$inject = ['$window', '$timeout'];
 function sidebarNavDynamicResizeDirective($window, $timeout) {
   var directive = {
     restrict: 'E',
@@ -123,7 +120,6 @@ function sidebarNavDynamicResizeDirective($window, $timeout) {
 }
 
 //LayoutToggle
-layoutToggleDirective.$inject = ['$interval'];
 function layoutToggleDirective($interval) {
   var directive = {
     restrict: 'E',

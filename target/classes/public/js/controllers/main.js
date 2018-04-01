@@ -1,19 +1,16 @@
 //main.js
-angular
-.module('app')
-.controller('cardChartCtrl1', cardChartCtrl1)
-.controller('cardChartCtrl2', cardChartCtrl2)
-.controller('cardChartCtrl3', cardChartCtrl3)
-.controller('cardChartCtrl4', cardChartCtrl4)
-.controller('trafficDemoCtrl', trafficDemoCtrl)
-.controller('socialBoxCtrl', socialBoxCtrl)
-.controller('sparklineChartCtrl', sparklineChartCtrl)
-.controller('barChartCtrl', barChartCtrl)
-.controller('horizontalBarsCtrl', horizontalBarsCtrl)
-.controller('horizontalBarsType2Ctrl', horizontalBarsType2Ctrl)
-.controller('usersTableCtrl', usersTableCtrl);
+fitme.controller('cardChartCtrl1', cardChartCtrl1);
+fitme.controller('cardChartCtrl2', cardChartCtrl2);
+fitme.controller('cardChartCtrl3', cardChartCtrl3);
+fitme.controller('cardChartCtrl4', cardChartCtrl4);
+fitme.controller('trafficDemoCtrl', trafficDemoCtrl);
+fitme.controller('socialBoxCtrl', socialBoxCtrl);
+fitme.controller('sparklineChartCtrl', sparklineChartCtrl);
+fitme.controller('barChartCtrl', barChartCtrl);
+fitme.controller('horizontalBarsCtrl', horizontalBarsCtrl);
+fitme.controller('horizontalBarsType2Ctrl', horizontalBarsType2Ctrl);
+fitme.controller('usersTableCtrl', usersTableCtrl);
 
-//convert Hex to RGBA
 function convertHex(hex,opacity){
   hex = hex.replace('#','');
   r = parseInt(hex.substring(0,2), 16);
@@ -24,7 +21,6 @@ function convertHex(hex,opacity){
   return result;
 }
 
-cardChartCtrl1.$inject = ['$scope'];
 function cardChartCtrl1($scope) {
 
   $scope.labels = ['January','February','March','April','May','June','July'];
@@ -71,7 +67,6 @@ function cardChartCtrl1($scope) {
   }
 }
 
-cardChartCtrl2.$inject = ['$scope'];
 function cardChartCtrl2($scope) {
 
   $scope.labels = ['January','February','March','April','May','June','July'];
@@ -120,7 +115,6 @@ function cardChartCtrl2($scope) {
   }
 }
 
-cardChartCtrl3.$inject = ['$scope'];
 function cardChartCtrl3($scope) {
 
   $scope.labels = ['January','February','March','April','May','June','July'];
@@ -161,7 +155,6 @@ function random(min,max) {
   return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-cardChartCtrl4.$inject = ['$scope'];
 function cardChartCtrl4($scope) {
 
   var elements = 16;
@@ -195,7 +188,6 @@ function cardChartCtrl4($scope) {
   }
 }
 
-trafficDemoCtrl.$inject = ['$scope'];
 function trafficDemoCtrl($scope){
 
   function random(min,max) {
@@ -266,7 +258,6 @@ function trafficDemoCtrl($scope){
   }
 }
 
-dateRangeCtrl.$inject = ['$scope'];
 function dateRangeCtrl($scope) {
   $scope.date = {
     startDate: moment().subtract(5, 'days'),
@@ -294,7 +285,6 @@ function dateRangeCtrl($scope) {
   }
 }
 
-socialBoxCtrl.$inject = ['$scope'];
 function socialBoxCtrl($scope) {
 
   $scope.labels = ['January','February','March','April','May','June','July'];
@@ -337,7 +327,6 @@ function socialBoxCtrl($scope) {
   }
 }
 
-sparklineChartCtrl.$inject = ['$scope'];
 function sparklineChartCtrl($scope) {
   $scope.labels = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
   $scope.data1 = [
@@ -396,7 +385,6 @@ function sparklineChartCtrl($scope) {
   }
 }
 
-horizontalBarsCtrl.$inject = ['$scope'];
 function horizontalBarsCtrl($scope) {
 
   $scope.data = [
@@ -424,7 +412,6 @@ function horizontalBarsCtrl($scope) {
   ];
 }
 
-horizontalBarsType2Ctrl.$inject = ['$scope'];
 function horizontalBarsType2Ctrl($scope) {
 
   $scope.gender = [
@@ -468,7 +455,6 @@ function horizontalBarsType2Ctrl($scope) {
   ];
 }
 
-usersTableCtrl.$inject = ['$scope', '$timeout'];
 function usersTableCtrl($scope, $timeout) {
 
   $scope.users = [
@@ -559,7 +545,6 @@ function usersTableCtrl($scope, $timeout) {
   ]
 }
 
-clientsTableCtrl.$inject = ['$scope', '$timeout'];
 function clientsTableCtrl($scope, $timeout) {
 
   $scope.users = [
@@ -624,7 +609,6 @@ function random(min,max) {
   return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-barChartCtrl.$inject = ['$scope'];
 function barChartCtrl($scope) {
 
   var elements = 16;

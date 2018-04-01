@@ -1,6 +1,6 @@
 package infraestructure.security;
 
-import conf.Enviroment;
+import infraestructure.conf.Enviroment;
 import spark.Router;
 import spark.Spark;
 

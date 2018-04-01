@@ -10,13 +10,12 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import com.google.inject.Inject;
-import conf.Enviroment;
+import infraestructure.conf.Enviroment;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.http.MimeTypes;
 
 import com.google.common.io.Files;
-import com.google.common.reflect.ClassPath;
 
 import org.webjars.WebJarAssetLocator;
 import spark.utils.IOUtils;
@@ -37,6 +36,8 @@ public class StaticFilesRouter implements Router {
     public void routeServices() {
 
         configureWebJars(appContext);
+
+        configureFolder(appContext + "/i18n/:file", "i18n");
 
         configureFolder(appContext + "/css/:file", "public/css");
 
