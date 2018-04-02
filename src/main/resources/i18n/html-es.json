@@ -31,7 +31,11 @@
     "shrug": "¯\\_(ツ)_/¯",
     "search": "Buscar",
     "errors": "Errores",
-    "info": "Info"
+    "info": "Info",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "email": "Email",
+    "repeat-password": "Repetir contraseña"
   },
   "menu": {
     "dashboard": "Dashboard"
@@ -39,11 +43,13 @@
   "login": {
     "title": "Iniciar sesión",
     "forgot-password": "Olvidé mi contraseña",
-    "sign-in": "Ingresar con mi c uenta",
-    "sign-up": "No tengo cuenta",
-    "registration": {
-      "title": "Registrarse",
-      "description": "Se puede registrar ingresando alguna cuenta de Google"
-    }
+    "sign-in": "Ingresar con mi cuenta",
+    "sign-up": "No tengo cuenta"
+  },
+  "registration": {
+    "title": "Registrarse",
+    "description": "Cree su cuenta ahora mismo. Fácil y sencillo.",
+    "create-account": "Crear cuenta",
+    "create-your-account": "Cree su cuenta"
   }
 }
