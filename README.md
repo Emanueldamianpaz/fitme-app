@@ -1,3 +1,10 @@
 # Fit Me - Application
 
-Proyecto template para levantar un servidor con html estatico.
+
+Proyecto final de la carrera Analista de Sistemas
+
+<br>
+<hr> 
+
+#####Deploy Heroku
+    mvn heroku:deploy
