@@ -51,6 +51,8 @@ public class StaticFilesRouter implements Router {
         configureFolder(appContext + "/views/:file", "public/views");
         configureFolder(appContext + "/views/common/:file", "public/views/common");
         configureFolder(appContext + "/views/common/layouts/:file", "public/views/common/layouts");
+        configureFolder(appContext + "/views/common/sidebar-nav/:file", "public/views/common/sidebar-nav");
+
         configureFolder(appContext + "/views/components/:file", "public/views/components");
         configureFolder(appContext + "/views/icons/:file", "public/views/icons");
         configureFolder(appContext + "/views/pages/:file", "public/views/pages");
