@@ -35,10 +35,15 @@
     "username": "Usuario",
     "password": "Contraseña",
     "email": "Email",
-    "repeat-password": "Repetir contraseña"
+    "repeat-password": "Repetir contraseña",
+    "settings": "Ajustes",
+    "setting": "Ajuste",
+    "profile": "Perfil"
   },
   "menu": {
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "users": "Usuarios",
+    "routines": "Rutinas"
   },
   "login": {
     "title": "Iniciar sesión",
