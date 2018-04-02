@@ -35,5 +35,15 @@
   },
   "menu": {
     "dashboard": "Dashboard"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "forgot-password": "Olvidé mi contraseña",
+    "sign-in": "Ingresar con mi c uenta",
+    "sign-up": "No tengo cuenta",
+    "registration": {
+      "title": "Registrarse",
+      "description": "Se puede registrar ingresando alguna cuenta de Google"
+    }
   }
 }
