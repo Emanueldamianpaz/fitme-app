@@ -45,6 +45,11 @@ public class StaticFilesRouter implements Router {
         configureFolder(appContext + "/js/services/:file", "public/js/services");
         configureFolder(appContext + "/js/controllers/:file", "public/js/controllers");
 
+        configureFolder(appContext + "/js/routes/:file", "public/js/routes");
+        configureFolder(appContext + "/js/routes/external/:file", "public/js/routes/external");
+        configureFolder(appContext + "/js/routes/internal/:file", "public/js/routes/internal");
+
+
         configureFolder(appContext + "/img/:file", "public/img");
         configureFolder(appContext + "/img/avatars/:file", "public/img/avatars");
 
