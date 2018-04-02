@@ -9,10 +9,20 @@ fitme.config(function($stateProvider, $urlRouterProvider) {
         data : { pageTitle: 'Home' }
 
       })
-      .state('app.main', {
+      .state('app.dashboard', {
         url: '/dashboard',
         templateUrl: 'views/main.html',
-        data : { pageTitle: 'Home' }
+        controller: 'dashboardController'
+      })
+      .state('app.users', {
+        url: '/users',
+        templateUrl: 'views/main.html',
+        controller: 'usersController'
+      })
+      .state('app.routines', {
+        url: '/routines',
+        templateUrl: 'views/main.html',
+        controller: 'routinesController'
       })
       .state('fitme', {
         abstract: true,

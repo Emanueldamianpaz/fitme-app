@@ -2,7 +2,7 @@
     <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" ui-sref="app.main"></a>
+    <a class="navbar-brand" ui-sref="app.dashboard"></a>
     <ul class="nav navbar-nav d-md-down-none">
         <li class="nav-item">
             <a class="nav-link navbar-toggler sidebar-toggler" href="#">
@@ -11,17 +11,17 @@
         </li>
 
         <li class="nav-item px-3">
-            <a class="nav-link" href="#">
+            <a class="nav-link" ui-sref="app.dashboard">
                 {{ 'menu.dashboard' | translate }}
             </a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="#">
+            <a class="nav-link" ui-sref="app.routines">
                 {{ 'menu.routines' | translate }}
             </a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="#">
+            <a class="nav-link" ui-sref="app.users">
                 {{ 'menu.users' | translate }}
             </a>
         </li>

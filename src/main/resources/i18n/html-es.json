@@ -39,7 +39,9 @@
     "settings": "Ajustes",
     "setting": "Ajuste",
     "profile": "Perfil",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "routines": "Rutinas",
+    "users": "Usuarios"
   },
   "menu": {
     "dashboard": "Dashboard",

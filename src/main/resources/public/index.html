@@ -47,8 +47,14 @@
     <script src="js/routes.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/directives.js"></script>
+    <script src="js/filters.js"></script>
 
-    <title ng-bind="('app.title' | translate)"></title>
+
+    <script src="js/controllers/dashboardController.js"></script>
+    <script src="js/controllers/routinesController.js"></script>
+    <script src="js/controllers/usersController.js"></script>
+
+    <title ng-bind="('app.title' | translate) +' | '+ ('commons.'+$root.stateCurrent  | translate)"></title>
 
 
 </head>
