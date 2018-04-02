@@ -6,38 +6,39 @@ fitme.config(function($stateProvider, $urlRouterProvider) {
       .state('app', {
         abstract: true,
         templateUrl: 'views/common/layouts/full.html',
+        data : { pageTitle: 'Home' }
+
       })
       .state('app.main', {
         url: '/dashboard',
         templateUrl: 'views/main.html',
+        data : { pageTitle: 'Home' }
       })
       .state('fitme', {
         abstract: true,
         templateUrl: 'views/common/layouts/simple.html',
+        data : { pageTitle: 'Home' }
       })
       .state('fitme.login', {
         url: '/login',
-        templateUrl: 'views/pages/login.html'
+        templateUrl: 'views/pages/login.html',
+        data : { pageTitle: 'Login' }
       })
       .state('fitme.register', {
         url: '/register',
-        templateUrl: 'views/pages/register.html'
+        templateUrl: 'views/pages/register.html',
+        data : { pageTitle: 'Registrarse' }
       })
       .state('fitme.404', {
         url: '/404',
-        templateUrl: 'views/pages/404.html'
+        templateUrl: 'views/pages/404.html',
+        data : { pageTitle: '404' }
       })
       .state('fitme.500', {
         url: '/500',
-        templateUrl: 'views/pages/500.html'
+        templateUrl: 'views/pages/500.html',
+        data : { pageTitle: '500' }
+
       })
 
-})
-
-fitme.run(function($rootScope, $state, $stateParams) {
-  $rootScope.$on('$stateChangeSuccess',function(){
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
-  });
-  $rootScope.$state = $state;
-  return $rootScope.$stateParams = $stateParams;
 })

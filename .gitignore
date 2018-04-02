@@ -7,9 +7,4 @@
 *.iml
 out
 gen
-target
 src/test/
-target/archive-tmp/
-target/generated-sources/
-target/heroku/app/target/archive-tmp/
-target/heroku/app/target/generated-sources/
