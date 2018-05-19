@@ -1,16 +1,17 @@
 package ui;
 
-import infraestructure.conf.Enviroment;
-import spark.Router;
-import spark.Spark;
+import spark.*;
 
-public class UiRouter implements Router {
-
-    private final String appContext = Enviroment.APP_CONTEXT.getProperty();
+public class UiRouter extends Router {
 
     @Override
-    public void routeServices() {
-        Spark.redirect.any("/" + appContext, "/" + appContext + "/");
+    public RouteGroup routes() {
+        return () -> {
+        };
     }
 
+    @Override
+    public String path() {
+        return "/";
+    }
 }

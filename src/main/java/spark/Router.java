@@ -1,11 +1,11 @@
 package spark;
 
-public interface Router {
 
-    default void routeWebSockets() {
-    }
+public abstract class Router {
 
-    void routeServices();
+    public abstract RouteGroup routes();
+
+    public abstract String path();
 
 
 }
