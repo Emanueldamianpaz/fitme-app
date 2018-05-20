@@ -6,8 +6,9 @@ import infraestructure.conf.ParametersModuleProvider;
 import infraestructure.security.SecurityModule;
 import lombok.extern.slf4j.Slf4j;
 import main.MainModule;
-import persistence.PersistenceModule;
-import ui.UiModule;
+import infraestructure.persistence.*;
+import infraestructure.ui.*;
+
 
 @Slf4j
 public final class App {
@@ -21,7 +22,7 @@ public final class App {
                 new MainModule(),
                 new SecurityModule(),
                 new PersistenceModule(),
-                new UiModule()
+                new StaticFilesModule()
         );
 
         ApiContext context = injector.getBinding(ApiContext.class).getProvider().get();

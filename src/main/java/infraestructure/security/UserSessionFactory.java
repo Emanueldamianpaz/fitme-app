@@ -38,42 +38,42 @@ public class UserSessionFactory {
         this.authorize = authorize;
     }
 
-    public UserSession createUserSession(DecodedJWT jwt){
+    public UserSession createUserSession(DecodedJWT jwt) {
 
         try {
             return usersCache.get(
-                jwt.getSubject(),
-                () -> {
+                    jwt.getSubject(),
+                    () -> {
 
-                    UserSession userSession;
+                        UserSession userSession;
 
-                    try (CloseableHttpClient httpClient = HttpClients.createDefault()){
+                        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
-                        HttpGet request = new HttpGet(authorize);
+                            HttpGet request = new HttpGet(authorize);
 
-                        request.setHeader("Authorization", "Bearer " + jwt.getToken());
+                            request.setHeader("Authorization", "Bearer " + jwt.getToken());
 
-                        CloseableHttpResponse response = httpClient.execute(request);
+                            CloseableHttpResponse response = httpClient.execute(request);
 
-                        Payload payload = new JWTParser().parsePayload(EntityUtils.toString(response.getEntity()));
+                            Payload payload = new JWTParser().parsePayload(EntityUtils.toString(response.getEntity()));
 
-                        userSession = new UserSession(payload);
+                            userSession = new UserSession(payload);
 
-                    } catch (IOException e) {
-                        throw new RuntimeException("Fail to create a user session " + jwt.getId());
-                    }
+                        } catch (IOException e) {
+                            throw new RuntimeException("Fail to create a user session " + jwt.getId());
+                        }
 
-                    persistUser(userSession.getUser());
+                        persistUser(userSession.getUser());
 
-                    return userSession;
-                });
+                        return userSession;
+                    });
         } catch (ExecutionException e) {
             throw new RuntimeException("Fail to retrieve a user session " + jwt.getId());
         }
     }
 
     private FitmeUser persistUser(FitmeUser user) {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
 
             Transaction transaction = session.beginTransaction();
 
@@ -81,7 +81,7 @@ public class UserSessionFactory {
 
             transaction.commit();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Fail to persist a user " + user.getId());
         }
 

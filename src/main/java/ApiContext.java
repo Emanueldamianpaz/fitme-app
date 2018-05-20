@@ -9,7 +9,7 @@ import infraestructure.security.SecurityFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Filter;
-import spark.Router;
+import infraestructure.Router;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,6 +23,7 @@ public class ApiContext {
 
     private final Integer port;
     private final String basePath;
+    private final String apiPath;
     private String url;
     private SecurityFilter securityFilter;
     private RoleAssignedFilter roleAssignedFilter;
@@ -33,7 +34,8 @@ public class ApiContext {
     @Inject
     public ApiContext(
             @TypesafeConfig("server.port") Integer port,
-            @TypesafeConfig("app.api") String basePath,
+            @TypesafeConfig("app.api") String apiPath,
+            @TypesafeConfig("app.context") String basePath,
             @TypesafeConfig("app.url") String url,
             Gson jsonTransformer,
             Set<Router> routers,
@@ -44,6 +46,7 @@ public class ApiContext {
 
         this.port = port;
         this.basePath = basePath;
+        this.apiPath = apiPath;
         this.url = url;
         this.jsonTransformer = jsonTransformer;
         this.routers = routers;
@@ -102,7 +105,7 @@ public class ApiContext {
     private void configureContentTypes() {
         Filter contentTypeFilter = (req, resp) -> resp.type("application/json");
 
-        afterAfter(basePath + "/*", contentTypeFilter);
+        afterAfter(apiPath + "/*", contentTypeFilter);
     }
 
     private void configureExceptions() {

@@ -1,4 +1,4 @@
-package persistence;
+package infraestructure.persistence;
 
 import com.github.racc.tscg.TypesafeConfig;
 import infraestructure.security.util.FitmeUser;

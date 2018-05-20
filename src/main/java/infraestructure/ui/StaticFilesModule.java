@@ -1,21 +1,17 @@
-package ui;
+package infraestructure.ui;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
-import spark.Router;
-import spark.StaticFilesRouter;
+import infraestructure.Router;
 
-public class UiModule extends AbstractModule {
+public class StaticFilesModule extends AbstractModule {
 
     @Override
     protected void configure() {
 
-        bind(UiRouter.class);
         bind(StaticFilesRouter.class);
 
         Multibinder<Router> routerBinder = Multibinder.newSetBinder(binder(), Router.class);
-
-        routerBinder.addBinding().to(UiRouter.class);
         routerBinder.addBinding().to(StaticFilesRouter.class);
     }
 
