@@ -1,10 +1,10 @@
-package main;
+package infraestructure;
 
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
 import utils.json.ObjectMapperProvider;
 
-public class MainModule extends AbstractModule {
+public class GsonModule extends AbstractModule {
 
     @Override
     protected void configure() {
