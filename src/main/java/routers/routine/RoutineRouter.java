@@ -4,7 +4,7 @@ import com.github.racc.tscg.TypesafeConfig;
 import routers.FitmeRouter;
 import spark.Route;
 import spark.RouteGroup;
-import utils.json.JsonTransformer;
+import utils.JsonTransformer;
 
 import javax.inject.Inject;
 
