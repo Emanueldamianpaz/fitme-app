@@ -6,12 +6,12 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "public.routines")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-public class RoutineObject extends FitmeDomain<Long> {
+@Table(name = "public.routine")
+public class Routine extends FitmeDomain<Long> {
 
     @Id
     @Column(name = "routine_id")

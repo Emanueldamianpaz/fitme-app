@@ -57,7 +57,7 @@ public class ApiContext {
     }
 
     void init() {
-        log.info("API endpoint is {}", url);
+        log.info("API endpoint is {}", url + "/");
 
         port(port);
 
