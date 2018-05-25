@@ -41,7 +41,6 @@ public abstract class FitmeRouter extends Router {
         return (Request request, Response response) ->{
 
             try (Session session = sessionFactory.openSession()) {
-                //configureSession(session);
 
                 ManagedSessionContext.bind(session);
 

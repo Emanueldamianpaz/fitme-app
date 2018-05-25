@@ -2,6 +2,7 @@ package routers.routine;
 
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
+import dto.ResponseDTO;
 import org.hibernate.SessionFactory;
 import routers.FitmeRouter;
 import service.routine.RoutineService;
@@ -13,12 +14,12 @@ import utils.JsonTransformer;
 
 import javax.inject.Inject;
 
-import static spark.Spark.get;
+import static spark.Spark.*;
 
 
 public class RoutineRouter extends FitmeRouter {
 
-    private final String apiPath;
+    private String apiPath;
     private JsonTransformer jsonTransformer;
     private RoutineService routineService;
 
@@ -34,19 +35,37 @@ public class RoutineRouter extends FitmeRouter {
         this.jsonTransformer = jsonTransformer;
     }
 
-    private final Route getRoutines = doInTransaction(false, (Request request, Response response) ->
-            routineService.findAll()
-    );
+    @Override
+    public String path() {
+        return apiPath + "/routine";
+    }
 
     @Override
     public RouteGroup routes() {
         return () -> {
             get("", getRoutines, jsonTransformer);
+            post("", createRoutine, jsonTransformer);
+            patch("", updateRoutine, jsonTransformer);
+            delete("", deleteRoutine, jsonTransformer);
         };
     }
 
-    @Override
-    public String path() {
-        return apiPath + "/routine";
-    }
+
+    private final Route getRoutines = doInTransaction(false, (Request request, Response response) ->
+            new ResponseDTO("OK", "Rutina creada!")
+    );
+
+    private final Route createRoutine = doInTransaction(false, (Request request, Response response) ->
+            new ResponseDTO(RoutineResponse.RoutineCreateOk.name(), "Rutina creada!")
+    );
+
+    private final Route updateRoutine = doInTransaction(false, (Request request, Response response) ->
+            new ResponseDTO(RoutineResponse.RoutineUpdateOk.name(), "Rutina modificada")
+    );
+
+    private final Route deleteRoutine = doInTransaction(false, (Request request, Response response) ->
+            new ResponseDTO(RoutineResponse.RoutineDeleteOk.name(), "Rutina eliminada")
+    );
+
+
 }
