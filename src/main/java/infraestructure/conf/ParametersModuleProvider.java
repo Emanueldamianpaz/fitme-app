@@ -9,7 +9,7 @@ public class ParametersModuleProvider {
 
     public static AbstractModule get() {
 
-        Config config = ConfigFactory.load("application.conf");
+        Config config = ConfigFactory.load();
 
         return TypesafeConfigModule.fromConfigWithPackage(config, "");
     }
