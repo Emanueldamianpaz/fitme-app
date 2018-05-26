@@ -38,18 +38,30 @@ public class StaticFilesRouter extends Router {
             configureWebJars();
             configureFolder("i18n/:file", "i18n");
             configureFolder("css/:file", "public/css");
+
             configureFolder("js/:file", "public/js");
             configureFolder("js/services/:file", "public/js/services");
             configureFolder("js/controllers/:file", "public/js/controllers");
             configureFolder("js/routes/:file", "public/js/routes");
             configureFolder("js/routes/external/:file", "public/js/routes/external");
             configureFolder("js/routes/internal/:file", "public/js/routes/internal");
+
             configureFolder("img/:file", "public/img");
             configureFolder("img/avatars/:file", "public/img/avatars");
+
             configureFolder("views/:file", "public/views");
             configureFolder("views/common/:file", "public/views/common");
             configureFolder("views/common/layouts/:file", "public/views/common/layouts");
             configureFolder("views/common/sidebar-nav/:file", "public/views/common/sidebar-nav");
+
+            configureFolder("views/app/:file", "public/views/app");
+            configureFolder("views/app/exercises/:file", "public/views/app/exercises");
+            configureFolder("views/app/nutritions/:file", "public/views/app/nutritions");
+            configureFolder("views/app/routines/:file", "public/views/app/routines");
+            configureFolder("views/app/users/:file", "public/views/app/users");
+
+            configureFolder("views/fitme/:file", "public/views/fitme");
+
             configureFolder("views/components/:file", "public/views/components");
             configureFolder("views/icons/:file", "public/views/icons");
             configureFolder("views/pages/:file", "public/views/pages");

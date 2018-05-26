@@ -46,7 +46,9 @@
   "menu": {
     "dashboard": "Dashboard",
     "users": "Usuarios",
-    "routines": "Rutinas"
+    "routines": "Rutinas",
+    "nutritions": "Dietas",
+    "exercises": "Ejercicios"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -59,5 +61,13 @@
     "description": "Cree su cuenta ahora mismo. Fácil y sencillo.",
     "create-account": "Crear cuenta",
     "create-your-account": "Cree su cuenta"
+  },
+  "dashboard": {
+    "welcome": "Bienvenido a FitME App!",
+    "introduction": "Estoy muy contento que formes parte de esta comunidad! Aquí encontrarás las herramientas necesarias para poder acercarte a la gente que quiere mejorar su estilo de vida.",
+    "introduction-2": "Fitme, es un proyecto que promueve hábitos saludables, acompañando a la gente con rutinas y hábitos que mejoran la calidad de vida de la persona. La principal funcionalidad de la aplicación es ofrecer un servicio automatizado de coaching para llevar un mejor estilo de vida, desde la alimentación hasta los ejercicios que este realiza; siendo un consejero a la hora de tomar decisiones y permitiendo completar objetivos en cuanto a físico, salud y estética se refiere.",
+    "introduction-3": "En caso de que necesites ayuda, no dudes en contactarte a emanueldamian.paz@gmail.com ",
+    "registered-users": "Usuarios por edad",
+    "genre-of-users": "Usuarios por genero"
   }
 }
