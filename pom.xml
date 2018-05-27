@@ -336,7 +336,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>App</mainClass>
+                            <mainClass>ar.edu.davinci.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
