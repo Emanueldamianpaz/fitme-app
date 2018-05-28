@@ -4,7 +4,7 @@
          ng-if="$root.stateCurrent == 'dashboard'"></div>
 
     <div ng-include="'views/common/sidebar-nav/sidebar-nav-routines.html'" include-replace
-         ng-if="$root.stateCurrent == 'routines'"></div>
+         ng-if="$root.stateCurrent == 'routines' || $root.stateCurrent == 'exercises' || $root.stateCurrent == 'nutritions' "></div>
 
     <div ng-include="'views/common/sidebar-nav/sidebar-nav-users.html'" include-replace
          ng-if="$root.stateCurrent == 'users'"></div>
