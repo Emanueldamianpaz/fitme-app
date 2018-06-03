@@ -6,6 +6,7 @@
     "new": "Nuevo",
     "edit": "Editar",
     "delete": "Eliminar",
+    "close": "Cerrar",
     "cancel": "Cancelar",
     "accept": "Aceptar",
     "back": "Atrás",
@@ -20,6 +21,7 @@
     },
     "name": "Nombre",
     "description": "Descripción",
+    "detail": "Detalle",
     "actions": "Acciones",
     "search-by": "Buscar por",
     "type": "Tipo",
@@ -32,6 +34,7 @@
     "search": "Buscar",
     "errors": "Errores",
     "info": "Info",
+    "information": "Información",
     "username": "Usuario",
     "password": "Contraseña",
     "email": "Email",
@@ -72,5 +75,10 @@
     "introduction-3": "En caso de que necesites ayuda, no dudes en contactarte a emanueldamian.paz@gmail.com ",
     "registered-users": "Usuarios por edad",
     "genre-of-users": "Usuarios por genero"
+  },
+  "routine": {
+    "info": "Información de la rutina",
+    "exercise": "Ejercicios",
+    "nutrition": "Dietas"
   }
 }
