@@ -1,12 +1,10 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.dto.exercise.ExerciseRequestDTO;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -17,6 +15,7 @@ import javax.persistence.Table;
 public class Exercise extends FitmeDomain<Long> {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -31,4 +30,19 @@ public class Exercise extends FitmeDomain<Long> {
 
     @Column(name = "difficulty")
     private String difficulty;
+
+    public Exercise(ExerciseRequestDTO exercise) {
+        this.name = exercise.getName();
+        this.type = exercise.getType();
+        this.description = exercise.getDescription();
+        this.difficulty = exercise.getDifficulty();
+    }
+
+    public Exercise(Long id, ExerciseRequestDTO exercise) {
+        this.id = id;
+        this.name = exercise.getName();
+        this.type = exercise.getType();
+        this.description = exercise.getDescription();
+        this.difficulty = exercise.getDifficulty();
+    }
 }

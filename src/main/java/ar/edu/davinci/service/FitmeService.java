@@ -30,9 +30,17 @@ public abstract class FitmeService<ENTITY extends FitmeDomain, PARENT_ENTITY ext
     }
 
     public ENTITY update(ENTITY newInstance) {
+        ENTITY oldInstance = currentSession().get(clazz, newInstance.getId());
+
+        preUpdateActions(newInstance, oldInstance);
+
         return (ENTITY) currentSession().merge(newInstance);
     }
 
+
+    protected void preUpdateActions(ENTITY newInstance, ENTITY oldInstance) {
+
+    }
 
     public ENTITY create(ENTITY object) {
         currentSession().save(object);

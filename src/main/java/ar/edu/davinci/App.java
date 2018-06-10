@@ -1,6 +1,5 @@
 package ar.edu.davinci;
 
-import com.github.racc.tscg.TypesafeConfig;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 

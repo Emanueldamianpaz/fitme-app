@@ -1,5 +1,6 @@
 package ar.edu.davinci.infraestructure.persistence;
 
+import ar.edu.davinci.domain.model.*;
 import com.github.racc.tscg.TypesafeConfig;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import lombok.AccessLevel;
@@ -59,7 +60,15 @@ public class HibernateUtil {
 
         registry = registryBuilder.build();
         MetadataSources sources = new MetadataSources(registry)
+                .addAnnotatedClass(Exercise.class)
+                .addAnnotatedClass(Goal.class)
+                .addAnnotatedClass(Nutrition.class)
+                .addAnnotatedClass(Routine.class)
+                .addAnnotatedClass(Scoring.class)
+                .addAnnotatedClass(User.class)
+                .addAnnotatedClass(UserInfo.class)
                 .addAnnotatedClass(FitmeUser.class);
+
 
         Metadata metadata = sources.getMetadataBuilder().build();
 
