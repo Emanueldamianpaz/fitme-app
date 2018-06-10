@@ -13,10 +13,7 @@ import ar.edu.davinci.utils.JsonTransformer;
 
 import javax.inject.Inject;
 
-import java.util.Optional;
-
 import static spark.Spark.*;
-
 
 public class ExerciseRouter extends FitmeRouter {
 
@@ -63,19 +60,17 @@ public class ExerciseRouter extends FitmeRouter {
             }
     );
 
-    private final Route updateExercise = doInTransaction(false, (Request request, Response response) ->
+    private final Route updateExercise = doInTransaction(true, (Request request, Response response) ->
             {
                 ExerciseRequestDTO exerciseRequest = (ExerciseRequestDTO) jsonTransformer.asJson(request.body(), ExerciseRequestDTO.class);
                 return exerciseService.update(new Exercise(Long.parseLong(request.params("id")), exerciseRequest));
             }
     );
 
-    private final Route deleteExercise = doInTransaction(false, (Request request, Response response) ->
+    private final Route deleteExercise = doInTransaction(true, (Request request, Response response) ->
             {
                 exerciseService.delete(Long.parseLong(request.params("id")));
                 return new ResponseDTO(ExerciseResponse.ExerciseDeleteOk.name(), "Rutina eliminada");
             }
     );
-
-
 }
