@@ -39,7 +39,9 @@ public abstract class FitmeService<ENTITY extends FitmeDomain, PARENT_ENTITY ext
 
 
     protected void preUpdateActions(ENTITY newInstance, ENTITY oldInstance) {
-
+        if (oldInstance == null) {
+            throw new ResourceNotFoundException(String.format("%s with id %d%n", clazz.getSimpleName(), newInstance.getId()));
+        }
     }
 
     public ENTITY create(ENTITY object) {
