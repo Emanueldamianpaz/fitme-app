@@ -4,10 +4,7 @@ import ar.edu.davinci.domain.FitmeDomain;
 import lombok.*;
 import org.hibernate.annotations.ForeignKey;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -18,6 +15,7 @@ import javax.persistence.Table;
 public class UserInfo extends FitmeDomain<Long> {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

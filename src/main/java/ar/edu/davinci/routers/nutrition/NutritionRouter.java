@@ -1,5 +1,7 @@
 package ar.edu.davinci.routers.nutrition;
 
+import ar.edu.davinci.domain.model.Nutrition;
+import ar.edu.davinci.dto.nutrition.NutritionRequestDTO;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import ar.edu.davinci.dto.ResponseDTO;
@@ -45,27 +47,34 @@ public class NutritionRouter extends FitmeRouter {
         return () -> {
             get("", getNutritions, jsonTransformer);
             post("", createNutrition, jsonTransformer);
-            patch("", updateNutrition, jsonTransformer);
-            delete("", deleteNutrition, jsonTransformer);
+            patch("/:id", updateNutrition, jsonTransformer);
+            delete("/:id", deleteNutrition, jsonTransformer);
         };
     }
 
 
     private final Route getNutritions = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO("OK", "Rutina creada!")
+            nutritionService.findAll()
     );
 
     private final Route createNutrition = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(NutritionResponse.NutritionCreateOk.name(), "Rutina creada!")
+            {
+                NutritionRequestDTO nutritionRequest = (NutritionRequestDTO) jsonTransformer.asJson(request.body(), NutritionRequestDTO.class);
+                return nutritionService.create(new Nutrition(nutritionRequest));
+            }
     );
 
-    private final Route updateNutrition = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(NutritionResponse.NutritionUpdateOk.name(), "Rutina modificada")
+    private final Route updateNutrition = doInTransaction(true, (Request request, Response response) ->
+            {
+                NutritionRequestDTO nutritionRequest = (NutritionRequestDTO) jsonTransformer.asJson(request.body(), NutritionRequestDTO.class);
+                return nutritionService.update(new Nutrition(Long.parseLong(request.params("id")), nutritionRequest));
+            }
     );
 
-    private final Route deleteNutrition = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(NutritionResponse.NutritionDeleteOk.name(), "Rutina eliminada")
+    private final Route deleteNutrition = doInTransaction(true, (Request request, Response response) ->
+            {
+                nutritionService.delete(Long.parseLong(request.params("id")));
+                return new ResponseDTO(NutritionResponse.NutritionDeleteOk.name(), "Rutina eliminada");
+            }
     );
-
-
 }

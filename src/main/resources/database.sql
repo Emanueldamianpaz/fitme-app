@@ -21,6 +21,7 @@ create table if not exists public.nutrition (
 	"name" varchar not null,
 	"type" varchar not null,
 	calories float8 not null,
+	image bytea null,
 	constraint nutrition_un unique (id)
 )
 

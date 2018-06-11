@@ -3,10 +3,7 @@ package ar.edu.davinci.domain.model;
 import ar.edu.davinci.domain.FitmeDomain;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -17,6 +14,7 @@ import javax.persistence.Table;
 public class User extends FitmeDomain<Long> {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
