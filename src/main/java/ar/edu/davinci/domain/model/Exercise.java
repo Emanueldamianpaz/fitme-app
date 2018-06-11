@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class Exercise extends FitmeDomain<Long> {
 
     @Id
+    @ManyToOne
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;

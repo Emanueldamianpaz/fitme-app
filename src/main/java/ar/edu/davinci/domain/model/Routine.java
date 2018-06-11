@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Routine extends FitmeDomain<Long> {
 
     @Id
+    @OneToOne(mappedBy = "routine_template")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
