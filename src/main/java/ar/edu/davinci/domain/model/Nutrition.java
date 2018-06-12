@@ -5,13 +5,14 @@ import ar.edu.davinci.dto.nutrition.NutritionRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "public.nutrition")
+@Table(name = "nutrition")
 public class Nutrition extends FitmeDomain<Long> {
 
     @Id
@@ -28,9 +29,9 @@ public class Nutrition extends FitmeDomain<Long> {
     @Column(name = "calories")
     private Double calories;
 
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id_nutrition")
-    private RoutineTemplate routineTemplate;
+    @ManyToMany
+    @JoinColumn(name = "id_nutrition")
+    private Set<RoutineTemplate> routineTemplate;
 
 
     public Nutrition(NutritionRequestDTO nutrition) {

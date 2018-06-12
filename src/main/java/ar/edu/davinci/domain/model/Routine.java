@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "public.routine")
+@Table(name = "routine")
 public class Routine extends FitmeDomain<Long> {
 
     @Id
@@ -30,7 +30,7 @@ public class Routine extends FitmeDomain<Long> {
     private RoutineTemplate routineTemplate;
 
     @OneToMany(mappedBy = "routine")
-    private Set<Routine> routineList;
+    private Set<UserRoutine> routineList;
 
 
 }

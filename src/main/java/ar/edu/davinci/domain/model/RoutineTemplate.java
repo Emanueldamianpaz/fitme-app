@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "public.routine_template")
+@Table(name = "routine_template")
 public class RoutineTemplate extends FitmeDomain<Long> {
 
     @Id

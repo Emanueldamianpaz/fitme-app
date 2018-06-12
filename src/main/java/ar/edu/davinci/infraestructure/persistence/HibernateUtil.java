@@ -44,6 +44,7 @@ public class HibernateUtil {
         settings.put(Environment.URL, url);
         settings.put(Environment.USER, username);
         settings.put(Environment.PASS, password);
+        settings.put(Environment.DEFAULT_SCHEMA, "public");
         settings.put(Environment.HBM2DDL_AUTO, hb2ddl);
         settings.put(Environment.SHOW_SQL, showSQL);
         settings.put(Environment.FORMAT_SQL, showSQL);
@@ -60,15 +61,15 @@ public class HibernateUtil {
 
         registry = registryBuilder.build();
         MetadataSources sources = new MetadataSources(registry)
-                .addAnnotatedClass(Exercise.class)
-                .addAnnotatedClass(Goal.class)
-                .addAnnotatedClass(Nutrition.class)
                 .addAnnotatedClass(Routine.class)
                 .addAnnotatedClass(RoutineTemplate.class)
+                .addAnnotatedClass(Exercise.class)
+                .addAnnotatedClass(Nutrition.class)
+                .addAnnotatedClass(UserRoutine.class)
                 .addAnnotatedClass(Scoring.class)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(UserInfo.class)
-                .addAnnotatedClass(UserRoutine.class)
+                .addAnnotatedClass(Goal.class)
                 .addAnnotatedClass(FitmeUser.class);
 
 

@@ -12,16 +12,13 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "public.exercise")
+@Table(name = "exercise")
 public class Exercise extends FitmeDomain<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @OneToOne(mappedBy = "routine")
-    private Routine routine;
 
     @Column(name = "name")
     private String name;

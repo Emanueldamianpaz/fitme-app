@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "public.user_routine")
+@Table(name = "user_routine")
 public class UserRoutine extends FitmeDomain<Long> {
 
     @Id
