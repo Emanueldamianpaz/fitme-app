@@ -1,5 +1,6 @@
 package ar.edu.davinci.routers;
 
+import ar.edu.davinci.routers.routineTemplate.RoutineTemplateRouter;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 import ar.edu.davinci.infraestructure.Router;
@@ -17,7 +18,6 @@ public class RouterModule extends AbstractModule {
         routerBinder.addBinding().to(RoutineRouter.class);
         routerBinder.addBinding().to(ExerciseRouter.class);
         routerBinder.addBinding().to(NutritionRouter.class);
-
-
+        routerBinder.addBinding().to(RoutineTemplateRouter.class);
     }
 }

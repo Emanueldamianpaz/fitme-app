@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "public.user_info")
+@Table(name = "user_info")
 public class UserInfo extends FitmeDomain<Long> {
 
     @Id
@@ -34,4 +34,10 @@ public class UserInfo extends FitmeDomain<Long> {
     @Column(name = "genre")
     private String genre;
 
+    @OneToOne(mappedBy = "userInfo")
+    private Goal goal;
+
+    @OneToOne
+    @JoinColumn(name = "id_user_info")
+    private User user;
 }

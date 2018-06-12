@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "public.scoring")
+@Table(name = "scoring")
 public class Scoring extends FitmeDomain<Long> {
 
     @Id
@@ -24,4 +24,7 @@ public class Scoring extends FitmeDomain<Long> {
     @Column(name = "tip")
     private String tip;
 
+    @OneToOne
+    @JoinColumn(name = "id_scoring")
+    private UserRoutine userRoutine;
 }

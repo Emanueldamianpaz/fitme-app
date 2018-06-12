@@ -5,17 +5,17 @@ import ar.edu.davinci.dto.nutrition.NutritionRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "public.nutrition")
+@Table(name = "nutrition")
 public class Nutrition extends FitmeDomain<Long> {
 
     @Id
-    @ManyToOne
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
@@ -28,6 +28,11 @@ public class Nutrition extends FitmeDomain<Long> {
 
     @Column(name = "calories")
     private Double calories;
+
+    @ManyToMany
+    @JoinColumn(name = "id_nutrition")
+    private Set<RoutineTemplate> routineTemplate;
+
 
     public Nutrition(NutritionRequestDTO nutrition) {
         this.name = nutrition.getName();
