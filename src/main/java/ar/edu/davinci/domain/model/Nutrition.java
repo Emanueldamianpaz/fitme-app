@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class Nutrition extends FitmeDomain<Long> {
 
     @Id
-    @ManyToOne
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
@@ -28,6 +27,11 @@ public class Nutrition extends FitmeDomain<Long> {
 
     @Column(name = "calories")
     private Double calories;
+
+    @ManyToOne
+    @JoinColumn(name = "id", referencedColumnName = "id_nutrition")
+    private RoutineTemplate routineTemplate;
+
 
     public Nutrition(NutritionRequestDTO nutrition) {
         this.name = nutrition.getName();

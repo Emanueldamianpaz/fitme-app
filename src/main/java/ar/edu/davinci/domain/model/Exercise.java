@@ -5,6 +5,7 @@ import ar.edu.davinci.dto.exercise.ExerciseRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -15,10 +16,12 @@ import javax.persistence.*;
 public class Exercise extends FitmeDomain<Long> {
 
     @Id
-    @ManyToOne
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @OneToOne(mappedBy = "routine")
+    private Routine routine;
 
     @Column(name = "name")
     private String name;
@@ -31,6 +34,10 @@ public class Exercise extends FitmeDomain<Long> {
 
     @Column(name = "difficulty")
     private String difficulty;
+
+    @ManyToMany
+    @JoinColumn(name= "id_exercise")
+    private Set<RoutineTemplate> routineTemplate;
 
     public Exercise(ExerciseRequestDTO exercise) {
         this.name = exercise.getName();

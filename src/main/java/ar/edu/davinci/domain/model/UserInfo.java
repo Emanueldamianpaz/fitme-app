@@ -34,4 +34,10 @@ public class UserInfo extends FitmeDomain<Long> {
     @Column(name = "genre")
     private String genre;
 
+    @OneToOne(mappedBy = "userInfo")
+    private Goal goal;
+
+    @OneToOne
+    @JoinColumn(name = "id_user_info")
+    private User user;
 }

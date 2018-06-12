@@ -24,4 +24,7 @@ public class Scoring extends FitmeDomain<Long> {
     @Column(name = "tip")
     private String tip;
 
+    @OneToOne
+    @JoinColumn(name = "id_scoring")
+    private UserRoutine userRoutine;
 }

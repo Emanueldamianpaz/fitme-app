@@ -40,7 +40,7 @@ public class HibernateUtil {
 
         Map<String, Object> settings = new HashMap<>();
         settings.put(Environment.DRIVER, "org.postgresql.Driver");
-        settings.put(Environment.DIALECT, "org.hibernate.spatial.dialect.postgis.PostgisDialect");
+        settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
         settings.put(Environment.URL, url);
         settings.put(Environment.USER, username);
         settings.put(Environment.PASS, password);
@@ -64,9 +64,11 @@ public class HibernateUtil {
                 .addAnnotatedClass(Goal.class)
                 .addAnnotatedClass(Nutrition.class)
                 .addAnnotatedClass(Routine.class)
+                .addAnnotatedClass(RoutineTemplate.class)
                 .addAnnotatedClass(Scoring.class)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(UserInfo.class)
+                .addAnnotatedClass(UserRoutine.class)
                 .addAnnotatedClass(FitmeUser.class);
 
 

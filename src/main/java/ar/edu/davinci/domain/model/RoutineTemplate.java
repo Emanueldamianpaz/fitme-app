@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -20,18 +21,15 @@ public class RoutineTemplate extends FitmeDomain<Long> {
     @Column(name = "id")
     private Long id;
 
-
     @OneToOne
-    @Column(name = "id_routine")
+    @JoinColumn(name = "id_routine_template")
     private Routine routine;
 
-    @OneToMany
-    @Column(name = "id_exercise")
-    private List<Exercise> exercices;
+    @ManyToMany(mappedBy = "routineTemplate")
+    private Set<Exercise> exercices;
 
-    @OneToMany
-    @Column(name = "id_nutrition")
-    private List<Nutrition> nutritions;
+    @ManyToMany(mappedBy = "routineTemplate")
+    private Set<Nutrition> nutritions;
 
-   
+
 }

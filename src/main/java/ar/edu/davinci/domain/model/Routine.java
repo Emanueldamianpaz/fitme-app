@@ -4,6 +4,8 @@ import ar.edu.davinci.domain.FitmeDomain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -14,7 +16,6 @@ import javax.persistence.*;
 public class Routine extends FitmeDomain<Long> {
 
     @Id
-    @OneToOne(mappedBy = "routine_template")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
@@ -24,4 +25,12 @@ public class Routine extends FitmeDomain<Long> {
 
     @Column(name = "description")
     private String description;
+
+    @OneToOne(mappedBy = "routine")
+    private RoutineTemplate routineTemplate;
+
+    @OneToMany(mappedBy = "routine")
+    private Set<Routine> routineList;
+
+
 }

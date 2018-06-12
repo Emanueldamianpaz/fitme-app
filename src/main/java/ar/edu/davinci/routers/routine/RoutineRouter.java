@@ -52,7 +52,7 @@ public class RoutineRouter extends FitmeRouter {
 
 
     private final Route getRoutines = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO("OK", "Rutina creada!")
+            routineService.findAll()
     );
 
     private final Route createRoutine = doInTransaction(false, (Request request, Response response) ->
