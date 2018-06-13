@@ -1,18 +1,24 @@
 # Fit Me - Application
 
 
-Proyecto final de la carrera Analista de Sistemas
+##### Proyecto final de la carrera Analista de Sistemas
 
-<br>
+<hr> 
 
 **Requisitos:**
 * Maven
 * Java 8
-
-**Instalación:** 
+* Cliente Heroku
 
 <hr> 
+
 
 ##### Deploy Heroku
     mvn heroku:deploy
 
+##### Startup
+    heroku ps:scale web 1
+
+##### Shutdown
+    Automatico
+   
