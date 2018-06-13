@@ -19,14 +19,17 @@ public class UserRoutine extends FitmeDomain<Long> {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(mappedBy = "userRoutine")
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
-    @OneToOne(mappedBy = "userRoutine")
+    @OneToOne
+    @JoinColumn(name = "id_scoring")
     private Scoring scoring;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user_routine")
+    @JoinColumn(name = "id_routine")
     private Routine routine;
 
 

@@ -2,6 +2,7 @@ package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
 import ar.edu.davinci.dto.nutrition.NutritionRequestDTO;
+import ar.edu.davinci.dto.routineTemplate.RoutineTemplateRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,15 +22,22 @@ public class RoutineTemplate extends FitmeDomain<Long> {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "id_routine_template")
-    private Routine routine;
-
-    @ManyToMany(mappedBy = "routineTemplate")
+    @ManyToMany
+    @JoinColumn(name = "id_exercise")
     private Set<Exercise> exercices;
 
-    @ManyToMany(mappedBy = "routineTemplate")
+    @ManyToMany
+    @JoinColumn(name = "id_nutrition")
     private Set<Nutrition> nutritions;
 
+    public RoutineTemplate(RoutineTemplateRequestDTO routineTemplate) {
+        this.exercices = routineTemplate.getExercices();
+        this.nutritions = routineTemplate.getNutritions();
+    }
 
+    public RoutineTemplate(Long id, RoutineTemplateRequestDTO routineTemplate) {
+        this.id = id;
+        this.exercices = routineTemplate.getExercices();
+        this.nutritions = routineTemplate.getNutritions();
+    }
 }

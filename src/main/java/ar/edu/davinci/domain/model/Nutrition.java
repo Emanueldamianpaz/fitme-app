@@ -29,11 +29,6 @@ public class Nutrition extends FitmeDomain<Long> {
     @Column(name = "calories")
     private Double calories;
 
-    @ManyToMany
-    @JoinColumn(name = "id_nutrition")
-    private Set<RoutineTemplate> routineTemplate;
-
-
     public Nutrition(NutritionRequestDTO nutrition) {
         this.name = nutrition.getName();
         this.type = nutrition.getType();

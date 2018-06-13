@@ -1,5 +1,8 @@
 package ar.edu.davinci.routers.routine;
 
+import ar.edu.davinci.domain.model.Routine;
+import ar.edu.davinci.dto.routine.RoutineRequestDTO;
+import ar.edu.davinci.routers.EnumResponse;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import ar.edu.davinci.dto.ResponseDTO;
@@ -56,15 +59,24 @@ public class RoutineRouter extends FitmeRouter {
     );
 
     private final Route createRoutine = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(RoutineResponse.RoutineCreateOk.name(), "Rutina creada!")
+            {
+                RoutineRequestDTO nutritionRequest = (RoutineRequestDTO) jsonTransformer.asJson(request.body(), RoutineRequestDTO.class);
+                return routineService.create(new Routine(nutritionRequest));
+            }
     );
 
     private final Route updateRoutine = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(RoutineResponse.RoutineUpdateOk.name(), "Rutina modificada")
+            {
+                RoutineRequestDTO nutritionRequest = (RoutineRequestDTO) jsonTransformer.asJson(request.body(), RoutineRequestDTO.class);
+                return routineService.update(new Routine(Long.parseLong(request.params("id")), nutritionRequest));
+            }
     );
 
     private final Route deleteRoutine = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(RoutineResponse.RoutineDeleteOk.name(), "Rutina eliminada")
+            {
+                routineService.delete(Long.parseLong(request.params("id")));
+                return new ResponseDTO(EnumResponse.DeleteOk.name(), "Rutina eliminada");
+            }
     );
 
 

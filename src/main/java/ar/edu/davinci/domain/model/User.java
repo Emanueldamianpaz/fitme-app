@@ -1,6 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "user_entity")
+@Table(name = "user_entity", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User extends FitmeDomain<Long> {
 
     @Id
@@ -21,11 +22,28 @@ public class User extends FitmeDomain<Long> {
     @Column(name = "id_session")
     private String idSession;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
     private UserInfo userInfo;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "nickname")
+    private String nickname;
+
     @OneToOne
-    @JoinColumn(name ="id_user")
+    @JoinColumn(name = "id")
     private UserRoutine userRoutine;
 
+    public User(FitmeUser user) {
+        this.idSession = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.nickname = user.getNickname();
+    }
 }

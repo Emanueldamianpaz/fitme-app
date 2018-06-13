@@ -32,10 +32,6 @@ public class Exercise extends FitmeDomain<Long> {
     @Column(name = "difficulty")
     private String difficulty;
 
-    @ManyToMany
-    @JoinColumn(name= "id_exercise")
-    private Set<RoutineTemplate> routineTemplate;
-
     public Exercise(ExerciseRequestDTO exercise) {
         this.name = exercise.getName();
         this.type = exercise.getType();

@@ -2,6 +2,7 @@ package ar.edu.davinci.routers.nutrition;
 
 import ar.edu.davinci.domain.model.Nutrition;
 import ar.edu.davinci.dto.nutrition.NutritionRequestDTO;
+import ar.edu.davinci.routers.EnumResponse;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import ar.edu.davinci.dto.ResponseDTO;
@@ -74,7 +75,7 @@ public class NutritionRouter extends FitmeRouter {
     private final Route deleteNutrition = doInTransaction(true, (Request request, Response response) ->
             {
                 nutritionService.delete(Long.parseLong(request.params("id")));
-                return new ResponseDTO(NutritionResponse.NutritionDeleteOk.name(), "Rutina eliminada");
+                return new ResponseDTO(EnumResponse.DeleteOk.name(), "Dieta eliminada");
             }
     );
 }

@@ -1,6 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.dto.routine.RoutineRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,11 +27,23 @@ public class Routine extends FitmeDomain<Long> {
     @Column(name = "description")
     private String description;
 
-    @OneToOne(mappedBy = "routine")
+    @ManyToOne
+    @JoinColumn(name = "id_routine_template")
     private RoutineTemplate routineTemplate;
 
     @OneToMany(mappedBy = "routine")
     private Set<UserRoutine> routineList;
 
+    public Routine(RoutineRequestDTO routine) {
+        this.name = routine.getName();
+        this.description = routine.getDescription();
+        this.routineTemplate = routine.getRoutineTemplate();
+    }
 
+    public Routine(Long id, RoutineRequestDTO routine) {
+        this.id = id;
+        this.name = routine.getName();
+        this.description = routine.getDescription();
+        this.routineTemplate = routine.getRoutineTemplate();
+    }
 }

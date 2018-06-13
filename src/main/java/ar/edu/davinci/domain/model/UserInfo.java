@@ -1,8 +1,8 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.dto.user.UserInfoRequestDTO;
 import lombok.*;
-import org.hibernate.annotations.ForeignKey;
 
 import javax.persistence.*;
 
@@ -15,15 +15,7 @@ import javax.persistence.*;
 public class UserInfo extends FitmeDomain<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "weight")
     private Double weight;
@@ -34,10 +26,30 @@ public class UserInfo extends FitmeDomain<Long> {
     @Column(name = "genre")
     private String genre;
 
-    @OneToOne(mappedBy = "userInfo")
-    private Goal goal;
+    @Column(name = "current_fat")
+    private String currentFat;
+
+    @Column(name = "frecuency_exercise")
+    private String frecuencyExercise;
 
     @OneToOne
-    @JoinColumn(name = "id_user_info")
-    private User user;
+    @JoinColumn(name = "id_goal", referencedColumnName = "id")
+    private Goal goal;
+
+    public UserInfo(UserInfoRequestDTO userInfoRequest) {
+        this.weight = userInfoRequest.getWeight();
+        this.height = userInfoRequest.getHeight();
+        this.genre = userInfoRequest.getGenre();
+        this.currentFat = userInfoRequest.getCurrentFat();
+        this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
+    }
+
+    public UserInfo(Long id, UserInfoRequestDTO userInfoRequest) {
+        this.id = id;
+        this.weight = userInfoRequest.getWeight();
+        this.height = userInfoRequest.getHeight();
+        this.genre = userInfoRequest.getGenre();
+        this.currentFat = userInfoRequest.getCurrentFat();
+        this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
+    }
 }

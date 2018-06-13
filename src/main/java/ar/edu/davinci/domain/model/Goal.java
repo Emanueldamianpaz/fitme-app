@@ -1,6 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.dto.goal.GoalRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,17 +22,18 @@ public class Goal extends FitmeDomain<Long> {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "current_fat")
-    private String currentFat;
-
     @Column(name = "goal_fat")
     private String goalFat;
 
-    @Column(name = "frecuency_exercise")
-    private String frecuencyExercise;
 
-    @OneToOne
-    @JoinColumn(name="id_goal")
-    private UserInfo userInfo;
+    public Goal(GoalRequestDTO goalRequest) {
+        this.type = goalRequest.getType();
+        this.goalFat = goalRequest.getGoalFat();
+    }
 
+    public Goal(Long id, GoalRequestDTO goalRequest) {
+        this.id = id;
+        this.type = goalRequest.getType();
+        this.goalFat = goalRequest.getGoalFat();
+    }
 }

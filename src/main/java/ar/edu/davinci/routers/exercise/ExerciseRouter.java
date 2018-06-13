@@ -2,6 +2,7 @@ package ar.edu.davinci.routers.exercise;
 
 import ar.edu.davinci.domain.model.Exercise;
 import ar.edu.davinci.dto.exercise.ExerciseRequestDTO;
+import ar.edu.davinci.routers.EnumResponse;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import ar.edu.davinci.dto.ResponseDTO;
@@ -70,7 +71,7 @@ public class ExerciseRouter extends FitmeRouter {
     private final Route deleteExercise = doInTransaction(true, (Request request, Response response) ->
             {
                 exerciseService.delete(Long.parseLong(request.params("id")));
-                return new ResponseDTO(ExerciseResponse.ExerciseDeleteOk.name(), "Rutina eliminada");
+                return new ResponseDTO(EnumResponse.DeleteOk.name(), "Ejercicio eliminada");
             }
     );
 }

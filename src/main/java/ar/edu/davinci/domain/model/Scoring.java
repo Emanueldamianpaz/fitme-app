@@ -1,6 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.dto.scoring.ScoringRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +25,14 @@ public class Scoring extends FitmeDomain<Long> {
     @Column(name = "tip")
     private String tip;
 
-    @OneToOne
-    @JoinColumn(name = "id_scoring")
-    private UserRoutine userRoutine;
+    public Scoring(ScoringRequestDTO scoring) {
+        this.scoring = scoring.getScoring();
+        this.tip = scoring.getTip();
+    }
+
+    public Scoring(Long id, ScoringRequestDTO scoring) {
+        this.id = id;
+        this.scoring = scoring.getScoring();
+        this.tip = scoring.getTip();
+    }
 }

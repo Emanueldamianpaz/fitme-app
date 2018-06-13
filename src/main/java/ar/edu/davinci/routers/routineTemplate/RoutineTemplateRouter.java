@@ -1,8 +1,10 @@
 package ar.edu.davinci.routers.routineTemplate;
 
+import ar.edu.davinci.domain.model.RoutineTemplate;
 import ar.edu.davinci.dto.ResponseDTO;
+import ar.edu.davinci.dto.routineTemplate.RoutineTemplateRequestDTO;
+import ar.edu.davinci.routers.EnumResponse;
 import ar.edu.davinci.routers.FitmeRouter;
-import ar.edu.davinci.service.routine.RoutineService;
 import ar.edu.davinci.service.routineTemplate.RoutineTemplateService;
 import ar.edu.davinci.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
@@ -57,15 +59,24 @@ public class RoutineTemplateRouter extends FitmeRouter {
     );
 
     private final Route createRoutineTemplate = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(RoutineTemplateResponse.RoutineCreateOk.name(), "Rutina creada!")
+            {
+                RoutineTemplateRequestDTO routineTemplateRequest = (RoutineTemplateRequestDTO) jsonTransformer.asJson(request.body(), RoutineTemplateRequestDTO.class);
+                return routineTemplateService.create(new RoutineTemplate(routineTemplateRequest));
+            }
     );
 
     private final Route updateRoutineTemplate = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(RoutineTemplateResponse.RoutineUpdateOk.name(), "Rutina modificada")
+            {
+                RoutineTemplateRequestDTO routineTemplateRequest = (RoutineTemplateRequestDTO) jsonTransformer.asJson(request.body(), RoutineTemplateRequestDTO.class);
+                return routineTemplateService.update(new RoutineTemplate(Long.parseLong(request.params("id")), routineTemplateRequest));
+            }
     );
 
     private final Route deleteRoutineTemplate = doInTransaction(false, (Request request, Response response) ->
-            new ResponseDTO(RoutineTemplateResponse.RoutineDeleteOk.name(), "Rutina eliminada")
+            {
+                routineTemplateService.delete(Long.parseLong(request.params("id")));
+                return new ResponseDTO(EnumResponse.DeleteOk.name(), "Rutina de ejemplo eliminada");
+            }
     );
 
 
