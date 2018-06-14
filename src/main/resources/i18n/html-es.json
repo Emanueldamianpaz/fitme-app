@@ -51,7 +51,11 @@
     "users": "Usuarios",
     "login": "Iniciar sesión",
     "previous": "Anterior",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "scoring": "Puntuación",
+    "save-changes": "Guardar cambios",
+    "delete-routine": "Está a punto de la rutina ",
+    "confirmation": "¿Está seguro?"
   },
   "menu": {
     "dashboard": "Dashboard",

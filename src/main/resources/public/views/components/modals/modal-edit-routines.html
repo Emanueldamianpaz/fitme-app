@@ -1,21 +1,263 @@
 <div class="modal fade" id="modal-edit-routines">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+    <div class="modal-dialog modal-warning modal-lg">
+        <div class="modal-content modal-warning">
 
-            <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
+                <h4 class="modal-title">{{ 'commons.edit' | translate }}</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <!-- Modal body -->
             <div class="modal-body">
-                Modal body..
-            </div>
 
-            <!-- Modal footer -->
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" value="Titulo a editar">
+                </div>
+
+                <br>
+
+                <h5>Descripción</h5>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+                          style="margin-top: 0px; margin-bottom: 0px; height: 196px;">
+Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolorbrunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, suntaliqua put a birdon it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyehhelvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Advegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,raw denim aesthetic synth nesciunt you probably haven't heard of them accusamuslabore sustainable VHS.
+                </textarea>
+
+
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4> Ejercicios </h4>
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" list="exerciseList">
+                            <datalist id="exerciseList">
+                                <option value="Boston">
+                                <option value="Cambridge">
+                            </datalist>
+                            <button type="button" class="btn btn-primary">
+                                <li class="fa fa-plus"></li>
+                            </button>
+
+                        </div>
+                        <br>
+
+                        <div class="container">
+                            <div class="row">
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
+                                    Ejercicio
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4> Dietas </h4>
+
+
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" list="nutritionList">
+                            <datalist id="nutritionList">
+                                <option value="Boston">
+                                <option value="Cambridge">
+                            </datalist>
+                            <button type="button" class="btn btn-success">
+                                <li class="fa fa-plus"></li>
+                            </button>
+
+                        </div>
+                        <br>
+
+                        <div class="container">
+                            <div class="row">
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
+                                    Dieta
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {{ 'commons.close' | translate }}
+                </button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    {{ 'commons.save-changes' | translate }}
+                </button>
+
             </div>
 
         </div>
