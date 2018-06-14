@@ -9,26 +9,36 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="dataTables_length">
-                            <label>
-                                {{ 'commons.show' | translate }}
+                            <div class="input-group" style="width: 100px">
+                                <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                </div>
                                 <select aria-controls="DataTables_Table_0" class="form-control form-control-sm">
                                     <option value="10">10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select>
-                            </label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div id="DataTables_Table_0_filter" class="dataTables_filter pull-right">
-                            <label>{{ 'commons.search' | translate }}:
+                    <div class="col-sm-12 col-md-6 ">
+                        <div class="dataTables_length pull-right">
+                            <div class="input-group" style="width: 300px">
+                                <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                </div>
                                 <input type="search" class="form-control form-control-sm"
                                        placeholder="" aria-controls="DataTables_Table_0">
-                            </label>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-sm-12">
                         <table class="table table-striped table-bordered datatable dataTable no-footer"
@@ -36,23 +46,24 @@
                             <thead>
                             <tr role="row">
                                 <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-sort="ascending"
-                                    style="width: 170px;">
-                                    Username
+                                    style="width: 300px;">
+                                    {{ 'commons.routine' | translate}}
                                 </th>
-                                <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 144px;">
-                                    Date registered
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" aria-label="Role: activate to sort column ascending"
-                                    style="width: 58px;">Role
+                                <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 35px;">
+                                    {{ 'commons.users' | translate }}
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" aria-label="Status: activate to sort column ascending"
-                                    style="width: 65px;">Status
+                                    colspan="1" style="width: 35px;">
+                                    {{ 'commons.nutritions' | translate}}
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                    colspan="1" style="width: 35px;">
+                                    {{ 'commons.exercises' | translate}}
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                     colspan="1" aria-label="Actions: activate to sort column ascending"
-                                    style="width: 151px;">Actions
+                                    style="width: 60px;">
+                                    {{ 'commons.actions' | translate}}
                                 </th>
                             </tr>
                             </thead>
@@ -60,28 +71,29 @@
 
 
                             <tr role="row" class="odd">
-                                <td class="sorting_1">Adam Alister</td>
-                                <td>2012/01/21</td>
-                                <td>Staff</td>
+                                <td class="sorting_1">
+                                    Rutina de ejemplo
+                                </td>
+                                <td>10</td>
+                                <td>3</td>
                                 <td>
-                                    <span class="badge badge-success">Active</span>
+                                    7
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="#"
-                                       data-toggle="modal" data-target="#modal-show-routines">
+                                    <a class="btn btn-outline-info" href="#" data-toggle="modal"
+                                       data-target="#modal-show-routines">
                                         <i class="fa fa-search-plus "></i>
                                     </a>
-                                    <a class="btn btn-info" href="#"
-                                       data-toggle="modal" data-target="#modal-score-routines">
+                                    <a class="btn btn-outline-success" href="#" data-toggle="modal"
+                                       data-target="#modal-score-routines">
                                         <i class="fa fa-dashboard"></i>
                                     </a>
-                                    <a class="btn btn-warning" href="#"
-                                       data-toggle="modal" data-target="#modal-edit-routines">
+                                    <a class="btn btn-outline-warning" href="#" data-toggle="modal"
+                                       data-target="#modal-edit-routines">
                                         <i class="fa fa-edit "></i>
                                     </a>
-                                    <a class="btn btn-danger" href="#"
-                                       data-toggle="modal" data-target="#modal-delete-routines">
-
+                                    <a class="btn btn-outline-danger" href="#" data-toggle="modal"
+                                       data-target="#modal-delete-routines">
                                         <i class="fa fa-trash-o "></i>
                                     </a>
                                 </td>
@@ -102,26 +114,32 @@
                             <ul class="pagination">
                                 <li class="paginate_button page-item previous disabled"
                                     id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0"
-                                                                        data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                                                        data-dt-idx="0" tabindex="0" class="page-link">
+                                    {{ 'commons.previous' | translate }}
+
+                                </a>
                                 </li>
-                                <li class="paginate_button page-item active"><a href="#"
-                                                                                aria-controls="DataTables_Table_0"
-                                                                                data-dt-idx="1" tabindex="0"
-                                                                                class="page-link">1</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                                                                          data-dt-idx="2" tabindex="0"
-                                                                          class="page-link">2</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                                                                          data-dt-idx="3" tabindex="0"
-                                                                          class="page-link">3</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                                                                          data-dt-idx="4" tabindex="0"
-                                                                          class="page-link">4</a></li>
-                                <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
-                                                                                                           aria-controls="DataTables_Table_0"
-                                                                                                           data-dt-idx="5"
-                                                                                                           tabindex="0"
-                                                                                                           class="page-link">Next</a>
+                                <li class="paginate_button page-item active">
+                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0"
+                                       class="page-link">1</a>
+                                </li>
+                                <li class="paginate_button page-item ">
+                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0"
+                                       class="page-link">2</a>
+                                </li>
+                                <li class="paginate_button page-item ">
+                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0"
+                                       class="page-link">3</a>
+                                </li>
+                                <li class="paginate_button page-item">
+                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0"
+                                       class="page-link">4</a>
+                                </li>
+                                <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0"
+                                       class="page-link">
+                                        {{ 'commons.next' | translate }}
+                                    </a>
                                 </li>
                             </ul>
                         </div>

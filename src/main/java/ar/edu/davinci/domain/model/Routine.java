@@ -32,7 +32,7 @@ public class Routine extends FitmeDomain<Long> {
     private RoutineTemplate routineTemplate;
 
     @OneToMany(mappedBy = "routine")
-    private Set<UserRoutine> routineList;
+    private Set<UserRoutine> routineUserList;
 
     public Routine(RoutineRequestDTO routine, RoutineTemplate routineTemplate) {
         this.name = routine.getName();

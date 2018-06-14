@@ -47,7 +47,11 @@
     "exercises": "Ejercicios",
     "dashboard": "Dashboard",
     "routines": "Rutinas",
-    "users": "Usuarios"
+    "routine": "Rutina",
+    "users": "Usuarios",
+    "login": "Iniciar sesión",
+    "previous": "Anterior",
+    "next": "Siguiente"
   },
   "menu": {
     "dashboard": "Dashboard",

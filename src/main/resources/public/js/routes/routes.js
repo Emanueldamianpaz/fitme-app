@@ -1,6 +1,4 @@
-fitme.config(function ($urlRouterProvider, $rootScope) {
-
-    $rootScope.stateCurrent = "Login"
+fitme.config(function ($urlRouterProvider) {
     $urlRouterProvider.otherwise('/login');
 
 })

@@ -9,6 +9,9 @@ fitme.config(function ($stateProvider) {
         .state('fitme.login', {
             url: '/login',
             templateUrl: 'views/fitme/login.html',
+            controller: function ($rootScope) {
+                $rootScope.stateCurrent = "login";
+            },
             data: {pageTitle: 'Login'}
         })
         .state('fitme.register', {
