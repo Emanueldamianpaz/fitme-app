@@ -1,12 +1,12 @@
-fitme.controller('modalShowRoutines', function ($scope, $uibModalInstance, dataRoutine){
+fitme.controller('modalShowRoutines', function ($scope, $uibModalInstance, dataRoutine) {
 
     $scope.ok = function () {
-      $uibModalInstance.close();
+        $uibModalInstance.close();
     };
 
     console.log(dataRoutine)
     $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 
 })

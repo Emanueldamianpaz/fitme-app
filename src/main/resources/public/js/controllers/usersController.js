@@ -1,4 +1,4 @@
-fitme.controller('usersController', function ($rootScope){
+fitme.controller('usersController', function ($rootScope) {
 
     $rootScope.stateCurrent = "users";
 

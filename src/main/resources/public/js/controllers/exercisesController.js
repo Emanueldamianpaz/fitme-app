@@ -1,4 +1,4 @@
-fitme.controller('exercisesController', function ($rootScope){
+fitme.controller('exercisesController', function ($rootScope) {
 
     $rootScope.stateCurrent = "exercises";
 

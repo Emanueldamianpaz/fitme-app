@@ -1,4 +1,4 @@
-fitme.controller('dashboardController', function ($rootScope){
+fitme.controller('dashboardController', function ($rootScope) {
 
     $rootScope.stateCurrent = "dashboard";
 
@@ -30,7 +30,7 @@ fitme.controller('dashboardController', function ($rootScope){
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero: true
                     }
                 }]
             }
@@ -40,13 +40,13 @@ fitme.controller('dashboardController', function ($rootScope){
     new Chart(document.getElementById("genreUsers"), {
         type: 'pie',
         data: {
-          labels: ["Hombres", "Mujeres"],
-          datasets: [
-            {
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-              data: [2478,5267]
-            }
-          ]
+            labels: ["Hombres", "Mujeres"],
+            datasets: [
+                {
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: [2478, 5267]
+                }
+            ]
         },
     });
 })

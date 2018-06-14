@@ -2,19 +2,19 @@ fitme.service('AuthService', AuthService);
 
 function AuthService() {
 
-    var roles= [
+    var roles = [
         {
             id: 0000000001,
             role: 'admin',
-            permissions:[
+            permissions: [
                 {
-                    id:
+                    id: ''
                 }
             ]
         }
-     ];
+    ];
 
-    this.getRoles = function(){
-        return roles ;
+    this.getRoles = function () {
+        return roles;
     }
 }
