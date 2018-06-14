@@ -43,6 +43,7 @@ public class ExerciseRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getExercises, jsonTransformer);
+            get("/:id", getExercise, jsonTransformer);
             post("", createExercise, jsonTransformer);
             patch("/:id", updateExercise, jsonTransformer);
             delete("/:id", deleteExercise, jsonTransformer);
@@ -54,7 +55,11 @@ public class ExerciseRouter extends FitmeRouter {
             exerciseService.findAll()
     );
 
-    private final Route createExercise = doInTransaction(false, (Request request, Response response) ->
+    private final Route getExercise = doInTransaction(false, (Request request, Response response) ->
+            exerciseService.get(Long.parseLong(request.params("id")))
+    );
+
+    private final Route createExercise = doInTransaction(true, (Request request, Response response) ->
             {
                 ExerciseRequestDTO exerciseRequest = (ExerciseRequestDTO) jsonTransformer.asJson(request.body(), ExerciseRequestDTO.class);
                 return exerciseService.create(new Exercise(exerciseRequest));

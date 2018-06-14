@@ -34,16 +34,16 @@ public class Routine extends FitmeDomain<Long> {
     @OneToMany(mappedBy = "routine")
     private Set<UserRoutine> routineList;
 
-    public Routine(RoutineRequestDTO routine) {
+    public Routine(RoutineRequestDTO routine, RoutineTemplate routineTemplate) {
         this.name = routine.getName();
         this.description = routine.getDescription();
-        this.routineTemplate = routine.getRoutineTemplate();
+        this.routineTemplate = routineTemplate;
     }
 
-    public Routine(Long id, RoutineRequestDTO routine) {
+    public Routine(Long id, RoutineRequestDTO routine, RoutineTemplate routineTemplate) {
         this.id = id;
         this.name = routine.getName();
         this.description = routine.getDescription();
-        this.routineTemplate = routine.getRoutineTemplate();
+        this.routineTemplate = routineTemplate;
     }
 }

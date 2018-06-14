@@ -47,6 +47,7 @@ public class NutritionRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getNutritions, jsonTransformer);
+            get("/:id", getNutrition, jsonTransformer);
             post("", createNutrition, jsonTransformer);
             patch("/:id", updateNutrition, jsonTransformer);
             delete("/:id", deleteNutrition, jsonTransformer);
@@ -58,7 +59,11 @@ public class NutritionRouter extends FitmeRouter {
             nutritionService.findAll()
     );
 
-    private final Route createNutrition = doInTransaction(false, (Request request, Response response) ->
+    private final Route getNutrition = doInTransaction(false, (Request request, Response response) ->
+            nutritionService.get(Long.parseLong(request.params("id")))
+    );
+
+    private final Route createNutrition = doInTransaction(true, (Request request, Response response) ->
             {
                 NutritionRequestDTO nutritionRequest = (NutritionRequestDTO) jsonTransformer.asJson(request.body(), NutritionRequestDTO.class);
                 return nutritionService.create(new Nutrition(nutritionRequest));

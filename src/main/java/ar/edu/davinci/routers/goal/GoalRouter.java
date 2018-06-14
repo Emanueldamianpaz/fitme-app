@@ -46,6 +46,7 @@ public class GoalRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getGoals, jsonTransformer);
+            get("/:id", getGoal, jsonTransformer);
             post("", createGoal, jsonTransformer);
             patch("/:id", updateGoal, jsonTransformer);
             delete("/:id", deleteGoal, jsonTransformer);
@@ -56,7 +57,11 @@ public class GoalRouter extends FitmeRouter {
             goalService.findAll()
     );
 
-    private final Route createGoal = doInTransaction(false, (Request request, Response response) ->
+    private final Route getGoal = doInTransaction(false, (Request request, Response response) ->
+            goalService.get(Long.parseLong(request.params("id")))
+    );
+
+    private final Route createGoal = doInTransaction(true, (Request request, Response response) ->
             {
                 GoalRequestDTO goalRequest = (GoalRequestDTO) jsonTransformer.asJson(request.body(), GoalRequestDTO.class);
                 return goalService.create(new Goal(goalRequest));

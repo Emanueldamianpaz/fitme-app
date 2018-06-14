@@ -46,6 +46,7 @@ public class ScoringRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getScorings, jsonTransformer);
+            get("/:id", getScoring, jsonTransformer);
             post("", createScoring, jsonTransformer);
             patch("/:id", updateScoring, jsonTransformer);
             delete("/:id", deleteExercise, jsonTransformer);
@@ -57,7 +58,11 @@ public class ScoringRouter extends FitmeRouter {
             scoringService.findAll()
     );
 
-    private final Route createScoring = doInTransaction(false, (Request request, Response response) ->
+    private final Route getScoring = doInTransaction(false, (Request request, Response response) ->
+            scoringService.get(Long.parseLong(request.params("id")))
+    );
+
+    private final Route createScoring = doInTransaction(true, (Request request, Response response) ->
             {
                 ScoringRequestDTO scoringRequest = (ScoringRequestDTO) jsonTransformer.asJson(request.body(), ScoringRequestDTO.class);
                 return scoringService.create(new Scoring(scoringRequest));

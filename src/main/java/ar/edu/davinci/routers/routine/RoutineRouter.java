@@ -1,8 +1,10 @@
 package ar.edu.davinci.routers.routine;
 
 import ar.edu.davinci.domain.model.Routine;
+import ar.edu.davinci.domain.model.RoutineTemplate;
 import ar.edu.davinci.dto.routine.RoutineRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
+import ar.edu.davinci.service.routineTemplate.RoutineTemplateService;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import ar.edu.davinci.dto.ResponseDTO;
@@ -25,17 +27,20 @@ public class RoutineRouter extends FitmeRouter {
     private String apiPath;
     private JsonTransformer jsonTransformer;
     private RoutineService routineService;
+    private RoutineTemplateService routineTemplateService;
 
     @Inject
     public RoutineRouter(Gson objectMapper,
                          RoutineService routineService,
                          SessionFactory sessionFactory,
                          JsonTransformer jsonTransformer,
+                         RoutineTemplateService routineTemplateService,
                          @TypesafeConfig("app.api") String apiPath) {
         super(objectMapper, sessionFactory);
         this.apiPath = apiPath;
         this.routineService = routineService;
         this.jsonTransformer = jsonTransformer;
+        this.routineTemplateService = routineTemplateService;
     }
 
     @Override
@@ -47,6 +52,7 @@ public class RoutineRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getRoutines, jsonTransformer);
+            get("/:id", getRoutine, jsonTransformer);
             post("", createRoutine, jsonTransformer);
             patch("", updateRoutine, jsonTransformer);
             delete("", deleteRoutine, jsonTransformer);
@@ -58,21 +64,29 @@ public class RoutineRouter extends FitmeRouter {
             routineService.findAll()
     );
 
-    private final Route createRoutine = doInTransaction(false, (Request request, Response response) ->
+    private final Route getRoutine = doInTransaction(false, (Request request, Response response) ->
+            routineService.get(Long.parseLong(request.params("id")))
+    );
+
+    private final Route createRoutine = doInTransaction(true, (Request request, Response response) ->
             {
-                RoutineRequestDTO nutritionRequest = (RoutineRequestDTO) jsonTransformer.asJson(request.body(), RoutineRequestDTO.class);
-                return routineService.create(new Routine(nutritionRequest));
+                RoutineRequestDTO routineRequest = (RoutineRequestDTO) jsonTransformer.asJson(request.body(), RoutineRequestDTO.class);
+
+                RoutineTemplate routineTemplate = routineTemplateService.get(routineRequest.getRoutineTemplate());
+                return routineService.create(new Routine(routineRequest, routineTemplate));
             }
     );
 
-    private final Route updateRoutine = doInTransaction(false, (Request request, Response response) ->
+    private final Route updateRoutine = doInTransaction(true, (Request request, Response response) ->
             {
-                RoutineRequestDTO nutritionRequest = (RoutineRequestDTO) jsonTransformer.asJson(request.body(), RoutineRequestDTO.class);
-                return routineService.update(new Routine(Long.parseLong(request.params("id")), nutritionRequest));
+                RoutineRequestDTO routineRequest = (RoutineRequestDTO) jsonTransformer.asJson(request.body(), RoutineRequestDTO.class);
+                RoutineTemplate routineTemplate = routineTemplateService.get(routineRequest.getRoutineTemplate());
+
+                return routineService.update(new Routine(Long.parseLong(request.params("id")), routineRequest, routineTemplate));
             }
     );
 
-    private final Route deleteRoutine = doInTransaction(false, (Request request, Response response) ->
+    private final Route deleteRoutine = doInTransaction(true, (Request request, Response response) ->
             {
                 routineService.delete(Long.parseLong(request.params("id")));
                 return new ResponseDTO(EnumResponse.DeleteOk.name(), "Rutina eliminada");

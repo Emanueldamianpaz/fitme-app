@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
@@ -30,14 +29,14 @@ public class RoutineTemplate extends FitmeDomain<Long> {
     @JoinColumn(name = "id_nutrition")
     private Set<Nutrition> nutritions;
 
-    public RoutineTemplate(RoutineTemplateRequestDTO routineTemplate) {
-        this.exercices = routineTemplate.getExercices();
-        this.nutritions = routineTemplate.getNutritions();
+    public RoutineTemplate(Set<Exercise> exercices, Set<Nutrition> nutritions) {
+        this.exercices = exercices;
+        this.nutritions = nutritions;
     }
 
-    public RoutineTemplate(Long id, RoutineTemplateRequestDTO routineTemplate) {
+    public RoutineTemplate(Long id, Set<Exercise> exercices, Set<Nutrition> nutritions) {
         this.id = id;
-        this.exercices = routineTemplate.getExercices();
-        this.nutritions = routineTemplate.getNutritions();
+        this.exercices = exercices;
+        this.nutritions = nutritions;
     }
 }
