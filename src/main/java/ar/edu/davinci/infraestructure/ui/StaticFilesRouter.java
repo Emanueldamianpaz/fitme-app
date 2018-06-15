@@ -62,7 +62,6 @@ public class StaticFilesRouter extends Router {
             configureFolder("views/fitme/:file", "public/views/fitme");
 
             configureFolder("views/components/:file", "public/views/components");
-            configureFolder("views/components/modals/:file", "public/views/components/modals");
             configureFolder("views/components/fragments/:file", "public/views/components/fragments");
 
             configureFolder("views/icons/:file", "public/views/icons");

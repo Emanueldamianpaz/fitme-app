@@ -23,20 +23,20 @@ public class RoutineTemplate extends FitmeDomain<Long> {
 
     @ManyToMany
     @JoinColumn(name = "id_exercise")
-    private Set<Exercise> exercices;
+    private Set<Exercise> exercises;
 
     @ManyToMany
     @JoinColumn(name = "id_nutrition")
     private Set<Nutrition> nutritions;
 
-    public RoutineTemplate(Set<Exercise> exercices, Set<Nutrition> nutritions) {
-        this.exercices = exercices;
+    public RoutineTemplate(Set<Exercise> exercises, Set<Nutrition> nutritions) {
+        this.exercises = exercises;
         this.nutritions = nutritions;
     }
 
-    public RoutineTemplate(Long id, Set<Exercise> exercices, Set<Nutrition> nutritions) {
+    public RoutineTemplate(Long id, Set<Exercise> exercises, Set<Nutrition> nutritions) {
         this.id = id;
-        this.exercices = exercices;
+        this.exercises = exercises;
         this.nutritions = nutritions;
     }
 }

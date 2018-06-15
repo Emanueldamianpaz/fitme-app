@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <table class="table table-striped table-bordered datatable dataTable no-footer"
-                               role="grid" style="border-collapse: collapse !important">
+                               role="grid" style="border-collapse: collapse !important" ng-if="routine.list.length > 0">
                             <thead>
                             <tr role="row">
                                 <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-sort="ascending"
@@ -78,40 +78,46 @@
                             <tbody>
 
 
-                            <tr role="row" class="odd">
+                            <tr role="row" class="odd" ng-repeat="routineItem in routine.list">
                                 <td class="sorting_1">
-                                    Rutina de ejemplo
+                                    {{ routineItem.name }}
                                 </td>
-                                <td>10</td>
-                                <td>3</td>
+                                <td>{{ routineItem.routineUserList.length }}</td>
+                                <td>{{ routineItem.routineTemplate.exercises.length }}</td>
                                 <td>
-                                    7
+                                    {{ routineItem.routineTemplate.nutritions.length }}
                                 </td>
                                 <td>
                                     <a class="btn btn-outline-info" href="#" data-toggle="modal"
-                                       data-target="#modal-show-routines">
+                                       data-target="#modal-show-routines" ng-click="setRoutineSelected(routineItem)">
                                         <i class="fa fa-search-plus "></i>
                                     </a>
                                     <a class="btn btn-outline-success" href="#" data-toggle="modal"
-                                       data-target="#modal-score-routines">
+                                       data-target="#modal-score-routines" ng-click="setRoutineSelected(routineItem)">
                                         <i class="fa fa-dashboard"></i>
                                     </a>
                                     <a class="btn btn-outline-warning" href="#" data-toggle="modal"
-                                       data-target="#modal-edit-routines">
+                                       data-target="#modal-edit-routines" ng-click="setRoutineSelected(routineItem)">
                                         <i class="fa fa-edit "></i>
                                     </a>
                                     <a class="btn btn-outline-danger" href="#" data-toggle="modal"
-                                       data-target="#modal-delete-routines">
+                                       data-target="#modal-delete-routines" ng-click="setRoutineSelected(routineItem)">
                                         <i class="fa fa-trash-o "></i>
                                     </a>
                                 </td>
                             </tr>
 
+
                             </tbody>
                         </table>
+                        <div class="alert alert-light text-center" role="alert"
+                             ng-if="routine.list.length <= 0 && cfpLoadingBar.complete()">
+                            <h2>{{ 'commons.no-results' | translate}}</h2>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
+
+                <div class="row" ng-if="routine.list.length > 0">
                     <div class="col-sm-12 col-md-5">
                         <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
                             Showing 1 to 10 of 32 entries
@@ -157,6 +163,7 @@
         </div>
     </div>
 </div>
+
 
 <div ng-include="'views/components/modals/modal-add-routines.html'"></div>
 <div ng-include="'views/components/modals/modal-show-routines.html'"></div>

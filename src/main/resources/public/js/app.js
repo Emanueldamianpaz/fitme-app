@@ -18,6 +18,7 @@ var required = ['ui.router',
 ];
 
 var fitme = angular.module('fitme', required);
+var api = '/fitme/api';
 
 fitme.config(function ($translateProvider) {
 

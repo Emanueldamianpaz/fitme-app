@@ -1,4 +1,4 @@
-fitme.controller('routinesController', function ($rootScope, $scope, $filter) {
+fitme.controller('routinesController', function ($rootScope, $scope, RoutinesService) {
 
     $rootScope.stateCurrent = "routines";
 
@@ -8,8 +8,18 @@ fitme.controller('routinesController', function ($rootScope, $scope, $filter) {
             exercises: [],
             nutritions: []
         },
-        routineTemplate: 'id'
+        routineTemplate: 'id',
+        list: []
+    };
+    $scope.routineSelected = {};
+    $scope.routineEdit = {exercises: [], nutritions: []};
+
+    $scope.setRoutineSelected = function (routine) {
+        $scope.routineSelected = routine;
     }
+    RoutinesService.getRoutines().then(function (response) {
+        $scope.routine.list = response.data;
+    });
 
     $scope.renderAverageScoring = function () {
         new Chart(document.getElementById('averageScoring'), {
@@ -75,6 +85,24 @@ fitme.controller('routinesController', function ($rootScope, $scope, $filter) {
             }
         });
     };
+
+    $scope.removeExercise = function (exerciseId) {
+        $scope.routineSelected.routineTemplate.exercises = $scope.routineEdit.exercises.filter(function (ex) {
+            return ex.id != exerciseId
+        });
+    }
+    $scope.addExercise = function () {
+        $scope.routineSelected.routineTemplate.exercises.push($scope.routineEdit.exercise);
+    }
+
+    $scope.removeNutrition = function (nutritionId) {
+        $scope.routineSelected.routineTemplate.nutritions = $scope.routineEdit.nutritions.filter(function (nut) {
+            return nut.id != nutritionId
+        });
+    }
+    $scope.addNutrition = function () {
+        $scope.routineSelected.routineTemplate.nutritions.push($scope.routineEdit.nutrition);
+    }
 
 
 })

@@ -15,15 +15,16 @@
                         <i class="fa fa-info"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" value="Titulo a editar">
+                    <input type="text" class="form-control" ng-model="routineSelected.name"
+                           value="{{ routineSelected.name }}">
                 </div>
 
                 <br>
 
                 <h5>Descripción</h5>
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
-                          style="margin-top: 0px; margin-bottom: 0px; height: 196px;">
-Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolorbrunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, suntaliqua put a birdon it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyehhelvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Advegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,raw denim aesthetic synth nesciunt you probably haven't heard of them accusamuslabore sustainable VHS.
+                <textarea id="textarea-input" name="textarea-input" rows="9" ng-model="routineSelected.description"
+                          class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 196px;">
+{{ routineSelected.description}}
                 </textarea>
 
 
@@ -32,13 +33,13 @@ Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richa
                     <div class="col-lg-6">
                         <h4> Ejercicios </h4>
                         <div class="input-group">
-
-                            <input type="text" class="form-control" list="exerciseList">
-                            <datalist id="exerciseList">
-                                <option value="Boston">
-                                <option value="Cambridge">
-                            </datalist>
-                            <button type="button" class="btn btn-primary">
+                            <select class="form-control" ng-model="routineEdit.exercise">
+                                <option value="new" selected>
+                                    {{'commons.new' |translate}} {{ 'commons.routine-template' | translate }}
+                                </option>
+                                <option value="1"> Prueba</option>
+                            </select>
+                            <button type="button" class="btn btn-primary" ng-click="addExercise()">
                                 <li class="fa fa-plus"></li>
                             </button>
 
@@ -47,89 +48,10 @@ Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richa
 
                         <div class="container">
                             <div class="row">
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                                    Ejercicio
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light"
+                                        ng-repeat="exerciseItem in routineSelected.routineTemplate.exercises"
+                                        ng-click="removeExercise(exerciseItem.id)">
+                                    {{ exerciseItem.name }}
                                 </button>
                             </div>
                         </div>
@@ -140,12 +62,13 @@ Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richa
 
                         <div class="input-group">
 
-                            <input type="text" class="form-control" list="nutritionList">
-                            <datalist id="nutritionList">
-                                <option value="Boston">
-                                <option value="Cambridge">
-                            </datalist>
-                            <button type="button" class="btn btn-success">
+                            <select class="form-control" ng-model="routineEdit.nutrition">
+                                <option value="new" selected>
+                                    {{'commons.new' |translate}} {{ 'commons.routine-template' | translate }}
+                                </option>
+                                <option value="1"> Prueba</option>
+                            </select>
+                            <button type="button" class="btn btn-success" ng-click="addNutrition()">
                                 <li class="fa fa-plus"></li>
                             </button>
 
@@ -154,97 +77,11 @@ Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richa
 
                         <div class="container">
                             <div class="row">
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light"
+                                        ng-repeat="nutritionItem in routineSelected.routineTemplate.nutritions"
+                                        ng-click="removeNutrition(nutritionItem.id)">
+                                    {{ nutritionItem.name }}
                                 </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                                    Dieta
-                                </button>
-
                             </div>
                         </div>
                     </div>
