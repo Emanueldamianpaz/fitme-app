@@ -15,81 +15,25 @@
                         <i class="fa fa-info"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" ng-model="routineSelected.name"
-                           value="{{ routineSelected.name }}">
+                    <input type="text" class="form-control" ng-model="routineModelEdit.name">
                 </div>
 
                 <br>
 
                 <h5>Descripción</h5>
-                <textarea id="textarea-input" name="textarea-input" rows="9" ng-model="routineSelected.description"
+                <textarea id="textarea-input" name="textarea-input" rows="9" ng-model="routineModelEdit.description"
                           class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 196px;">
-{{ routineSelected.description}}
                 </textarea>
 
-
                 <hr>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h4> Ejercicios </h4>
-                        <div class="input-group">
-                            <select class="form-control" ng-model="routineEdit.exercise">
-                                <option value={{exerciseItem}} ng-repeat="exerciseItem in exerciseList">
-                                    {{exerciseItem.name}}
-                                </option>
-                            </select>
-                            <button type="button" class="btn btn-primary" ng-click="addExercise('edit')">
-                                <li class="fa fa-plus"></li>
-                            </button>
+                <div ng-include="'views/components/fragments/edit-select-routine-template.html'"></div>
 
-                        </div>
-                        <br>
-
-                        <div class="container">
-                            <div class="row">
-                                <button type="button" class="btn btn-sm btn-outline-primary margin-light"
-                                        ng-repeat="exerciseItem in routineSelected.routineTemplate.exercises"
-                                        ng-click="removeExercise(exerciseItem.id,'edit')">
-                                    {{ exerciseItem.name }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <h4> Dietas </h4>
-
-
-                        <div class="input-group">
-
-                            <select class="form-control" ng-model="routineEdit.nutrition">
-                                <option value={{nutritionItem}} ng-repeat="nutritionItem in nutritionList ">
-                                    {{nutritionItem.name}}
-                                </option>
-                            </select>
-                            <button type="button" class="btn btn-success" ng-click="addNutrition('edit')">
-                                <li class="fa fa-plus"></li>
-                            </button>
-
-                        </div>
-                        <br>
-
-                        <div class="container">
-                            <div class="row">
-                                <button type="button" class="btn btn-sm btn-outline-success margin-light"
-                                        ng-repeat="nutritionItem in routineSelected.routineTemplate.nutritions"
-                                        ng-click="removeNutrition(nutritionItem.id,'edit')">
-                                    {{ nutritionItem.name }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     {{ 'commons.close' | translate }}
                 </button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="updateRoutine()">
                     {{ 'commons.save-changes' | translate }}
                 </button>
 

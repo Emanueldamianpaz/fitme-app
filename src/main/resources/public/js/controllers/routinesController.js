@@ -4,9 +4,17 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
 
     $scope.routineSelected = {};
 
-    $scope.routineEdit = {routineTemplate: '', exercises: [], nutritions: []};
+    $scope.routineEdit = {exercises: [], nutritions: []};
     $scope.routineAdd = {exercises: [], nutritions: []};
     $scope.routineModelAdd = {
+        name: '',
+        description: '',
+        routineTemplate: {
+            exercises: [],
+            nutritions: []
+        }
+    };
+    $scope.routineModelEdit = {
         name: '',
         description: '',
         routineTemplate: {
@@ -31,12 +39,23 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
     })
 
     $scope.setRoutineSelected = function (routine) {
-        $scope.routineSelected = routine;
+        $scope.routineSelected = Object.create(routine);
+        $scope.routineModelEdit = Object.create(routine);
     };
 
-    $scope.selectRoutineTemplate = function () {
-        if ($scope.routineAdd.routineTemplate != 'new') {
-            $scope.routineAdd.routineTemplateSelected = JSON.parse($scope.routineAdd.routineTemplate);
+    $scope.selectRoutineTemplate = function (type) {
+        if (type == 'edit') {
+            if ($scope.routineEdit.routineTemplate != 'new') {
+                $scope.routineEdit.routineTemplateSelected = JSON.parse($scope.routineEdit.routineTemplate);
+            } else {
+                $scope.routineEdit.routineTemplateSelected = null;
+            }
+        } else {
+            if ($scope.routineAdd.routineTemplate != 'new') {
+                $scope.routineAdd.routineTemplateSelected = JSON.parse($scope.routineAdd.routineTemplate);
+            } else {
+                $scope.routineAdd.routineTemplateSelected = null;
+            }
         }
     };
 
@@ -107,7 +126,7 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
 
     $scope.removeExercise = function (exerciseId, typeOperation) {
         if (typeOperation == 'edit') {
-            $scope.routineSelected.routineTemplate.exercises = $scope.routineEdit.exercises.filter(function (ex) {
+            $scope.routineModelEdit.routineTemplate.exercises = $scope.routineModelEdit.routineTemplate.exercises.filter(function (ex) {
                 return ex.id != exerciseId
             });
         } else if (typeOperation == 'create') {
@@ -118,7 +137,7 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
     }
     $scope.removeNutrition = function (nutritionId, typeOperation) {
         if (typeOperation == 'edit') {
-            $scope.routineSelected.routineTemplate.nutritions = $scope.routineEdit.nutritions.filter(function (nut) {
+            $scope.routineModelEdit.routineTemplate.nutritions = $scope.routineModelEdit.routineTemplate.nutritions.filter(function (nut) {
                 return nut.id != nutritionId
             });
         } else if (typeOperation == 'create') {
@@ -130,7 +149,18 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
 
     $scope.addNutrition = function (typeOperation) {
         if (typeOperation == 'edit') {
-            $scope.routineSelected.routineTemplate.exercises.push(JSON.parse($scope.routineEdit.exercise));
+            var nutritionItem = JSON.parse($scope.routineEdit.nutritionItem);
+            var existsInArray = false;
+
+            $scope.routineModelEdit.routineTemplate.nutritions.map(function (nut) {
+                if (nut.id == nutritionItem.id) {
+                    existsInArray = true;
+                }
+            });
+
+            if (!existsInArray) {
+                $scope.routineModelEdit.routineTemplate.nutritions.push(nutritionItem);
+            }
         } else if (typeOperation == 'create') {
 
             var nutritionItem = JSON.parse($scope.routineAdd.nutritionItem);
@@ -149,7 +179,20 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
     }
     $scope.addExercise = function (typeOperation) {
         if (typeOperation == 'edit') {
-            $scope.routineSelected.routineTemplate.exercises.push(JSON.parse($scope.routineEdit.exercise));
+
+            var exerciseItem = JSON.parse($scope.routineEdit.exerciseItem);
+            var existsInArray = false;
+
+            $scope.routineModelEdit.routineTemplate.exercises.map(function (ex) {
+                if (ex.id == exerciseItem.id) {
+                    existsInArray = true;
+                }
+            });
+
+            if (!existsInArray) {
+                $scope.routineModelEdit.routineTemplate.exercises.push(exerciseItem);
+            }
+
         } else if (typeOperation == 'create') {
 
             var exerciseItem = JSON.parse($scope.routineAdd.exerciseItem);
@@ -203,6 +246,51 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
                 routineTemplate: $scope.routineAdd.routineTemplateSelected.id
             };
             RoutinesService.createRoutine(dataRoutine).then(function (response) {
+                MessageNotification.showMessage($filter('translate')('responses.create-routine'));
+
+                RoutinesService.getRoutines().then(function (response) {
+                    $scope.routineList = response.data;
+                });
+            })
+        }
+    }
+
+    $scope.updateRoutine = function () {
+        if ($scope.routineEdit.routineTemplate == 'new') {
+            var dataRoutineTemplate = {
+                nutritions: $scope.routineModelEdit.routineTemplate.nutritions.map(function (x) {
+                    return x.id
+                }),
+                exercises: $scope.routineModelEdit.routineTemplate.exercises.map(function (x) {
+                    return x.id
+                })
+            };
+
+            RoutineTemplatesService.createRoutineTemplate(dataRoutineTemplate).then(function (response) {
+                var dataRoutine = {
+                    name: $scope.routineModelEdit.name,
+                    description: $scope.routineModelEdit.description,
+                    routineTemplate: response.data.id
+                };
+
+                RoutinesService.updateRoutine(dataRoutine, $scope.routineModelEdit.id).then(function (response) {
+                    MessageNotification.showMessage($filter('translate')('responses.create-routine'));
+                    MessageNotification.showMessage("hola");
+
+                    RoutinesService.getRoutines().then(function (response) {
+                        $scope.routineList = response.data;
+                    });
+                })
+            });
+
+
+        } else {
+            var dataRoutine = {
+                name: $scope.routineModelEdit.name,
+                description: $scope.routineModelEdit.description,
+                routineTemplate: $scope.routineEdit.routineTemplateSelected.id
+            };
+            RoutinesService.updateRoutine(dataRoutine, $scope.routineModelEdit.id).then(function (response) {
                 MessageNotification.showMessage($filter('translate')('responses.create-routine'));
 
                 RoutinesService.getRoutines().then(function (response) {
