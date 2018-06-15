@@ -1,0 +1,60 @@
+<div class="modal fade" id="modal-edit-nutritions">
+    <div class="modal-dialog modal-warning modal-lg">
+        <div class="modal-content modal-warning">
+
+            <div class="modal-header">
+                <h4 class="modal-title">{{ 'commons.edit' | translate }}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                    </div>
+
+                    <input type="text" class="form-control" ng-model="nutritionModelEdit.name"
+                           placeholder="{{ 'commons.insert-name' | translate}}">
+                </div>
+
+                <br>
+
+                <h5>{{ 'commons.calories' | translate }}</h5>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                    </div>
+                    <input type="number" class="form-control" ng-model="nutritionModelEdit.calories" min="0"
+                           placeholder="{{ 'commons.insert-calories' | translate}}">
+                </div>
+                <br>
+                <h5>{{ 'commons.type' | translate }}</h5>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" ng-model="nutritionModelEdit.type"
+                           placeholder="{{ 'commons.insert-type' | translate}}">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {{ 'commons.close' | translate }}
+                </button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="updateNutrition()">
+                    {{ 'commons.save-changes' | translate }}
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>

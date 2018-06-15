@@ -48,15 +48,14 @@ fitme.service('NutritionsService', function ($http) {
         }
     };
 
-    this.deleteNutrition = function (nutrition, id) {
-        return $http(deleteNutrition(nutrition, id));
+    this.deleteNutrition = function (id) {
+        return $http(deleteNutrition(id));
     }
 
-    function deleteNutrition(nutrition, id) {
+    function deleteNutrition(id) {
         return req = {
             method: 'delete',
-            url: path + '/' + id,
-            data: nutrition
+            url: path + '/' + id
         }
     };
 })
