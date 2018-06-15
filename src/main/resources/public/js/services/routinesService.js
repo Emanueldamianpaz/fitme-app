@@ -48,15 +48,14 @@ fitme.service('RoutinesService', function ($http) {
         }
     };
 
-    this.deleteRoutine = function (routine, id) {
-        return $http(deleteRoutine(routine, id));
+    this.deleteRoutine = function (id) {
+        return $http(deleteRoutine(id));
     }
 
-    function deleteRoutine(routine, id) {
+    function deleteRoutine(id) {
         return req = {
             method: 'delete',
-            url: path + '/' + id,
-            data: routine
+            url: path + '/' + id
         }
     };
 })

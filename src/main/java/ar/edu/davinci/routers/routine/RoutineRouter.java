@@ -54,8 +54,8 @@ public class RoutineRouter extends FitmeRouter {
             get("", getRoutines, jsonTransformer);
             get("/:id", getRoutine, jsonTransformer);
             post("", createRoutine, jsonTransformer);
-            patch("", updateRoutine, jsonTransformer);
-            delete("", deleteRoutine, jsonTransformer);
+            patch("/:id", updateRoutine, jsonTransformer);
+            delete("/:id", deleteRoutine, jsonTransformer);
         };
     }
 

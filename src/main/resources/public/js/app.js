@@ -34,3 +34,26 @@ fitme.config(function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy('escape');
 })
 
+
+fitme.factory('MessageNotification', function () {
+    var showMessage = function (containerId, htmlContent) {
+        var container = $(containerId);
+        container.html(htmlContent);
+        container.show();
+        setTimeout(function () {
+            container.hide();
+        }, 10000);
+    }
+
+    var showErrorMessage = function (message) {
+        showMessage("#dangerMsg", "<strong>Ooops!</strong> " + message);
+    }
+    var showSuccessMessage = function (message) {
+        showMessage("#successMsg", "<strong>Great!</strong> " + message);
+    }
+
+    return {
+        showMessage: showSuccessMessage,
+        showError: showErrorMessage
+    };
+});

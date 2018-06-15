@@ -34,11 +34,11 @@
                         <h4> Ejercicios </h4>
                         <div class="input-group">
                             <select class="form-control" ng-model="routineEdit.exercise">
-                                <option value={{exerciseItem}} ng-repeat="exerciseItem in exercisesToAdd">
+                                <option value={{exerciseItem}} ng-repeat="exerciseItem in exerciseList">
                                     {{exerciseItem.name}}
                                 </option>
                             </select>
-                            <button type="button" class="btn btn-primary" ng-click="addExercise()">
+                            <button type="button" class="btn btn-primary" ng-click="addExercise('edit')">
                                 <li class="fa fa-plus"></li>
                             </button>
 
@@ -49,7 +49,7 @@
                             <div class="row">
                                 <button type="button" class="btn btn-sm btn-outline-primary margin-light"
                                         ng-repeat="exerciseItem in routineSelected.routineTemplate.exercises"
-                                        ng-click="removeExercise(exerciseItem.id)">
+                                        ng-click="removeExercise(exerciseItem.id,'edit')">
                                     {{ exerciseItem.name }}
                                 </button>
                             </div>
@@ -62,11 +62,11 @@
                         <div class="input-group">
 
                             <select class="form-control" ng-model="routineEdit.nutrition">
-                                <option value={{nutritionItem}} ng-repeat="nutritionItem in nutritionsToAdd ">
+                                <option value={{nutritionItem}} ng-repeat="nutritionItem in nutritionList ">
                                     {{nutritionItem.name}}
                                 </option>
                             </select>
-                            <button type="button" class="btn btn-success" ng-click="addNutrition()">
+                            <button type="button" class="btn btn-success" ng-click="addNutrition('edit')">
                                 <li class="fa fa-plus"></li>
                             </button>
 
@@ -77,7 +77,7 @@
                             <div class="row">
                                 <button type="button" class="btn btn-sm btn-outline-success margin-light"
                                         ng-repeat="nutritionItem in routineSelected.routineTemplate.nutritions"
-                                        ng-click="removeNutrition(nutritionItem.id)">
+                                        ng-click="removeNutrition(nutritionItem.id,'edit')">
                                     {{ nutritionItem.name }}
                                 </button>
                             </div>

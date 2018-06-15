@@ -3,12 +3,16 @@
         <h4> {{ 'commons.routine-template' | translate }} </h4>
         <div class="input-group">
 
-            <select class="form-control" ng-model="routine.add.routineTemplate">
+            <select class="form-control" ng-model="routineAdd.routineTemplate"
+                    ng-change='selectRoutineTemplate()'>
 
                 <option value="new" selected>
                     {{'commons.new' |translate}} {{ 'commons.routine-template' | translate }}
                 </option>
-                <option value="1"> Prueba</option>
+
+                <option value="{{ routineTemplateItem }}" ng-repeat="routineTemplateItem in routineTemplateList">
+                    {{ 'commons.routine-template' | translate }} {{ routineTemplateItem.id }}
+                </option>
 
             </select>
 
@@ -17,17 +21,16 @@
 </div>
 <br>
 
-<div ng-show="routine.add.routineTemplate == 'new'" class="row">
+<div ng-show="routineAdd.routineTemplate == 'new'" class="row">
     <div class="col-lg-6">
-        <h4> Ejercicios </h4>
+        <h4> {{ 'commons.exercises' | translate }} </h4>
         <div class="input-group">
-
-            <input type="text" class="form-control" list="exerciseList">
-            <datalist id="exerciseList">
-                <option value="Boston">
-                <option value="Cambridge">
-            </datalist>
-            <button type="button" class="btn btn-primary">
+            <select class="form-control" ng-model="routineAdd.exerciseItem">
+                <option value={{exerciseItem}} ng-repeat="exerciseItem in exerciseList">
+                    {{exerciseItem.name}}
+                </option>
+            </select>
+            <button type="button" class="btn btn-primary" ng-click="addExercise('create')">
                 <li class="fa fa-plus"></li>
             </button>
 
@@ -36,105 +39,23 @@
 
         <div class="container">
             <div class="row">
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary margin-light">
-                    Ejercicio
+                <button type="button" class="btn btn-sm btn-outline-primary margin-light"
+                        ng-repeat="exerciseItem in routineModelAdd.routineTemplate.exercises"
+                        ng-click="removeExercise(exerciseItem.id, 'create')">
+                    {{ exerciseItem.name }}
                 </button>
             </div>
         </div>
     </div>
     <div class="col-lg-6">
-        <h4> Dietas </h4>
-
-
+        <h4> {{ 'commons.nutritions' | translate }}</h4>
         <div class="input-group">
-
-            <input type="text" class="form-control" list="nutritionList">
-            <datalist id="nutritionList">
-                <option value="Boston">
-                <option value="Cambridge">
-            </datalist>
-            <button type="button" class="btn btn-success">
+            <select class="form-control" ng-model="routineAdd.nutritionItem">
+                <option value={{nutritionItem}} ng-repeat="nutritionItem in nutritionList ">
+                    {{nutritionItem.name}}
+                </option>
+            </select>
+            <button type="button" class="btn btn-success" ng-click="addNutrition('create')">
                 <li class="fa fa-plus"></li>
             </button>
 
@@ -143,194 +64,38 @@
 
         <div class="container">
             <div class="row">
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
+                <button type="button" class="btn btn-sm btn-outline-success margin-light"
+                        ng-repeat="nutritionItem in routineModelAdd.routineTemplate.nutritions"
+                        ng-click="removeNutrition(nutritionItem.id, 'create')">
+                    {{ nutritionItem.name }}
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success margin-light">
-                    Dieta
-                </button>
-
             </div>
         </div>
     </div>
 </div>
 
 
-<div ng-show="routine.add.routineTemplate != 'new'" class="row">
+<div ng-show="routineAdd.routineTemplateSelected" class="row">
     <div class="col-lg-6">
-        <h4> Ejercicios </h4>
+        <h4> {{ 'commons.exercises' | translate }} </h4>
 
         <div class="container">
             <div class="row">
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
+                <div class="margin-light" ng-repeat="exerciseItem in routineAdd.routineTemplateSelected.exercises">
+                    <i class="fa fa-circle text-info"></i>&nbsp; {{ exerciseItem.name }}
                 </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-info"></i>&nbsp; Ejercicio
-                </div>
-
             </div>
         </div>
     </div>
     <div class="col-lg-6">
-        <h4> Dietas </h4>
-
+        <h4> {{ 'commons.nutritions' | translate }}</h4>
 
         <div class="container">
             <div class="row">
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
+                <div class="margin-light" ng-repeat="nutritionItem in routineAdd.routineTemplateSelected.nutritions">
+                    <i class="fa fa-circle text-success"></i>&nbsp; {{ nutritionItem.name }}
                 </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
-                <div class="margin-light">
-                    <i class="fa fa-circle text-success"></i>&nbsp; Dieta
-                </div>
+
             </div>
         </div>
     </div>

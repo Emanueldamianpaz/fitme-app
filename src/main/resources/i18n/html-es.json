@@ -92,5 +92,8 @@
     "info": "Información de la rutina",
     "exercise": "Ejercicios",
     "nutrition": "Dietas"
+  },
+  "responses": {
+    "create-routine": "Se ha creado la rutina"
   }
 }
