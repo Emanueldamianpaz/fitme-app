@@ -8,8 +8,8 @@
             <div class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_length">
-                            <div class="input-group" style="width: 100px">
+                        <div class="dataTables_length col-lg-6">
+                            <div class="input-group" style="width: 100px; display: inline-flex">
                                 <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fa fa-eye"></i>
@@ -22,8 +22,16 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
+                            <a class="btn btn-success" href="#" data-toggle="modal"
+                               data-target="#modal-add-routines" style="margin-left:20px">
+                                <li class="fa fa-plus"></li>
+                                {{ 'commons.new' | translate}}
+
+                            </a>
                         </div>
+
                     </div>
+
                     <div class="col-sm-12 col-md-6 ">
                         <div class="dataTables_length pull-right">
                             <div class="input-group" style="width: 300px">
@@ -150,7 +158,7 @@
     </div>
 </div>
 
-
+<div ng-include="'views/components/modals/modal-add-routines.html'"></div>
 <div ng-include="'views/components/modals/modal-show-routines.html'"></div>
 <div ng-include="'views/components/modals/modal-score-routines.html'"></div>
 <div ng-include="'views/components/modals/modal-edit-routines.html'"></div>

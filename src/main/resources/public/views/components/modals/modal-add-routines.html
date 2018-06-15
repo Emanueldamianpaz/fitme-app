@@ -1,0 +1,46 @@
+<div class="modal fade" id="modal-add-routines">
+    <div class="modal-dialog modal-success modal-lg">
+        <div class="modal-content modal-success">
+
+            <div class="modal-header">
+                <h4 class="modal-title">{{ 'commons.new' | translate }}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="{{ 'commons.insert-name' | translate}}">
+                </div>
+
+                <br>
+
+                <h5>Descripción</h5>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+                          placeholder="{{ 'commons.insert-description' | translate }}"
+                          style="margin-top: 0px; margin-bottom: 0px; height: 196px;"></textarea>
+
+
+                <hr>
+                <div ng-include="'views/components/fragments/create-select-routine-template.html'"></div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {{ 'commons.close' | translate }}
+                </button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">
+                    {{ 'commons.add' | translate }}
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>

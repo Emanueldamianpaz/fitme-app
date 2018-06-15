@@ -48,6 +48,7 @@
     "dashboard": "Dashboard",
     "routines": "Rutinas",
     "routine": "Rutina",
+    "routine-template": "Rutina de ejemplo",
     "users": "Usuarios",
     "login": "Iniciar sesión",
     "previous": "Anterior",
@@ -55,7 +56,10 @@
     "scoring": "Puntuación",
     "save-changes": "Guardar cambios",
     "delete-routine": "Está a punto de la rutina ",
-    "confirmation": "¿Está seguro?"
+    "confirmation": "¿Está seguro?",
+    "insert-name": "Agregue un nombre",
+    "insert-description": "Agregue una descripción",
+    "add": "Agregar"
   },
   "menu": {
     "dashboard": "Dashboard",

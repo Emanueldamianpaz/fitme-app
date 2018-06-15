@@ -1,6 +1,15 @@
-fitme.controller('routinesController', function ($rootScope, $scope) {
+fitme.controller('routinesController', function ($rootScope, $scope, $filter) {
 
     $rootScope.stateCurrent = "routines";
+
+    $scope.routine = {
+        add: {
+            routineTemplate: 'new',
+            exercises: [],
+            nutritions: []
+        },
+        routineTemplate: 'id'
+    }
 
     $scope.renderAverageScoring = function () {
         new Chart(document.getElementById('averageScoring'), {
