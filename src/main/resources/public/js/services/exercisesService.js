@@ -48,15 +48,14 @@ fitme.service('ExercisesService', function ($http) {
         }
     };
 
-    this.deleteExercise = function (exercise, id) {
-        return $http(deleteExercise(exercise, id));
+    this.deleteExercise = function (id) {
+        return $http(deleteExercise(id));
     }
 
-    function deleteExercise(exercise, id) {
+    function deleteExercise(id) {
         return req = {
             method: 'delete',
-            url: path + '/' + id,
-            data: exercise
+            url: path + '/' + id
         }
     };
 })

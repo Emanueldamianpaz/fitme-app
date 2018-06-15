@@ -45,6 +45,7 @@
     "administration": "Administración",
     "nutritions": "Dietas",
     "exercises": "Ejercicios",
+    "exercise": "Ejercicio",
     "dashboard": "Dashboard",
     "routines": "Rutinas",
     "routine": "Rutina",
@@ -55,11 +56,15 @@
     "next": "Siguiente",
     "scoring": "Puntuación",
     "save-changes": "Guardar cambios",
-    "delete-routine": "Está a punto de la rutina ",
+    "delete-routine": "Está a punto de borarr la rutina ",
+    "delete-exercise": "Está a punto de borrar el ejercicio ",
     "confirmation": "¿Está seguro?",
     "insert-name": "Agregue un nombre",
     "insert-description": "Agregue una descripción",
-    "add": "Agregar"
+    "add": "Agregar",
+    "insert-difficulty": "Agregue una dificultad",
+    "insert-type": "Inserte un tipo",
+    "difficulty": "Dificultad"
   },
   "menu": {
     "dashboard": "Dashboard",

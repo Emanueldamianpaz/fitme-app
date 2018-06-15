@@ -1,0 +1,65 @@
+<div class="modal fade" id="modal-edit-exercises">
+    <div class="modal-dialog modal-warning modal-lg">
+        <div class="modal-content modal-warning">
+
+            <div class="modal-header">
+                <h4 class="modal-title">{{ 'commons.edit' | translate }}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" ng-model="exerciseModelEdit.name"
+                           placeholder="{{ 'commons.insert-name' | translate}}">
+                </div>
+
+                <br>
+
+                <h5>{{ 'commons.description' | translate }}</h5>
+                <textarea id="textarea-input" name="textarea-input" ng-model="exerciseModelEdit.description" rows="9"
+                          class="form-control" placeholder="{{ 'commons.insert-description' | translate }}"
+                          style="margin-top: 0px; margin-bottom: 0px; height: 196px;"></textarea>
+
+                <br>
+                <h5>{{ 'commons.difficulty' | translate }}</h5>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" ng-model="exerciseModelEdit.difficulty"
+                           placeholder="{{ 'commons.insert-difficulty' | translate}}">
+                </div>
+                <br>
+                <h5>{{ 'commons.type' | translate }}</h5>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" ng-model="exerciseModelEdit.type"
+                           placeholder="{{ 'commons.insert-type' | translate}}">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {{ 'commons.close' | translate }}
+                </button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="updateExercise()">
+                    {{ 'commons.save-changes' | translate }}
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
