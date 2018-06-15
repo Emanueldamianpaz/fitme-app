@@ -1,4 +1,4 @@
-fitme.controller('routinesController', function ($rootScope, $scope, RoutinesService) {
+fitme.controller('routinesController', function ($rootScope, $scope, RoutinesService, ExercisesService, NutritionsService) {
 
     $rootScope.stateCurrent = "routines";
 
@@ -15,7 +15,16 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
     $scope.routineEdit = {exercises: [], nutritions: []};
 
     $scope.setRoutineSelected = function (routine) {
+        $scope.routineSelected = [];
         $scope.routineSelected = routine;
+        ExercisesService.getExercises().then(function (response) {
+            $scope.exercisesToAdd = response.data;
+
+        });
+        NutritionsService.getNutritions().then(function (response) {
+            $scope.nutritionsToAdd = response.data;
+        });
+
     }
     RoutinesService.getRoutines().then(function (response) {
         $scope.routine.list = response.data;
@@ -92,7 +101,7 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
         });
     }
     $scope.addExercise = function () {
-        $scope.routineSelected.routineTemplate.exercises.push($scope.routineEdit.exercise);
+        $scope.routineSelected.routineTemplate.exercises.push(JSON.parse($scope.routineEdit.exercise));
     }
 
     $scope.removeNutrition = function (nutritionId) {
@@ -101,7 +110,7 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
         });
     }
     $scope.addNutrition = function () {
-        $scope.routineSelected.routineTemplate.nutritions.push($scope.routineEdit.nutrition);
+        $scope.routineSelected.routineTemplate.nutritions.push(JSON.parse($scope.routineEdit.nutrition));
     }
 
 

@@ -34,10 +34,9 @@
                         <h4> Ejercicios </h4>
                         <div class="input-group">
                             <select class="form-control" ng-model="routineEdit.exercise">
-                                <option value="new" selected>
-                                    {{'commons.new' |translate}} {{ 'commons.routine-template' | translate }}
+                                <option value={{exerciseItem}} ng-repeat="exerciseItem in exercisesToAdd">
+                                    {{exerciseItem.name}}
                                 </option>
-                                <option value="1"> Prueba</option>
                             </select>
                             <button type="button" class="btn btn-primary" ng-click="addExercise()">
                                 <li class="fa fa-plus"></li>
@@ -63,10 +62,9 @@
                         <div class="input-group">
 
                             <select class="form-control" ng-model="routineEdit.nutrition">
-                                <option value="new" selected>
-                                    {{'commons.new' |translate}} {{ 'commons.routine-template' | translate }}
+                                <option value={{nutritionItem}} ng-repeat="nutritionItem in nutritionsToAdd ">
+                                    {{nutritionItem.name}}
                                 </option>
-                                <option value="1"> Prueba</option>
                             </select>
                             <button type="button" class="btn btn-success" ng-click="addNutrition()">
                                 <li class="fa fa-plus"></li>
