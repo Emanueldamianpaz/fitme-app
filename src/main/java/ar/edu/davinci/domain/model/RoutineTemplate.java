@@ -1,15 +1,13 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
-import ar.edu.davinci.dto.nutrition.NutritionRequestDTO;
-import ar.edu.davinci.dto.routineTemplate.RoutineTemplateRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
@@ -29,9 +27,14 @@ public class RoutineTemplate extends FitmeDomain<Long> {
     @JoinColumn(name = "id_nutrition")
     private Set<Nutrition> nutritions;
 
-    public RoutineTemplate(Set<Exercise> exercises, Set<Nutrition> nutritions) {
+    @Column(name = "scoring")
+    private String scoring;
+
+
+    public RoutineTemplate(Set<Exercise> exercises, Set<Nutrition> nutritions, String scoring) {
         this.exercises = exercises;
         this.nutritions = nutritions;
+        this.scoring = scoring;
     }
 
     public RoutineTemplate(Long id, Set<Exercise> exercises, Set<Nutrition> nutritions) {
@@ -39,4 +42,6 @@ public class RoutineTemplate extends FitmeDomain<Long> {
         this.exercises = exercises;
         this.nutritions = nutritions;
     }
+
+
 }

@@ -2,7 +2,7 @@ package ar.edu.davinci.routers.scoring;
 
 import ar.edu.davinci.domain.model.Scoring;
 import ar.edu.davinci.dto.ResponseDTO;
-import ar.edu.davinci.dto.scoring.ScoringRequestDTO;
+import ar.edu.davinci.dto.fitme.scoring.ScoringRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.scoring.ScoringService;

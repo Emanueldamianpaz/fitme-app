@@ -4,7 +4,7 @@ import ar.edu.davinci.domain.model.Exercise;
 import ar.edu.davinci.domain.model.Nutrition;
 import ar.edu.davinci.domain.model.RoutineTemplate;
 import ar.edu.davinci.dto.ResponseDTO;
-import ar.edu.davinci.dto.routineTemplate.RoutineTemplateRequestDTO;
+import ar.edu.davinci.dto.fitme.routineTemplate.RoutineTemplateRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.exercise.ExerciseService;
@@ -91,7 +91,10 @@ public class RoutineTemplateRouter extends FitmeRouter {
                     exercises.add(exerciseService.get(id));
                 }
 
-                return routineTemplateService.create(new RoutineTemplate(exercises, nutritions));
+                //TODO Crear servicio para calcular fitness
+                String scoring = "";
+
+                return routineTemplateService.create(new RoutineTemplate(exercises, nutritions, scoring));
             }
     );
 

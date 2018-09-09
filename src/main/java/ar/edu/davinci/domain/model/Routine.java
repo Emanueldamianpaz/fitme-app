@@ -1,11 +1,10 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
-import ar.edu.davinci.dto.routine.RoutineRequestDTO;
+import ar.edu.davinci.dto.fitme.routine.RoutineRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity

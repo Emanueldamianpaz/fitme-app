@@ -1,11 +1,10 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
-import ar.edu.davinci.dto.exercise.ExerciseRequestDTO;
+import ar.edu.davinci.dto.fitme.exercise.ExerciseRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor

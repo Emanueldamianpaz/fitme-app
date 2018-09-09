@@ -2,7 +2,7 @@ package ar.edu.davinci.routers.routine;
 
 import ar.edu.davinci.domain.model.Routine;
 import ar.edu.davinci.domain.model.RoutineTemplate;
-import ar.edu.davinci.dto.routine.RoutineRequestDTO;
+import ar.edu.davinci.dto.fitme.routine.RoutineRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import ar.edu.davinci.service.routineTemplate.RoutineTemplateService;
 import com.github.racc.tscg.TypesafeConfig;

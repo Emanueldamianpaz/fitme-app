@@ -2,7 +2,7 @@ package ar.edu.davinci.routers.goal;
 
 import ar.edu.davinci.domain.model.Goal;
 import ar.edu.davinci.dto.ResponseDTO;
-import ar.edu.davinci.dto.goal.GoalRequestDTO;
+import ar.edu.davinci.dto.fitme.goal.GoalRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.goal.GoalService;

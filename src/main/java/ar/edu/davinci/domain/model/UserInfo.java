@@ -1,7 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
-import ar.edu.davinci.dto.user.UserInfoRequestDTO;
+import ar.edu.davinci.dto.fitme.user.UserInfoRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +36,10 @@ public class UserInfo extends FitmeDomain<Long> {
     @JoinColumn(name = "id_goal", referencedColumnName = "id")
     private Goal goal;
 
+    @OneToOne
+    @JoinColumn(name = "id_user_fit", referencedColumnName = "id")
+    private UserFit userFit;
+
     public UserInfo(UserInfoRequestDTO userInfoRequest) {
         this.weight = userInfoRequest.getWeight();
         this.height = userInfoRequest.getHeight();
@@ -51,5 +55,15 @@ public class UserInfo extends FitmeDomain<Long> {
         this.genre = userInfoRequest.getGenre();
         this.currentFat = userInfoRequest.getCurrentFat();
         this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
+    }
+
+    public UserInfo(UserInfoRequestDTO userInfoRequest, UserFit userFit) {
+        this.weight = userInfoRequest.getWeight();
+        this.height = userInfoRequest.getHeight();
+        this.genre = userInfoRequest.getGenre();
+        this.currentFat = userInfoRequest.getCurrentFat();
+        this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
+        this.userFit = userFit;
+
     }
 }

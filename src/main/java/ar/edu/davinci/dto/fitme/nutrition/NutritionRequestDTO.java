@@ -1,4 +1,4 @@
-package ar.edu.davinci.dto.nutrition;
+package ar.edu.davinci.dto.fitme.nutrition;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package ar.edu.davinci.dto.user;
+package ar.edu.davinci.dto.fitme.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

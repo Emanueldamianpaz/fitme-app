@@ -1,7 +1,7 @@
 package ar.edu.davinci.routers.nutrition;
 
 import ar.edu.davinci.domain.model.Nutrition;
-import ar.edu.davinci.dto.nutrition.NutritionRequestDTO;
+import ar.edu.davinci.dto.fitme.nutrition.NutritionRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;

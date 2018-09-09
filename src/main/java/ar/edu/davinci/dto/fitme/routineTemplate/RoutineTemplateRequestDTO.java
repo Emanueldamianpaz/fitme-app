@@ -1,4 +1,4 @@
-package ar.edu.davinci.dto.routineTemplate;
+package ar.edu.davinci.dto.fitme.routineTemplate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

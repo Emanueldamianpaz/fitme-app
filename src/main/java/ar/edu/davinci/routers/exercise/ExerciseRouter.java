@@ -1,7 +1,7 @@
 package ar.edu.davinci.routers.exercise;
 
 import ar.edu.davinci.domain.model.Exercise;
-import ar.edu.davinci.dto.exercise.ExerciseRequestDTO;
+import ar.edu.davinci.dto.fitme.exercise.ExerciseRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;

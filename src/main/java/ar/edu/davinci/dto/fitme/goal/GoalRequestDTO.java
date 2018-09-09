@@ -1,4 +1,4 @@
-package ar.edu.davinci.dto.goal;
+package ar.edu.davinci.dto.fitme.goal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

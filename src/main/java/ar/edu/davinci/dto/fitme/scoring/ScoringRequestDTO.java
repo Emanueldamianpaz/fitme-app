@@ -1,4 +1,4 @@
-package ar.edu.davinci.dto.scoring;
+package ar.edu.davinci.dto.fitme.scoring;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

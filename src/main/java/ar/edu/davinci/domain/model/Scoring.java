@@ -1,7 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
-import ar.edu.davinci.dto.scoring.ScoringRequestDTO;
+import ar.edu.davinci.dto.fitme.scoring.ScoringRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;

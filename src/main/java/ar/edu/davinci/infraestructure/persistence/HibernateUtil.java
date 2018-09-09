@@ -70,6 +70,7 @@ public class HibernateUtil {
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(UserInfo.class)
                 .addAnnotatedClass(Goal.class)
+                .addAnnotatedClass(UserFit.class)
                 .addAnnotatedClass(FitmeUser.class);
 
 
