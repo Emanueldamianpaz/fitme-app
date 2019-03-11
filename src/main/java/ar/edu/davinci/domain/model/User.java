@@ -19,8 +19,8 @@ public class User extends FitmeDomain<Long> {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_session")
-    private String idSession;
+    @Column(name = "idUserFit")
+    private String idUserFit;
 
     @OneToOne
     @MapsId
@@ -41,7 +41,7 @@ public class User extends FitmeDomain<Long> {
     private UserRoutine userRoutine;
 
     public User(FitmeUser user) {
-        this.idSession = user.getId();
+        this.idUserFit = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.nickname = user.getNickname();

@@ -75,7 +75,9 @@ public class ApiContext {
     }
 
     private void configureAuth() {
-        before(basePath + "/*", securityFilter, roleAssignedFilter, readOnlyFilter);
+      //  before(basePath + "/*", securityFilter, roleAssignedFilter, readOnlyFilter);
+        before(basePath + "/*", securityFilter);
+
     }
 
     private void configureCors() {

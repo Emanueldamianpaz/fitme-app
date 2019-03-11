@@ -50,6 +50,7 @@
         <HikariCP.version>2.7.1</HikariCP.version>
         <postgresql.version>42.1.4</postgresql.version>
         <junit.version>4.12</junit.version>
+        <mvc-auth-commons.version>1.0.3</mvc-auth-commons.version>
     </properties>
 
     <dependencies>
@@ -253,7 +254,11 @@
             <artifactId>jwks-rsa</artifactId>
             <version>${jwks-rsa.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>mvc-auth-commons</artifactId>
+            <version>${mvc-auth-commons.version}</version>
+        </dependency>
         <!-- ORM -->
         <dependency>
             <groupId>org.hibernate</groupId>

@@ -26,6 +26,7 @@ public class StaticFilesRouter extends Router {
 
     private final MimeTypes jettyMimeType = new MimeTypes();
     private WebJarAssetLocator locator;
+    private final String contextUI = "ui/";
 
     @Inject
     public StaticFilesRouter(WebJarAssetLocator locator) {
@@ -35,42 +36,42 @@ public class StaticFilesRouter extends Router {
     public RouteGroup routes() {
         return () -> {
             configureWebJars();
-            configureFolder("i18n/:file", "i18n");
-            configureFolder("css/:file", "public/css");
+            configureFolder(contextUI + "i18n/:file", "i18n");
+            configureFolder(contextUI + "css/:file", "public/css");
 
-            configureFolder("js/:file", "public/js");
-            configureFolder("js/services/:file", "public/js/services");
-            configureFolder("js/controllers/:file", "public/js/controllers");
-            configureFolder("js/routes/:file", "public/js/routes");
-            configureFolder("js/routes/external/:file", "public/js/routes/external");
-            configureFolder("js/routes/internal/:file", "public/js/routes/internal");
+            configureFolder(contextUI + "js/:file", "public/js");
+            configureFolder(contextUI + "js/services/:file", "public/js/services");
+            configureFolder(contextUI + "js/controllers/:file", "public/js/controllers");
+            configureFolder(contextUI + "js/routes/:file", "public/js/routes");
+            configureFolder(contextUI + "js/routes/external/:file", "public/js/routes/external");
+            configureFolder(contextUI + "js/routes/internal/:file", "public/js/routes/internal");
 
-            configureFolder("img/:file", "public/img");
-            configureFolder("img/avatars/:file", "public/img/avatars");
+            configureFolder(contextUI + "img/:file", "public/img");
+            configureFolder(contextUI + "img/avatars/:file", "public/img/avatars");
 
-            configureFolder("views/:file", "public/views");
-            configureFolder("views/common/:file", "public/views/common");
-            configureFolder("views/common/layouts/:file", "public/views/common/layouts");
-            configureFolder("views/common/sidebar-nav/:file", "public/views/common/sidebar-nav");
+            configureFolder(contextUI + "views/:file", "public/views");
+            configureFolder(contextUI + "views/common/:file", "public/views/common");
+            configureFolder(contextUI + "views/common/layouts/:file", "public/views/common/layouts");
+            configureFolder(contextUI + "views/common/sidebar-nav/:file", "public/views/common/sidebar-nav");
 
-            configureFolder("views/app/:file", "public/views/app");
-            configureFolder("views/app/exercises/:file", "public/views/app/exercises");
-            configureFolder("views/app/nutritions/:file", "public/views/app/nutritions");
-            configureFolder("views/app/routines/:file", "public/views/app/routines");
-            configureFolder("views/app/users/:file", "public/views/app/users");
+            configureFolder(contextUI + "views/app/:file", "public/views/app");
+            configureFolder(contextUI + "views/app/exercises/:file", "public/views/app/exercises");
+            configureFolder(contextUI + "views/app/nutritions/:file", "public/views/app/nutritions");
+            configureFolder(contextUI + "views/app/routines/:file", "public/views/app/routines");
+            configureFolder(contextUI + "views/app/users/:file", "public/views/app/users");
 
-            configureFolder("views/fitme/:file", "public/views/fitme");
+            configureFolder(contextUI + "views/fitme/:file", "public/views/fitme");
 
-            configureFolder("views/components/:file", "public/views/components");
-            configureFolder("views/components/modals/routines/:file", "public/views/components/modals/routines");
-            configureFolder("views/components/modals/exercises/:file", "public/views/components/modals/exercises");
-            configureFolder("views/components/modals/nutritions/:file", "public/views/components/modals/nutritions");
-            configureFolder("views/components/fragments/:file", "public/views/components/fragments");
+            configureFolder(contextUI + "views/components/:file", "public/views/components");
+            configureFolder(contextUI + "views/components/modals/routines/:file", "public/views/components/modals/routines");
+            configureFolder(contextUI + "views/components/modals/exercises/:file", "public/views/components/modals/exercises");
+            configureFolder(contextUI + "views/components/modals/nutritions/:file", "public/views/components/modals/nutritions");
+            configureFolder(contextUI + "views/components/fragments/:file", "public/views/components/fragments");
 
-            configureFolder("views/icons/:file", "public/views/icons");
-            configureFolder("views/pages/:file", "public/views/pages");
-            configureFile("index.html", "public/index.html");
-            configureFile("", "public/index.html");
+            configureFolder(contextUI + "views/icons/:file", "public/views/icons");
+            configureFolder(contextUI + "views/pages/:file", "public/views/pages");
+            configureFile(contextUI + "index.html", "public/index.html");
+            configureFile(contextUI + "", "public/index.html");
         };
     }
 
@@ -81,15 +82,14 @@ public class StaticFilesRouter extends Router {
 
     private void configureWebJars() {
 
-        String fullContext = "webjars/:library/*";
+        String fullContext = contextUI + "webjars/:library/*";
 
         get(fullContext, (req, res) -> {
 
             String library = req.params("library");
-            String relativePath = StringUtils.removePattern(req.uri(), "/fitme/webjars/" + library);
+            String relativePath = StringUtils.removePattern(req.uri(), "/fitme/" + contextUI + "webjars/" + library);
 
             String fullPath = locator.getFullPath(library, relativePath);
-
             return writeFileToOutput(fullPath, res);
         });
     }

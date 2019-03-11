@@ -15,21 +15,23 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="{{ 'commons.username' | translate }}">
+                                <input type="text" class="form-control"
+                                       placeholder="{{ 'commons.username' | translate }}">
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="{{ 'commons.password' | translate }}">
+                                <input type="password" class="form-control"
+                                       placeholder="{{ 'commons.password' | translate }}">
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <a ui-sref="app.dashboard">
-                                        <button type="button" class="btn btn-primary px-4">
-                                            {{ 'login.title' | translate }}
-                                        </button>
-                                    </a>
+                                    <!--<a ui-sref="app.dashboard">-->
+                                    <button type="button" class="btn btn-primary px-4" ng-click="loginUser()">
+                                        {{ 'login.title' | translate }}
+                                    </button>
+                                    <!--</a>-->
                                 </div>
                                 <div class="col-6 text-right">
                                     <button type="button" class="btn btn-link px-0">
