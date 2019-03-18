@@ -18,17 +18,20 @@ import spark.Response;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Optional;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 @Singleton
 @Slf4j
 public class SecurityFilter implements Filter {
 
     private Boolean enabled;
-    private JWTVerifier verifier;
+    public static JWTVerifier verifier;
+    public static AuthenticationController authClient;
     private String fakeToken;
     private UserSessionFactory userSessionFactory;
-    public static AuthenticationController authClient;
-
+    private String audience2;
+    private String issuer;
 
     @Inject
     public SecurityFilter(
@@ -45,6 +48,8 @@ public class SecurityFilter implements Filter {
 
         this.enabled = enabled;
         this.fakeToken = fakeToken;
+        this.audience2 = audience2;
+        this.issuer = issuer;
         this.userSessionFactory = userSessionFactory;
         this.authClient = AuthenticationController.newBuilder(issuer, clientId, clientSecret)
                 .build();
@@ -61,19 +66,16 @@ public class SecurityFilter implements Filter {
         if (request.requestMethod().equals(HttpMethod.OPTIONS.asString()))
             return;
 
-        UserSession userSession;
 
         if (!enabled) {
 
-            userSession = userSessionFactory.createFakeUserSession(JWT.decode(fakeToken));
+            UserSession userSession = userSessionFactory.createFakeUserSession(JWT.decode(fakeToken));
             request.attribute("current-session", userSession);
 
         } else {
 
             if (!SecurityExclusions.isUnrestricted(request.pathInfo(), request.requestMethod())) {
-                userSession = getUserSession(request);
-                request.attribute("current-session", userSession);
-
+                getUserSession(request, response);
             } else {
                 log.debug("Matches unrestricted access.");
             }
@@ -81,22 +83,31 @@ public class SecurityFilter implements Filter {
 
     }
 
-    public UserSession getUserSession(Request request) {
-        UserSession userSession;
+    public void getUserSession(Request request, Response response) {
         try {
             String authorizationHeader = request.headers("Authorization");
 
             if (!Optional.ofNullable(authorizationHeader).isPresent()) {
-                throw new UnauthorizedRequestException("Header Authorization needed!");
+                Pattern pattern = PathAuthorization.UI_PATTERN.getPattern();
+                Set<String> methodsAvailable = PathAuthorization.UI_PATTERN.getMethodsAvailable();
+                String redirectUri = request.scheme() + "://" + request.host() + "/fitme/user/callback";
+
+                if (pattern.matcher(request.pathInfo()).matches() && methodsAvailable.contains(request.requestMethod())) {
+                    String authorizeUrl = authClient.
+                            buildAuthorizeUrl(request.raw(), redirectUri)
+                            .withAudience(String.format(audience2, issuer))
+                            .build();
+                    response.redirect(authorizeUrl);
+                } else {
+                    throw new UnauthorizedRequestException("Header Authorization needed!");
+                }
             } else {
                 DecodedJWT decodedJWT = verifier.verify(request.headers("Authorization"));
-
-                userSession = userSessionFactory.createUserSession(decodedJWT);
+                userSessionFactory.createUserSession(decodedJWT);
             }
         } catch (JWTVerificationException e) {
-            //Invalid signature/claims
             throw new UnauthorizedRequestException(e);
         }
-        return userSession;
+//        return userSession;
     }
 }

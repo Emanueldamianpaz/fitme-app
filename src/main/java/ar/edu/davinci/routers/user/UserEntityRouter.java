@@ -1,14 +1,17 @@
 package ar.edu.davinci.routers.user;
 
 import ar.edu.davinci.domain.model.User;
-import ar.edu.davinci.dto.fitme.user.UserLoginDTO;
-import ar.edu.davinci.infraestructure.security.SecurityFilter;
+import ar.edu.davinci.infraestructure.security.UserSessionFactory;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.UserEntityService;
 import ar.edu.davinci.utils.JsonTransformer;
-import com.github.racc.tscg.TypesafeConfig;
+import com.auth0.SessionUtils;
+import com.auth0.Tokens;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 import spark.Request;
 import spark.Response;
@@ -16,36 +19,33 @@ import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import static ar.edu.davinci.infraestructure.security.SecurityFilter.authClient;
+import static ar.edu.davinci.infraestructure.security.SecurityFilter.verifier;
 import static spark.Spark.*;
 
+@Slf4j
 public class UserEntityRouter extends FitmeRouter {
 
-    private String apiPath;
     private JsonTransformer jsonTransformer;
     private UserEntityService userEntityService;
-    private SecurityFilter securityFilter;
+    private UserSessionFactory userSessionFactory;
 
     @Inject
     public UserEntityRouter(Gson objectMapper,
                             UserEntityService userEntityService,
                             SessionFactory sessionFactory,
                             JsonTransformer jsonTransformer,
-                            SecurityFilter securityFilter,
-
-                            @TypesafeConfig("app.api") String apiPath) {
+                            UserSessionFactory userSessionFactory) {
         super(objectMapper, sessionFactory);
-        this.apiPath = apiPath;
-        this.securityFilter = securityFilter;
         this.userEntityService = userEntityService;
         this.jsonTransformer = jsonTransformer;
+        this.userSessionFactory = userSessionFactory;
     }
 
     @Override
     public String path() {
-        return apiPath + "/user";
+        return "/user";
     }
 
     @Override
@@ -54,7 +54,6 @@ public class UserEntityRouter extends FitmeRouter {
             get("", getUsers, jsonTransformer);
             post("", createUser, jsonTransformer);
             patch("/:id", updateUserSession, jsonTransformer);
-            get("/login", loginUser, jsonTransformer);
             get("/callback", createSession, jsonTransformer);
 
         };
@@ -65,20 +64,23 @@ public class UserEntityRouter extends FitmeRouter {
             userEntityService.findAll()
     );
 
-    private final Route loginUser = (Request request, Response response) ->
-    {
-        String redirectUri = request.scheme() + "://" + request.host() + ":" + request.port() + "/callback";
-
-        String authorizeUrl = authClient.buildAuthorizeUrl((HttpServletRequest) request, redirectUri)
-                .build();
-        response.redirect(authorizeUrl);
-
-        return "";
-    };
 
     private final Route createSession = (Request request, Response response) ->
     {
-        securityFilter.getUserSession(request);
+        log.info("Initializing Modules...");
+
+        Tokens tokens = authClient.handle(request.raw());
+        SessionUtils.set(request.raw(), "accessToken", tokens.getAccessToken());
+        SessionUtils.set(request.raw(), "idToken", tokens.getIdToken());
+
+        DecodedJWT jwt = JWT.decode(tokens.getIdToken());
+
+
+        System.out.println("Questioning Reality Because it is redirecting correctly");
+
+
+        request.attribute("current-session", userSessionFactory.createUserSession(jwt));
+        response.redirect("/");
 
         return "";
     };

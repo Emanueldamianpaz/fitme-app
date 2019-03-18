@@ -72,6 +72,15 @@ public class StaticFilesRouter extends Router {
             configureFolder(contextUI + "views/pages/:file", "public/views/pages");
             configureFile(contextUI + "index.html", "public/index.html");
             configureFile(contextUI + "", "public/index.html");
+            configureFile(contextUI + "/", "public/index.html");
+            configureFile(contextUI + "/dashboard", "public/index.html");
+            configureFile(contextUI + "/routines", "public/index.html");
+            configureFile(contextUI + "/users", "public/index.html");
+            configureFile(contextUI + "/exercises", "public/index.html");
+            configureFile(contextUI + "/nutritions", "public/index.html");
+
+
+
         };
     }
 

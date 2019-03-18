@@ -6,17 +6,7 @@ fitme.config(function ($stateProvider) {
             templateUrl: 'views/common/layouts/simple.html',
             data: {pageTitle: 'Fitme'}
         })
-        .state('fitme.login', {
-            url: '/login',
-            templateUrl: 'views/fitme/login.html',
-            controller: "loginController",
-            data: {pageTitle: 'Login'}
-        })
-        .state('fitme.register', {
-            url: '/register',
-            templateUrl: 'views/fitme/register.html',
-            data: {pageTitle: 'Registrarse'}
-        })
+
         .state('fitme.404', {
             url: '/404',
             templateUrl: 'views/fitme/404.html',

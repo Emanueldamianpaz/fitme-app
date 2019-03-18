@@ -63,7 +63,7 @@ public class UserSessionFactory {
                             throw new RuntimeException("Fail to create a user session " + jwt.getId());
                         }
 
-                        persistUser(userSession.getUser());
+//                        persistUser(userSession.getUser());
 
                         return userSession;
                     });
