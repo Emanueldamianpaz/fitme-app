@@ -21,7 +21,6 @@ import spark.RouteGroup;
 import javax.inject.Inject;
 
 import static ar.edu.davinci.infraestructure.security.SecurityFilter.authClient;
-import static ar.edu.davinci.infraestructure.security.SecurityFilter.verifier;
 import static spark.Spark.*;
 
 @Slf4j
@@ -74,13 +73,12 @@ public class UserEntityRouter extends FitmeRouter {
         SessionUtils.set(request.raw(), "idToken", tokens.getIdToken());
 
         DecodedJWT jwt = JWT.decode(tokens.getIdToken());
-
-
-        System.out.println("Questioning Reality Because it is redirecting correctly");
+//        DecodedJWT jwtVerified = verifier.verify(tokens.getIdToken());
 
 
         request.attribute("current-session", userSessionFactory.createUserSession(jwt));
-        response.redirect("/");
+        response.cookie("Authorization", jwt.getToken());
+        response.redirect("/fitme/ui/dashboard");
 
         return "";
     };

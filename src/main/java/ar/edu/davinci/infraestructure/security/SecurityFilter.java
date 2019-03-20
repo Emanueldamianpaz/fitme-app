@@ -53,7 +53,6 @@ public class SecurityFilter implements Filter {
         this.userSessionFactory = userSessionFactory;
         this.authClient = AuthenticationController.newBuilder(issuer, clientId, clientSecret)
                 .build();
-
         this.verifier = JWT.require(Algorithm.RSA256(keyProvider))
                 .withIssuer(issuer)
                 .withAudience(audience1, audience2)
@@ -76,6 +75,7 @@ public class SecurityFilter implements Filter {
 
             if (!SecurityExclusions.isUnrestricted(request.pathInfo(), request.requestMethod())) {
                 getUserSession(request, response);
+                return;
             } else {
                 log.debug("Matches unrestricted access.");
             }
@@ -84,30 +84,23 @@ public class SecurityFilter implements Filter {
     }
 
     public void getUserSession(Request request, Response response) {
-        try {
-            String authorizationHeader = request.headers("Authorization");
+        String authorizationHeader = request.cookie("Authorization");
 
-            if (!Optional.ofNullable(authorizationHeader).isPresent()) {
-                Pattern pattern = PathAuthorization.UI_PATTERN.getPattern();
-                Set<String> methodsAvailable = PathAuthorization.UI_PATTERN.getMethodsAvailable();
-                String redirectUri = request.scheme() + "://" + request.host() + "/fitme/user/callback";
+        if (!Optional.ofNullable(authorizationHeader).isPresent()) {
+            Pattern pattern = PathAuthorization.UI_PATTERN.getPattern();
+            Set<String> methodsAvailable = PathAuthorization.UI_PATTERN.getMethodsAvailable();
+            String redirectUri = request.scheme() + "://" + request.host() + "/fitme/user/callback";
 
-                if (pattern.matcher(request.pathInfo()).matches() && methodsAvailable.contains(request.requestMethod())) {
-                    String authorizeUrl = authClient.
-                            buildAuthorizeUrl(request.raw(), redirectUri)
-                            .withAudience(String.format(audience2, issuer))
-                            .build();
-                    response.redirect(authorizeUrl);
-                } else {
-                    throw new UnauthorizedRequestException("Header Authorization needed!");
-                }
+            if (pattern.matcher(request.pathInfo()).matches() && methodsAvailable.contains(request.requestMethod())) {
+                String authorizeUrl = authClient.
+                        buildAuthorizeUrl(request.raw(), redirectUri)
+                        .withScope("openid profile email app_metadata")
+                        .withAudience(String.format(audience2, issuer))
+                        .build();
+                response.redirect(authorizeUrl);
             } else {
-                DecodedJWT decodedJWT = verifier.verify(request.headers("Authorization"));
-                userSessionFactory.createUserSession(decodedJWT);
+                throw new UnauthorizedRequestException("Header Authorization needed!");
             }
-        } catch (JWTVerificationException e) {
-            throw new UnauthorizedRequestException(e);
         }
-//        return userSession;
     }
 }

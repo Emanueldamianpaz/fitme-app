@@ -24,13 +24,15 @@ public class UserSession {
 
         this.user = FitmeUser.builder()
                 .id(payload.getSubject())
-                .name(payload.getClaim("name").asString())
+                .name(payload.getClaim("given_name").asString())
+                .last_name(payload.getClaim("family_name").toString())
+                .picture(payload.getClaim("picture").toString())
+                .gender(payload.getClaim("gender").toString())
                 .nickname(payload.getClaim("nickname").asString())
                 .email(payload.getClaim("email").asString())
                 .build();
     }
 
-    // TODO CAMBIAR ACAs
     public Optional<HashMap<String, Object>> getAppMetadata() {
         return Optional.ofNullable(this.payload.getClaim("http://localhost:4567/fitme/api/app_metadata").as(HashMap.class));
     }

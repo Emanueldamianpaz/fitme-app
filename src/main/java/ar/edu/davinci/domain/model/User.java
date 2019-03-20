@@ -30,11 +30,20 @@ public class User extends FitmeDomain<Long> {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "last_name")
+    private String lastName;
+
     @Column(name = "email")
     private String email;
 
+    @Column(name = "picture")
+    private String picture;
+
     @Column(name = "nickname")
     private String nickname;
+
+    @Column(name = "gender")
+    private String gender;
 
     @OneToOne
     @JoinColumn(name = "id")
@@ -45,5 +54,6 @@ public class User extends FitmeDomain<Long> {
         this.name = user.getName();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
+
     }
 }

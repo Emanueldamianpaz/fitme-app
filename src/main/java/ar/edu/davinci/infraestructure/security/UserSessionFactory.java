@@ -45,24 +45,7 @@ public class UserSessionFactory {
                     jwt.getSubject(),
                     () -> {
 
-                        UserSession userSession;
-
-                        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-
-                            HttpGet request = new HttpGet(authorize);
-
-                            request.setHeader("Authorization", "Bearer " + jwt.getToken());
-
-                            CloseableHttpResponse response = httpClient.execute(request);
-
-                            Payload payload = new JWTParser().parsePayload(EntityUtils.toString(response.getEntity()));
-
-                            userSession = new UserSession(payload);
-
-                        } catch (IOException e) {
-                            throw new RuntimeException("Fail to create a user session " + jwt.getId());
-                        }
-
+                        UserSession userSession = new UserSession(jwt);
 //                        persistUser(userSession.getUser());
 
                         return userSession;
@@ -95,7 +78,7 @@ public class UserSessionFactory {
 
                 UserSession userSession = new UserSession(jwt);
 
-              //  persistUser(userSession.getUser());
+                //  persistUser(userSession.getUser());
 
                 return userSession;
             });

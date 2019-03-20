@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class FitmeUser {
 
     private String id;
-
     private String name;
-
+    private String last_name;
+    private String picture;
+    private String gender;
     private String email;
-
     private String nickname;
 }
