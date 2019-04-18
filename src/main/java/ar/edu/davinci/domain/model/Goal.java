@@ -23,17 +23,17 @@ public class Goal extends FitmeDomain<Long> {
     private String type;
 
     @Column(name = "goal_fat")
-    private String goalFat;
+    private Double goalFat;
 
 
     public Goal(GoalRequestDTO goalRequest) {
         this.type = goalRequest.getType();
-        this.goalFat = goalRequest.getGoalFat();
+        this.goalFat = Double.parseDouble(goalRequest.getGoalFat());
     }
 
     public Goal(Long id, GoalRequestDTO goalRequest) {
         this.id = id;
         this.type = goalRequest.getType();
-        this.goalFat = goalRequest.getGoalFat();
+        this.goalFat = Double.parseDouble(goalRequest.getGoalFat());
     }
 }

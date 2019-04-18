@@ -1,11 +1,21 @@
 package ar.edu.davinci.service.routineTemplate;
 
+import ar.edu.davinci.domain.model.Goal;
+import ar.edu.davinci.domain.model.Nutrition;
 import ar.edu.davinci.domain.model.RoutineTemplate;
+import ar.edu.davinci.domain.model.UserInfo;
+import ar.edu.davinci.domain.types.GoalType;
 import ar.edu.davinci.service.FitmeService;
 import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static ar.edu.davinci.domain.types.GoalType.*;
 
 public class RoutineTemplateService extends FitmeService<RoutineTemplate, RoutineTemplate> {
 
@@ -22,5 +32,40 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
     @Override
     public RoutineTemplate get(Long id) {
         return super.get(id);
+    }
+
+    public RoutineTemplate getOptimizedRoutineTemplate(UserInfo user) {
+
+        Double gatAbsolute = Math.abs(user.getGoal().getGoalFat() - user.getCurrentFat());
+
+        this.findAll().stream().map(routine -> {
+
+            Stream<Nutrition> nutritionStream = routine.getNutritions().stream();
+            Nutrition optimizedNutrition;
+            switch (user.getGoal().getType()) {
+                case GAIN_WEIGHT.getType():
+
+                    // TODO Implementar como ganar peso
+                    optimizedNutrition = nutritionStream
+                            .min(Comparator.comparingDouble(i -> Math.abs(i.getCalories() - gatAbsolute)))
+                            .orElseThrow(() -> new NoSuchElementException("No value present"));
+
+
+                    break;
+
+                case LOSS_WEIGHT.getType():
+                    optimizedNutrition = nutritionStream
+                            .min(Comparator.comparingDouble(i -> Math.abs(i.getCalories() - gatAbsolute)))
+                            .orElseThrow(() -> new NoSuchElementException("No value present"));
+
+
+                    //.map(nutrition -> nutrition.ge)
+            }
+            ;
+
+            return routine;
+        });
+
+        return new RoutineTemplate();
     }
 }
