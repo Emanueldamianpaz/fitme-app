@@ -1,5 +1,6 @@
 package ar.edu.davinci.dto.fitme.goal;
 
+import ar.edu.davinci.domain.types.GoalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,6 +9,6 @@ import lombok.Data;
 public class GoalRequestDTO {
 
     private String goalFat;
-    private String type;
+    private GoalType type;
 
 }

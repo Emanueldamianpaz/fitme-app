@@ -71,19 +71,5 @@ public class UserSessionFactory {
         return user;
     }
 
-    public UserSession createFakeUserSession(DecodedJWT jwt) {
 
-        try {
-            return usersCache.get(jwt.getSubject(), () -> {
-
-                UserSession userSession = new UserSession(jwt);
-
-                //  persistUser(userSession.getUser());
-
-                return userSession;
-            });
-        } catch (ExecutionException e) {
-            throw new RuntimeException("Fail to retrieve a user session " + jwt.getId());
-        }
-    }
 }

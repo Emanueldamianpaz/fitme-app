@@ -1,6 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.domain.types.GoalType;
 import ar.edu.davinci.dto.fitme.goal.GoalRequestDTO;
 import lombok.*;
 
@@ -20,7 +21,7 @@ public class Goal extends FitmeDomain<Long> {
     private Long id;
 
     @Column(name = "type")
-    private String type;
+    private GoalType type;
 
     @Column(name = "goal_fat")
     private Double goalFat;

@@ -19,6 +19,7 @@ import static ar.edu.davinci.domain.types.GoalType.*;
 
 public class RoutineTemplateService extends FitmeService<RoutineTemplate, RoutineTemplate> {
 
+
     @Inject
     public RoutineTemplateService(SessionFactory sessionFactory) {
         super(RoutineTemplate.class, sessionFactory);
@@ -43,7 +44,7 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
             Stream<Nutrition> nutritionStream = routine.getNutritions().stream();
             Nutrition optimizedNutrition;
             switch (user.getGoal().getType()) {
-                case GAIN_WEIGHT.getType():
+                case GAIN_WEIGHT:
 
                     // TODO Implementar como ganar peso
                     optimizedNutrition = nutritionStream
@@ -53,7 +54,7 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
 
                     break;
 
-                case LOSS_WEIGHT.getType():
+                case LOSS_WEIGHT:
                     optimizedNutrition = nutritionStream
                             .min(Comparator.comparingDouble(i -> Math.abs(i.getCalories() - gatAbsolute)))
                             .orElseThrow(() -> new NoSuchElementException("No value present"));

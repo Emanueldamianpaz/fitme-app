@@ -1,10 +1,16 @@
 package ar.edu.davinci.infraestructure.security;
 
 import com.auth0.AuthenticationController;
+import com.auth0.IdentityVerificationException;
+import com.auth0.SessionUtils;
+import com.auth0.Tokens;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.Payload;
 import com.auth0.jwt.interfaces.RSAKeyProvider;
 import com.github.racc.tscg.TypesafeConfig;
 import ar.edu.davinci.exception.UnauthorizedRequestException;
@@ -61,29 +67,35 @@ public class SecurityFilter implements Filter {
     @Override
     public void handle(Request request, Response response) throws Exception {
 
-        if (request.requestMethod().equals(HttpMethod.OPTIONS.asString()))
+        if (request.requestMethod().equals(HttpMethod.OPTIONS.asString())) {
             return;
-
-
-        if (!enabled) {
-
-            UserSession userSession = userSessionFactory.createFakeUserSession(JWT.decode(fakeToken));
-            request.attribute("current-session", userSession);
-
-        } else {
-
-            if (!SecurityExclusions.isUnrestricted(request.pathInfo(), request.requestMethod())) {
-                getUserSession(request, response);
-                return;
-            } else {
-                log.debug("Matches unrestricted access.");
-            }
         }
+
+        UserSession userSession = null;
+// TODO Validar que el JWT no esté vencido
+        if (!enabled)
+            userSession = userSessionFactory.createUserSession(JWT.decode(fakeToken));
+        else if (Optional.ofNullable(request.cookie("Authorization")).isPresent()) {
+            try {
+                userSession = new UserSession(JWT.decode(request.cookie("Authorization")));
+                log.debug("User is authenticated. Session: " + userSession.getUser().getName());
+            } catch (JWTDecodeException e) {
+                log.error("Error with JWT", e);
+                getUserSession(request, response);
+            }
+        } else if (!SecurityExclusions.isUnrestricted(request.pathInfo(), request.requestMethod()))
+            getUserSession(request, response);
+        else
+            log.debug("Matches unrestricted access. JWT is not necessary.");
+
+        request.attribute("current-session", userSession);
 
     }
 
     public void getUserSession(Request request, Response response) {
-        String authorizationHeader = request.cookie("Authorization");
+
+        String cookieAuth = request.cookie("Authorization");
+        String authorizationHeader = Optional.ofNullable(cookieAuth).isPresent() ? cookieAuth : request.headers("Authorization");
 
         if (!Optional.ofNullable(authorizationHeader).isPresent()) {
             Pattern pattern = PathAuthorization.UI_PATTERN.getPattern();

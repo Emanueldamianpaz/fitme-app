@@ -19,6 +19,7 @@ import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 
 import static ar.edu.davinci.infraestructure.security.SecurityFilter.authClient;
 import static spark.Spark.*;
@@ -73,11 +74,11 @@ public class UserEntityRouter extends FitmeRouter {
         SessionUtils.set(request.raw(), "idToken", tokens.getIdToken());
 
         DecodedJWT jwt = JWT.decode(tokens.getIdToken());
-//        DecodedJWT jwtVerified = verifier.verify(tokens.getIdToken());
 
-
-        request.attribute("current-session", userSessionFactory.createUserSession(jwt));
-        response.cookie("Authorization", jwt.getToken());
+        // TODO Esto debería devolver un accessToken
+        response.header("Authorization", jwt.getToken());
+        response.raw().addCookie(new Cookie("Authorization", jwt.getToken()));
+        response.cookie("/fitme", "Authorization", jwt.getToken(), 3600, false, false);
         response.redirect("/fitme/ui/dashboard");
 
         return "";
