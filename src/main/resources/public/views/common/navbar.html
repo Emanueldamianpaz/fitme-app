@@ -1,5 +1,5 @@
-<header class="app-header navbar">
-    <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">
+<header class="app-header navbar" ng-controller="navbarController">
+    <button class=" navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" ui-sref="app.dashboard"></a>
@@ -30,7 +30,8 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false">
-                <img src="img/avatars/user.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                <img src="{{userJWT.picture}}" class="img-avatar" alt="{{userJWT.email}}">
+                {{userJWT.nickname}}
             </a>
             <div class="dropdown-menu dropdown-menu-right">
 
@@ -44,7 +45,7 @@
                 <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i>
                     {{ 'commons.settings' | translate }}
                 </a>
-                <a class="dropdown-item" href="#"><i class="fa fa-lock"></i>
+                <a class="dropdown-item" href="#" ng-click="logout()"><i class="fa fa-lock"></i>
                     {{ 'commons.logout' | translate }}
                 </a>
             </div>

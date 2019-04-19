@@ -1,20 +1,28 @@
 fitme.service('AuthService', AuthService);
 
-function AuthService() {
+function AuthService($cookies) {
+    var COOKIE_NAME = "fitme_session";
 
-    var roles = [
-        {
-            id: 0000000001,
-            role: 'admin',
-            permissions: [
-                {
-                    id: ''
-                }
-            ]
+    var readCookie = function () {
+        return $cookies.get(COOKIE_NAME);
+    };
+
+    var readJwt = function () {
+        var token = readCookie();
+        if (token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse(window.atob(base64));
         }
-    ];
-
-    this.getRoles = function () {
-        return roles;
     }
+
+    var removeCookie = function () {
+        $cookies.remove(COOKIE_NAME, {path: '/fitme'});
+    }
+
+    return {
+        token: readCookie,
+        jwt: readJwt,
+        invalidateSession: removeCookie
+    };
 }
