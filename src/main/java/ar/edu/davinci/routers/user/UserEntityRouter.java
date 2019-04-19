@@ -78,7 +78,7 @@ public class UserEntityRouter extends FitmeRouter {
         // TODO Esto debería devolver un accessToken
         response.header("Authorization", jwt.getToken());
         response.raw().addCookie(new Cookie("Authorization", jwt.getToken()));
-        response.cookie("/fitme", "Authorization", jwt.getToken(), 3600, false, false);
+        response.cookie("/fitme", "fitme_session", jwt.getToken(), 3600, false, false);
         response.redirect("/fitme/ui/dashboard");
 
         return "";

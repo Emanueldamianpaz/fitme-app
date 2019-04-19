@@ -75,9 +75,9 @@ public class SecurityFilter implements Filter {
 // TODO Validar que el JWT no esté vencido
         if (!enabled)
             userSession = userSessionFactory.createUserSession(JWT.decode(fakeToken));
-        else if (Optional.ofNullable(request.cookie("Authorization")).isPresent()) {
+        else if (Optional.ofNullable(request.cookie("fitme_session")).isPresent()) {
             try {
-                userSession = new UserSession(JWT.decode(request.cookie("Authorization")));
+                userSession = new UserSession(JWT.decode(request.cookie("fitme_session")));
                 log.debug("User is authenticated. Session: " + userSession.getUser().getName());
             } catch (JWTDecodeException e) {
                 log.error("Error with JWT", e);
@@ -94,7 +94,7 @@ public class SecurityFilter implements Filter {
 
     public void getUserSession(Request request, Response response) {
 
-        String cookieAuth = request.cookie("Authorization");
+        String cookieAuth = request.cookie("fitme_session");
         String authorizationHeader = Optional.ofNullable(cookieAuth).isPresent() ? cookieAuth : request.headers("Authorization");
 
         if (!Optional.ofNullable(authorizationHeader).isPresent()) {
