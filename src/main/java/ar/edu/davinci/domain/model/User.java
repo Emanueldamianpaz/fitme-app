@@ -12,15 +12,11 @@ import javax.persistence.*;
 @Data
 @Builder
 @Table(name = "user_entity", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class User extends FitmeDomain<Long> {
+public class User extends FitmeDomain<String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
-
-    @Column(name = "idUserFit")
-    private String idUserFit;
+    private String id;
 
     @OneToOne
     @MapsId
@@ -50,7 +46,8 @@ public class User extends FitmeDomain<Long> {
     private UserRoutine userRoutine;
 
     public User(FitmeUser user) {
-        this.idUserFit = user.getId();
+        this.id = user.getId();
+        this.userInfo = new UserInfo(user.getId());
         this.name = user.getName();
         this.email = user.getEmail();
         this.nickname = user.getNickname();

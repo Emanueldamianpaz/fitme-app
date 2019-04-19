@@ -77,7 +77,9 @@ public class SecurityFilter implements Filter {
             userSession = userSessionFactory.createUserSession(JWT.decode(fakeToken));
         else if (Optional.ofNullable(request.cookie("fitme_session")).isPresent()) {
             try {
-                userSession = new UserSession(JWT.decode(request.cookie("fitme_session")));
+                DecodedJWT jwtUser = JWT.decode(request.cookie("fitme_session"));
+                userSession = new UserSession(jwtUser);
+                userSessionFactory.createUserSession(jwtUser);
                 log.debug("User is authenticated. Session: " + userSession.getUser().getName());
             } catch (JWTDecodeException e) {
                 log.error("Error with JWT", e);

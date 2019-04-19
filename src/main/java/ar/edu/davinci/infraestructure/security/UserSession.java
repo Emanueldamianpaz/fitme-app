@@ -25,9 +25,9 @@ public class UserSession {
         this.user = FitmeUser.builder()
                 .id(payload.getSubject())
                 .name(payload.getClaim("given_name").asString())
-                .last_name(payload.getClaim("family_name").toString())
-                .picture(payload.getClaim("picture").toString())
-                .gender(payload.getClaim("gender").toString())
+                .last_name(payload.getClaim("family_name").asString())
+                .picture(payload.getClaim("picture").asString())
+                .gender(payload.getClaim("gender").asString())
                 .nickname(payload.getClaim("nickname").asString())
                 .email(payload.getClaim("email").asString())
                 .build();

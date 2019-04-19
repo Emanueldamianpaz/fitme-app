@@ -12,10 +12,10 @@ import javax.persistence.*;
 @Data
 @Builder
 @Table(name = "user_info")
-public class UserInfo extends FitmeDomain<Long> {
+public class UserInfo extends FitmeDomain<String> {
 
     @Id
-    private Long id;
+    private String id;
 
     @Column(name = "weight")
     private Double weight;
@@ -37,6 +37,10 @@ public class UserInfo extends FitmeDomain<Long> {
     @JoinColumn(name = "id_user_fit", referencedColumnName = "id")
     private UserFit userFit;
 
+    public UserInfo(String id) {
+        this.id = id;
+    }
+
     public UserInfo(UserInfoRequestDTO userInfoRequest) {
         this.weight = userInfoRequest.getWeight();
         this.height = userInfoRequest.getHeight();
@@ -44,7 +48,7 @@ public class UserInfo extends FitmeDomain<Long> {
         this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
     }
 
-    public UserInfo(Long id, UserInfoRequestDTO userInfoRequest) {
+    public UserInfo(String id, UserInfoRequestDTO userInfoRequest) {
         this.id = id;
         this.weight = userInfoRequest.getWeight();
         this.height = userInfoRequest.getHeight();
