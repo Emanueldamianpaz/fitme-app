@@ -5,7 +5,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class UserFitExerciseDTO {
+public class ExerciseSessionExerciseDTO {
 
     private String latitude;
     private String longitude;

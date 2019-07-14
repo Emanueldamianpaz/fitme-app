@@ -5,6 +5,7 @@ import ar.edu.davinci.dto.fitme.user.UserInfoRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -33,9 +34,9 @@ public class UserInfo extends FitmeDomain<String> {
     @JoinColumn(name = "id_goal", referencedColumnName = "id")
     private Goal goal;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "id_user_fit", referencedColumnName = "id")
-    private UserFit userFit;
+    private Set<ExerciseSession> exerciseSession;
 
     public UserInfo(String id) {
         this.id = id;
@@ -56,12 +57,7 @@ public class UserInfo extends FitmeDomain<String> {
         this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
     }
 
-    public UserInfo(UserInfoRequestDTO userInfoRequest, UserFit userFit) {
-        this.weight = userInfoRequest.getWeight();
-        this.height = userInfoRequest.getHeight();
-        this.currentFat = Double.parseDouble(userInfoRequest.getCurrentFat());
-        this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
-        this.userFit = userFit;
-
+    public void addExerciseSession(ExerciseSession exerciseSession) {
+        this.exerciseSession.add(exerciseSession);
     }
 }

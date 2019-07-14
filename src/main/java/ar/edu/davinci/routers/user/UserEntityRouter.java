@@ -1,7 +1,6 @@
 package ar.edu.davinci.routers.user;
 
 import ar.edu.davinci.domain.model.User;
-import ar.edu.davinci.infraestructure.security.UserSessionFactory;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.UserEntityService;
@@ -29,18 +28,15 @@ public class UserEntityRouter extends FitmeRouter {
 
     private JsonTransformer jsonTransformer;
     private UserEntityService userEntityService;
-    private UserSessionFactory userSessionFactory;
 
     @Inject
     public UserEntityRouter(Gson objectMapper,
                             UserEntityService userEntityService,
                             SessionFactory sessionFactory,
-                            JsonTransformer jsonTransformer,
-                            UserSessionFactory userSessionFactory) {
+                            JsonTransformer jsonTransformer) {
         super(objectMapper, sessionFactory);
         this.userEntityService = userEntityService;
         this.jsonTransformer = jsonTransformer;
-        this.userSessionFactory = userSessionFactory;
     }
 
     @Override
@@ -51,19 +47,22 @@ public class UserEntityRouter extends FitmeRouter {
     @Override
     public RouteGroup routes() {
         return () -> {
-            get("", getUsers, jsonTransformer);
-            post("", createUser, jsonTransformer);
-            patch("/:id", updateUserSession, jsonTransformer);
+            get("", getListUsers, jsonTransformer);
             get("/callback", createSession, jsonTransformer);
+
+            get("/:id/info", getUser, jsonTransformer);
 
         };
     }
 
 
-    private final Route getUsers = doInTransaction(false, (Request request, Response response) ->
+    private final Route getListUsers = doInTransaction(false, (Request request, Response response) ->
             userEntityService.findAll()
     );
 
+    private final Route getUser = doInTransaction(true, (Request request, Response response) ->
+            userEntityService.get(Long.parseLong(request.params("id")))
+    );
 
     private final Route createSession = (Request request, Response response) ->
     {
@@ -74,6 +73,20 @@ public class UserEntityRouter extends FitmeRouter {
         SessionUtils.set(request.raw(), "idToken", tokens.getIdToken());
 
         DecodedJWT jwt = JWT.decode(tokens.getIdToken());
+
+        FitmeUser user = FitmeUser.builder()
+                .id(jwt.getSubject())
+                .name(jwt.getClaim("given_name").asString())
+                .last_name(jwt.getClaim("family_name").asString())
+                .picture(jwt.getClaim("picture").asString())
+                .gender(jwt.getClaim("gender").asString())
+                .nickname(jwt.getClaim("nickname").asString())
+                .email(jwt.getClaim("email").asString())
+                .build();
+
+        if (userEntityService.get(Long.parseLong(request.params("id"))) == null) {
+            userEntityService.create(new User(user));
+        }
 
         // TODO Esto debería devolver un accessToken
         response.header("Authorization", jwt.getToken());
