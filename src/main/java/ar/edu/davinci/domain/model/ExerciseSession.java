@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
+@AllArgsConstructor
 @Builder
 @Table(name = "exercise_session")
 public class ExerciseSession extends FitmeDomain<Long> {
