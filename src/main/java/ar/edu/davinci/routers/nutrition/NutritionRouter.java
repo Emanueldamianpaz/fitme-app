@@ -60,7 +60,7 @@ public class NutritionRouter extends FitmeRouter {
     );
 
     private final Route getNutrition = doInTransaction(false, (Request request, Response response) ->
-            nutritionService.get(Long.parseLong(request.params("id")))
+            nutritionService.get(request.params("id"))
     );
 
     private final Route createNutrition = doInTransaction(true, (Request request, Response response) ->

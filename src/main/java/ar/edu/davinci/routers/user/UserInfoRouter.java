@@ -59,7 +59,7 @@ public class UserInfoRouter extends FitmeRouter {
     );
 
     private final Route getMyInfo = doInTransaction(false, (Request request, Response response) ->
-            userInfoService.get(Long.parseLong(request.params("id")))
+            userInfoService.get(request.params("id"))
     );
 
     private final Route updateMyUserInfo = doInTransaction(true, (Request request, Response response) ->

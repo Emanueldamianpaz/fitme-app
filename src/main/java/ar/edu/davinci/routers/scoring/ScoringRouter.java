@@ -59,7 +59,7 @@ public class ScoringRouter extends FitmeRouter {
     );
 
     private final Route getScoring = doInTransaction(false, (Request request, Response response) ->
-            scoringService.get(Long.parseLong(request.params("id")))
+            scoringService.get(request.params("id"))
     );
 
     private final Route createScoring = doInTransaction(true, (Request request, Response response) ->

@@ -65,7 +65,7 @@ public class RoutineRouter extends FitmeRouter {
     );
 
     private final Route getRoutine = doInTransaction(false, (Request request, Response response) ->
-            routineService.get(Long.parseLong(request.params("id")))
+            routineService.get(request.params("id"))
     );
 
     private final Route createRoutine = doInTransaction(true, (Request request, Response response) ->

@@ -9,6 +9,6 @@ import java.util.List;
 @Data
 public class RoutineTemplateRequestDTO {
 
-    private List<Long> nutritions;
-    private List<Long> exercises;
+    private List<String> nutritions;
+    private List<String> exercises;
 }

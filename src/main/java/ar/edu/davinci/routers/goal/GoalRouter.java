@@ -58,7 +58,7 @@ public class GoalRouter extends FitmeRouter {
     );
 
     private final Route getGoal = doInTransaction(false, (Request request, Response response) ->
-            goalService.get(Long.parseLong(request.params("id")))
+            goalService.get(request.params("id"))
     );
 
     private final Route createGoal = doInTransaction(true, (Request request, Response response) ->

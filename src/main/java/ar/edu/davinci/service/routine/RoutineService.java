@@ -20,7 +20,7 @@ public class RoutineService extends FitmeService<Routine, Routine> {
     }
 
     @Override
-    public Routine get(Long id) {
+    public Routine get(String id) {
         return super.get(id);
     }
 }

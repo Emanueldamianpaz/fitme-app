@@ -21,7 +21,7 @@ public abstract class FitmeService<ENTITY extends FitmeDomain, PARENT_ENTITY ext
         this.sessionFactory = sessionFactory;
     }
 
-    public ENTITY get(Long id) {
+    public ENTITY get(String id) {
         ENTITY result = currentSession().get(clazz, id);
 
         return Optional

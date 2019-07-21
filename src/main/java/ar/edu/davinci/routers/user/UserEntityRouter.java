@@ -5,6 +5,7 @@ import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.UserEntityService;
 import ar.edu.davinci.utils.JsonTransformer;
+import com.auth0.IdentityVerificationException;
 import com.auth0.SessionUtils;
 import com.auth0.Tokens;
 import com.auth0.jwt.JWT;
@@ -61,14 +62,20 @@ public class UserEntityRouter extends FitmeRouter {
     );
 
     private final Route getUser = doInTransaction(true, (Request request, Response response) ->
-            userEntityService.get(Long.parseLong(request.params("id")))
+            userEntityService.get(request.params("id"))
     );
 
-    private final Route createSession = (Request request, Response response) ->
+    private final Route createSession = doInTransaction(true, (Request request, Response response) ->
     {
         log.info("Initializing Modules...");
 
-        Tokens tokens = authClient.handle(request.raw());
+        Tokens tokens = null;
+        try {
+            tokens = authClient.handle(request.raw());
+        } catch (IdentityVerificationException e) {
+            log.error("Error handling auth", e);
+        }
+
         SessionUtils.set(request.raw(), "accessToken", tokens.getAccessToken());
         SessionUtils.set(request.raw(), "idToken", tokens.getIdToken());
 
@@ -84,7 +91,9 @@ public class UserEntityRouter extends FitmeRouter {
                 .email(jwt.getClaim("email").asString())
                 .build();
 
-        if (userEntityService.get(Long.parseLong(request.params("id"))) == null) {
+
+        // Todo falla el search
+        if (userEntityService.get(user.getId()) == null) {
             userEntityService.create(new User(user));
         }
 
@@ -95,7 +104,7 @@ public class UserEntityRouter extends FitmeRouter {
         response.redirect("/fitme/ui/dashboard");
 
         return "";
-    };
+    });
 
 
     private final Route createUser = doInTransaction(false, (Request request, Response response) ->

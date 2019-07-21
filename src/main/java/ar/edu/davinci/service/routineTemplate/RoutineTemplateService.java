@@ -31,7 +31,7 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
     }
 
     @Override
-    public RoutineTemplate get(Long id) {
+    public RoutineTemplate get(String id) {
         return super.get(id);
     }
 

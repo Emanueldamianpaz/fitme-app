@@ -73,7 +73,7 @@ public class RoutineTemplateRouter extends FitmeRouter {
     );
 
     private final Route getRoutineTemplate = doInTransaction(false, (Request request, Response response) ->
-            routineTemplateService.get(Long.parseLong(request.params("id")))
+            routineTemplateService.get(request.params("id"))
     );
 
     private final Route createRoutineTemplate = doInTransaction(true, (Request request, Response response) ->
@@ -83,11 +83,11 @@ public class RoutineTemplateRouter extends FitmeRouter {
                 Set<Nutrition> nutritions = new HashSet<>();
                 Set<Exercise> exercises = new HashSet<>();
 
-                for (Long id : routineTemplateRequest.getNutritions()) {
+                for (String id : routineTemplateRequest.getNutritions()) {
                     nutritions.add(nutritionService.get(id));
                 }
 
-                for (Long id : routineTemplateRequest.getExercises()) {
+                for (String id : routineTemplateRequest.getExercises()) {
                     exercises.add(exerciseService.get(id));
                 }
 
@@ -105,11 +105,11 @@ public class RoutineTemplateRouter extends FitmeRouter {
                 Set<Nutrition> nutritions = new HashSet<>();
                 Set<Exercise> exercises = new HashSet<>();
 
-                for (Long id : routineTemplateRequest.getNutritions()) {
+                for (String id : routineTemplateRequest.getNutritions()) {
                     nutritions.add(nutritionService.get(id));
                 }
 
-                for (Long id : routineTemplateRequest.getExercises()) {
+                for (String id : routineTemplateRequest.getExercises()) {
                     exercises.add(exerciseService.get(id));
                 }
                 return routineTemplateService.update(new RoutineTemplate(Long.parseLong(request.params("id")), exercises, nutritions));

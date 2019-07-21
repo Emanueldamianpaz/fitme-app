@@ -9,5 +9,5 @@ public class RoutineRequestDTO {
 
     private String name;
     private String description;
-    private Long routineTemplate;
+    private String routineTemplate;
 }

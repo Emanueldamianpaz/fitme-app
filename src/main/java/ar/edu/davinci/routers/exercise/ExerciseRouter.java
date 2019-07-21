@@ -56,7 +56,7 @@ public class ExerciseRouter extends FitmeRouter {
     );
 
     private final Route getExercise = doInTransaction(false, (Request request, Response response) ->
-            exerciseService.get(Long.parseLong(request.params("id")))
+            exerciseService.get(request.params("id"))
     );
 
     private final Route createExercise = doInTransaction(true, (Request request, Response response) ->

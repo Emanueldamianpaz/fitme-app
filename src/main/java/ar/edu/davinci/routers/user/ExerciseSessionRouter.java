@@ -57,14 +57,14 @@ public class ExerciseSessionRouter extends FitmeRouter {
 
 
     private final Route getExerciseSessions = doInTransaction(false, (Request request, Response response) ->
-            userInfoService.get(Long.parseLong(request.params("id"))).getExerciseSession()
+            userInfoService.get(request.params("id")).getExerciseSession()
     );
 
     private final Route addExerciseSession = doInTransaction(false, (Request request, Response response) ->
             {
                 // TODO Hacer un try catch en caso de que falle
 
-                Long id = Long.parseLong(request.params("id"));
+                String id = request.params("id");
                 UserInfo userInfo = userInfoService.get(id);
 
                 ExerciseSessionExerciseDTO session = (ExerciseSessionExerciseDTO) jsonTransformer.asJson(request.body(), ExerciseSessionExerciseDTO.class);
@@ -82,7 +82,7 @@ public class ExerciseSessionRouter extends FitmeRouter {
             {
                 // TODO Hacer un try catch en caso de que falle
 
-                Long id = Long.parseLong(request.params("id"));
+                String id = request.params("id");
                 UserInfo userInfo = userInfoService.get(id);
 
                 ExerciseSessionNutritionDTO session = (ExerciseSessionNutritionDTO) jsonTransformer.asJson(request.body(), ExerciseSessionNutritionDTO.class);
