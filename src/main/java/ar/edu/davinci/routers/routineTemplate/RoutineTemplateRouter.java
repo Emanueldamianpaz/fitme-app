@@ -84,7 +84,7 @@ public class RoutineTemplateRouter extends FitmeRouter {
                 Set<Exercise> exercises = new HashSet<>();
 
                 for (String id : routineTemplateRequest.getNutritions()) {
-                    nutritions.add(nutritionService.get(id));
+                    nutritions.add(nutritionService.get(id)); // TODO No le gusta, falla
                 }
 
                 for (String id : routineTemplateRequest.getExercises()) {

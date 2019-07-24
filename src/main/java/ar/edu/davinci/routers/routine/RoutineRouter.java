@@ -88,7 +88,7 @@ public class RoutineRouter extends FitmeRouter {
 
     private final Route deleteRoutine = doInTransaction(true, (Request request, Response response) ->
             {
-                routineService.delete(Long.parseLong(request.params("id")));
+                routineService.delete(request.params("id"));
                 return new ResponseDTO(EnumResponse.DeleteOk.name(), "Rutina eliminada");
             }
     );

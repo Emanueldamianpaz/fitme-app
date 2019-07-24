@@ -63,6 +63,13 @@ public abstract class FitmeService<ENTITY extends FitmeDomain, PARENT_ENTITY ext
         currentSession().delete(object);
     }
 
+    public void delete(String id) {
+        ENTITY object = Optional
+                .ofNullable(currentSession().get(clazz, id))
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("%s with id %d%n", clazz.getSimpleName(), id)));
+
+        currentSession().delete(object);
+    }
 
     public List<ENTITY> findAll() {
         CriteriaBuilder builder = currentSession().getCriteriaBuilder();

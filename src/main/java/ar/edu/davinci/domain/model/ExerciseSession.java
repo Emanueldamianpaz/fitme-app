@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class ExerciseSession extends FitmeDomain<Long> {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nutrition_info_raw")

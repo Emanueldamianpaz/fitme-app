@@ -12,12 +12,11 @@ import java.util.List;
 @Data
 @Builder
 @Table(name = "user_routine")
-public class UserRoutine extends FitmeDomain<Long> {
+public class UserRoutine extends FitmeDomain<String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private String id;
 
     @OneToOne
     @MapsId
@@ -31,6 +30,7 @@ public class UserRoutine extends FitmeDomain<Long> {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_routine")
     private Routine routine;
+
 
 
 }

@@ -1,6 +1,7 @@
 package ar.edu.davinci.routers.user;
 
 import ar.edu.davinci.domain.model.User;
+import ar.edu.davinci.infraestructure.security.UserSessionFactory;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.UserEntityService;
@@ -29,14 +30,17 @@ public class UserEntityRouter extends FitmeRouter {
 
     private JsonTransformer jsonTransformer;
     private UserEntityService userEntityService;
+    private UserSessionFactory userSessionFactory;
 
     @Inject
     public UserEntityRouter(Gson objectMapper,
                             UserEntityService userEntityService,
                             SessionFactory sessionFactory,
+                            UserSessionFactory userSessionFactory,
                             JsonTransformer jsonTransformer) {
         super(objectMapper, sessionFactory);
         this.userEntityService = userEntityService;
+        this.userSessionFactory = userSessionFactory;
         this.jsonTransformer = jsonTransformer;
     }
 
@@ -67,8 +71,6 @@ public class UserEntityRouter extends FitmeRouter {
 
     private final Route createSession = doInTransaction(true, (Request request, Response response) ->
     {
-        log.info("Initializing Modules...");
-
         Tokens tokens = null;
         try {
             tokens = authClient.handle(request.raw());
@@ -81,21 +83,7 @@ public class UserEntityRouter extends FitmeRouter {
 
         DecodedJWT jwt = JWT.decode(tokens.getIdToken());
 
-        FitmeUser user = FitmeUser.builder()
-                .id(jwt.getSubject())
-                .name(jwt.getClaim("given_name").asString())
-                .last_name(jwt.getClaim("family_name").asString())
-                .picture(jwt.getClaim("picture").asString())
-                .gender(jwt.getClaim("gender").asString())
-                .nickname(jwt.getClaim("nickname").asString())
-                .email(jwt.getClaim("email").asString())
-                .build();
-
-
-        // Todo falla el search
-        if (userEntityService.get(user.getId()) == null) {
-            userEntityService.create(new User(user));
-        }
+        userSessionFactory.createUserSession(jwt);
 
         // TODO Esto debería devolver un accessToken
         response.header("Authorization", jwt.getToken());
@@ -105,20 +93,5 @@ public class UserEntityRouter extends FitmeRouter {
 
         return "";
     });
-
-
-    private final Route createUser = doInTransaction(false, (Request request, Response response) ->
-            {
-                FitmeUser user = (FitmeUser) jsonTransformer.asJson(request.body(), FitmeUser.class);
-                return userEntityService.create(new User(user));
-            }
-    );
-
-    private final Route updateUserSession = doInTransaction(true, (Request request, Response response) ->
-            {
-                FitmeUser user = (FitmeUser) jsonTransformer.asJson(request.body(), FitmeUser.class);
-                return userEntityService.update(new User(user));
-            }
-    );
 
 }

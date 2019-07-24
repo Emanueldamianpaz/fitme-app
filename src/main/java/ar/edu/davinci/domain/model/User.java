@@ -45,9 +45,9 @@ public class User extends FitmeDomain<String> {
     @JoinColumn(name = "id")
     private UserRoutine userRoutine;
 
-    public User(FitmeUser user) {
+    public User(FitmeUser user, UserInfo userInfo) {
         this.id = user.getId();
-        this.userInfo = new UserInfo(user.getId());
+        this.userInfo = userInfo;
         this.name = user.getName();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
