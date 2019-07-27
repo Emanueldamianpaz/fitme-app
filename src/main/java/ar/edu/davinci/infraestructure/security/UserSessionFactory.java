@@ -3,6 +3,7 @@ package ar.edu.davinci.infraestructure.security;
 import ar.edu.davinci.domain.model.Goal;
 import ar.edu.davinci.domain.model.User;
 import ar.edu.davinci.domain.model.UserInfo;
+import ar.edu.davinci.infraestructure.security.util.FitmeRoles;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.common.cache.LoadingCache;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
@@ -14,6 +15,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
+
+import static ar.edu.davinci.infraestructure.security.util.FitmeRoles.READONLY;
 
 @Singleton
 public class UserSessionFactory {
@@ -37,7 +40,7 @@ public class UserSessionFactory {
                     () -> {
 
                         UserSession userSession = new UserSession(jwt);
-                        persistUser(userSession.getUser());
+                        persistUser(userSession);
 
                         return userSession;
                     });
@@ -46,7 +49,10 @@ public class UserSessionFactory {
         }
     }
 
-    private FitmeUser persistUser(FitmeUser user) {
+    private FitmeUser persistUser(UserSession userSession) {
+
+        FitmeUser user = userSession.getUser();
+
         try (Session session = sessionFactory.openSession()) {
 
             Transaction transaction = session.beginTransaction();
@@ -58,7 +64,9 @@ public class UserSessionFactory {
                 session.save(new UserInfo(user.getId()));
             }
 
-            User u = new User(user, session.get(UserInfo.class, user.getId()));
+
+            FitmeRoles role = userSession.getUncheckedRole().orElse(READONLY); // In case that auth0 defaultRole failure
+            User u = new User(user, session.get(UserInfo.class, user.getId()), role);
 
             if (Optional.ofNullable(session.find(User.class, user.getId())).isPresent()) {
                 session.update(u);

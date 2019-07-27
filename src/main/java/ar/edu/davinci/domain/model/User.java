@@ -1,6 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.infraestructure.security.util.FitmeRoles;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import lombok.*;
 
@@ -41,14 +42,21 @@ public class User extends FitmeDomain<String> {
     @Column(name = "gender")
     private String gender;
 
+    @Column(name = "role")
+    private String role;
+
     @OneToOne
     @JoinColumn(name = "id")
     private UserRoutine userRoutine;
 
-    public User(FitmeUser user, UserInfo userInfo) {
+    public User(FitmeUser user, UserInfo userInfo, FitmeRoles role) {
         this.id = user.getId();
         this.userInfo = userInfo;
         this.name = user.getName();
+        this.lastName = user.getLast_name();
+        this.gender = user.getGender();
+        this.picture = user.getPicture();
+        this.role = role.name();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
 
