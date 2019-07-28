@@ -1,11 +1,14 @@
 package ar.edu.davinci.routers.scoring;
 
 import ar.edu.davinci.domain.model.Scoring;
+import ar.edu.davinci.domain.model.User;
 import ar.edu.davinci.dto.ResponseDTO;
 import ar.edu.davinci.dto.fitme.scoring.ScoringRequestDTO;
+import ar.edu.davinci.dto.fitme.scoring.TipRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.scoring.ScoringService;
+import ar.edu.davinci.service.user.UserEntityService;
 import ar.edu.davinci.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
@@ -24,16 +27,19 @@ public class ScoringRouter extends FitmeRouter {
     private String apiPath;
     private JsonTransformer jsonTransformer;
     private ScoringService scoringService;
+    private UserEntityService userEntityService;
 
     @Inject
     public ScoringRouter(Gson objectMapper,
                          ScoringService scoringService,
                          SessionFactory sessionFactory,
+                         UserEntityService userEntityService,
                          JsonTransformer jsonTransformer,
                          @TypesafeConfig("app.api") String apiPath) {
         super(objectMapper, sessionFactory);
         this.apiPath = apiPath;
         this.scoringService = scoringService;
+        this.userEntityService = userEntityService;
         this.jsonTransformer = jsonTransformer;
     }
 
@@ -48,7 +54,7 @@ public class ScoringRouter extends FitmeRouter {
             get("", getScorings, jsonTransformer);
             get("/:id", getScoring, jsonTransformer);
             post("", createScoring, jsonTransformer);
-            patch("/:id", updateScoring, jsonTransformer);
+            patch("/:user_id", updateScoring, jsonTransformer);
             delete("/:id", deleteExercise, jsonTransformer);
         };
     }
@@ -71,8 +77,14 @@ public class ScoringRouter extends FitmeRouter {
 
     private final Route updateScoring = doInTransaction(true, (Request request, Response response) ->
             {
-                ScoringRequestDTO scoringRequest = (ScoringRequestDTO) jsonTransformer.asJson(request.body(), ScoringRequestDTO.class);
-                return scoringService.update(new Scoring(Long.parseLong(request.params("id")), scoringRequest));
+                String userId = request.params("user_id");
+                TipRequestDTO tip = (TipRequestDTO) jsonTransformer.asJson(request.body(), TipRequestDTO.class);
+
+                User user = userEntityService.get(userId);
+                Scoring scoring = user.getUserRoutine().getScoring();
+                scoring.setTip(tip.getTip());
+
+                return scoringService.update(scoring);
             }
     );
 

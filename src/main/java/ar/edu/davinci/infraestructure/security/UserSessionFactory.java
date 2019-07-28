@@ -57,7 +57,7 @@ public class UserSessionFactory {
 
             Transaction transaction = session.beginTransaction();
 
-
+            // TODO Revisar el tema del upsert.
             if (Optional.ofNullable(session.find(UserInfo.class, user.getId())).isPresent()) {
                 session.update(new UserInfo(user.getId()));
             } else {

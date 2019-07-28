@@ -31,6 +31,12 @@ public class UserRoutine extends FitmeDomain<String> {
     @JoinColumn(name = "id_routine")
     private Routine routine;
 
+    public UserRoutine(User user, Scoring scoring, Routine routine) {
+        this.id = user.getId();
+        this.user = user;
+        this.scoring = scoring;
+        this.routine = routine;
+    }
 
 
 }

@@ -1,8 +1,6 @@
 package ar.edu.davinci.routers.user;
 
-import ar.edu.davinci.domain.model.User;
 import ar.edu.davinci.infraestructure.security.UserSessionFactory;
-import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.UserEntityService;
 import ar.edu.davinci.utils.JsonTransformer;
@@ -53,10 +51,10 @@ public class UserEntityRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getListUsers, jsonTransformer);
-            get("/callback", createSession, jsonTransformer);
+            get("/session", createSession, jsonTransformer);
+            get("/callback", callbackSession, jsonTransformer);
 
             get("/:id/info", getUser, jsonTransformer);
-
         };
     }
 
@@ -69,7 +67,7 @@ public class UserEntityRouter extends FitmeRouter {
             userEntityService.get(request.params("id"))
     );
 
-    private final Route createSession = doInTransaction(true, (Request request, Response response) ->
+    private final Route callbackSession = doInTransaction(true, (Request request, Response response) ->
     {
         Tokens tokens = null;
         try {
@@ -93,5 +91,16 @@ public class UserEntityRouter extends FitmeRouter {
 
         return "";
     });
+
+    private final Route createSession = doInTransaction(true, (Request request, Response response) ->
+    {
+
+        DecodedJWT jwt = JWT.decode(request.body());
+
+        userSessionFactory.createUserSession(jwt);
+
+        return "";
+    });
+
 
 }

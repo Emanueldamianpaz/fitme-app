@@ -30,6 +30,11 @@ public class Scoring extends FitmeDomain<Long> {
         this.tip = scoring.getTip();
     }
 
+    public Scoring(String scoring, String tip) {
+        this.scoring = scoring;
+        this.tip = tip;
+            }
+
     public Scoring(Long id, ScoringRequestDTO scoring) {
         this.id = id;
         this.scoring = scoring.getScoring();

@@ -1,10 +1,12 @@
 package ar.edu.davinci.routers.routine;
 
-import ar.edu.davinci.domain.model.Routine;
-import ar.edu.davinci.domain.model.RoutineTemplate;
+import ar.edu.davinci.domain.model.*;
+import ar.edu.davinci.domain.types.ScoringType;
 import ar.edu.davinci.dto.fitme.routine.RoutineRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import ar.edu.davinci.service.routineTemplate.RoutineTemplateService;
+import ar.edu.davinci.service.scoring.ScoringService;
+import ar.edu.davinci.service.user.UserEntityService;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import ar.edu.davinci.dto.ResponseDTO;
@@ -28,18 +30,25 @@ public class RoutineRouter extends FitmeRouter {
     private JsonTransformer jsonTransformer;
     private RoutineService routineService;
     private RoutineTemplateService routineTemplateService;
+    private UserEntityService userEntityService;
+    private ScoringService scoringService;
+
 
     @Inject
     public RoutineRouter(Gson objectMapper,
                          RoutineService routineService,
                          SessionFactory sessionFactory,
                          JsonTransformer jsonTransformer,
+                         ScoringService scoringService,
+                         UserEntityService userEntityService,
                          RoutineTemplateService routineTemplateService,
                          @TypesafeConfig("app.api") String apiPath) {
         super(objectMapper, sessionFactory);
         this.apiPath = apiPath;
         this.routineService = routineService;
         this.jsonTransformer = jsonTransformer;
+        this.scoringService = scoringService;
+        this.userEntityService = userEntityService;
         this.routineTemplateService = routineTemplateService;
     }
 
@@ -53,7 +62,12 @@ public class RoutineRouter extends FitmeRouter {
         return () -> {
             get("", getRoutines, jsonTransformer);
             get("/:id", getRoutine, jsonTransformer);
+            get("/:id/info", getInfoRoutine, jsonTransformer);
+
             post("", createRoutine, jsonTransformer);
+
+            post("/:id/assign/:user_id", assignRoutine, jsonTransformer);
+
             patch("/:id", updateRoutine, jsonTransformer);
             delete("/:id", deleteRoutine, jsonTransformer);
         };
@@ -67,6 +81,31 @@ public class RoutineRouter extends FitmeRouter {
     private final Route getRoutine = doInTransaction(false, (Request request, Response response) ->
             routineService.get(request.params("id"))
     );
+
+    private final Route getInfoRoutine = doInTransaction(false, (Request request, Response response) -> {
+                Routine routine = routineService.get(request.params("id"));
+
+                return routine.getRoutineTemplate();
+
+            }
+    );
+    private final Route assignRoutine = doInTransaction(true, (Request request, Response response) ->
+            {
+                String routineId = request.params("id");
+                String userId = request.params("user_id");
+
+                User user = userEntityService.get(userId);
+                Routine routine = routineService.get(routineId);
+                Scoring scoring = scoringService.create(new Scoring(ScoringType.UNKNOWN.name(), ""));
+                UserRoutine userR = new UserRoutine(user, scoring, routine);
+
+                user.setUserRoutine(userR);
+
+                return userEntityService.update(user);
+
+            }
+    );
+
 
     private final Route createRoutine = doInTransaction(true, (Request request, Response response) ->
             {
