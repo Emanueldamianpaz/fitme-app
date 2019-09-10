@@ -5,6 +5,7 @@ import ar.edu.davinci.domain.model.Nutrition;
 import ar.edu.davinci.domain.model.RoutineTemplate;
 import ar.edu.davinci.domain.model.UserInfo;
 import ar.edu.davinci.domain.types.GoalType;
+import ar.edu.davinci.exception.FitmeException;
 import ar.edu.davinci.service.FitmeService;
 import org.hibernate.SessionFactory;
 
@@ -49,7 +50,7 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
                     // TODO Implementar como ganar peso
                     optimizedNutrition = nutritionStream
                             .min(Comparator.comparingDouble(i -> Math.abs(i.getCalories() - gatAbsolute)))
-                            .orElseThrow(() -> new NoSuchElementException("No value present"));
+                            .orElseThrow(() -> new FitmeException("No value present"));
 
 
                     break;
@@ -57,7 +58,7 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
                 case LOSS_WEIGHT:
                     optimizedNutrition = nutritionStream
                             .min(Comparator.comparingDouble(i -> Math.abs(i.getCalories() - gatAbsolute)))
-                            .orElseThrow(() -> new NoSuchElementException("No value present"));
+                            .orElseThrow(() -> new FitmeException("No value present"));
 
 
                     //.map(nutrition -> nutrition.ge)

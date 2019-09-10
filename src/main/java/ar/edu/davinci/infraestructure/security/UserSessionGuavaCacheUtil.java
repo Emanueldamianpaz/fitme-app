@@ -1,5 +1,6 @@
 package ar.edu.davinci.infraestructure.security;
 
+import ar.edu.davinci.exception.FitmeException;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -17,7 +18,7 @@ public class UserSessionGuavaCacheUtil {
                 .build(
                         new CacheLoader<String, UserSession>() {
                             @Override
-                            public UserSession load(String id) throws Exception {
+                            public UserSession load(String id) throws FitmeException {
                                 return getUserSessionById(id);
                             }
                         }

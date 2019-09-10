@@ -7,6 +7,7 @@ import ar.edu.davinci.infraestructure.security.util.FitmeRoles;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.common.cache.LoadingCache;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 import static ar.edu.davinci.infraestructure.security.util.FitmeRoles.READONLY;
 
+@Slf4j
 @Singleton
 public class UserSessionFactory {
 
@@ -34,7 +36,7 @@ public class UserSessionFactory {
     }
 
     public UserSession createUserSession(DecodedJWT jwt) {
-
+        // TODO Revisar donde handlea esta excepción
         try {
             return usersCache.get(jwt.getSubject(),
                     () -> {
@@ -45,6 +47,8 @@ public class UserSessionFactory {
                         return userSession;
                     });
         } catch (ExecutionException e) {
+            log.error("Fail to retrieve a user session " + jwt.getId(), e);
+
             throw new RuntimeException("Fail to retrieve a user session " + jwt.getId());
         }
     }
@@ -77,7 +81,7 @@ public class UserSessionFactory {
             transaction.commit();
 
         } catch (Exception e) {
-            throw new RuntimeException("Fail to persist a user " + user.getId());
+            log.error("Fail to persist a user " + user.getId(), e);
         }
 
         return user;
