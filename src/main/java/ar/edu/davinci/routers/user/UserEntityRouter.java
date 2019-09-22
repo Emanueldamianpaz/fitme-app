@@ -50,7 +50,7 @@ public class UserEntityRouter extends FitmeRouter {
     @Override
     public RouteGroup routes() {
         return () -> {
-            get("", getListUsers, jsonTransformer);
+            get("", getListUsers, jsonTransformer); //
             get("/session", createSession, jsonTransformer);
             get("/callback", callbackSession, jsonTransformer);
 

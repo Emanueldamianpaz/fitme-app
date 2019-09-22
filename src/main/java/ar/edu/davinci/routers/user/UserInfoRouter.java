@@ -47,7 +47,6 @@ public class UserInfoRouter extends FitmeRouter {
         return () -> {
             get("", getListUserInfo, jsonTransformer);
 
-            get("/:id/info", getMyInfo, jsonTransformer);
             patch("/:id", updateMyUserInfo, jsonTransformer);
             delete("/:id", deleteUserInfo, jsonTransformer);
         };
@@ -56,10 +55,6 @@ public class UserInfoRouter extends FitmeRouter {
 
     private final Route getListUserInfo = doInTransaction(false, (Request request, Response response) ->
             userInfoService.findAll()
-    );
-
-    private final Route getMyInfo = doInTransaction(false, (Request request, Response response) ->
-            userInfoService.get(request.params("id"))
     );
 
     private final Route updateMyUserInfo = doInTransaction(true, (Request request, Response response) ->
