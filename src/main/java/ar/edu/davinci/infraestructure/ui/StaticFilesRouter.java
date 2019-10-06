@@ -66,6 +66,8 @@ public class StaticFilesRouter extends Router {
             configureFolder(contextUI + "views/components/modals/routines/:file", "public/views/components/modals/routines");
             configureFolder(contextUI + "views/components/modals/exercises/:file", "public/views/components/modals/exercises");
             configureFolder(contextUI + "views/components/modals/nutritions/:file", "public/views/components/modals/nutritions");
+            configureFolder(contextUI + "views/components/modals/users/:file", "public/views/components/modals/users");
+
             configureFolder(contextUI + "views/components/fragments/:file", "public/views/components/fragments");
 
             configureFolder(contextUI + "views/icons/:file", "public/views/icons");

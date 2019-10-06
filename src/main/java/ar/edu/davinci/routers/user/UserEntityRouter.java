@@ -1,5 +1,9 @@
 package ar.edu.davinci.routers.user;
 
+import ar.edu.davinci.domain.model.Scoring;
+import ar.edu.davinci.domain.model.User;
+import ar.edu.davinci.domain.model.UserRoutine;
+import ar.edu.davinci.dto.fitme.scoring.TipRequestDTO;
 import ar.edu.davinci.infraestructure.security.UserSessionFactory;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.UserEntityService;
@@ -55,6 +59,7 @@ public class UserEntityRouter extends FitmeRouter {
             get("/callback", callbackSession, jsonTransformer);
 
             get("/:id/info", getUser, jsonTransformer);
+            post("/:id/message", sendMessage, jsonTransformer);
         };
     }
 
@@ -63,9 +68,26 @@ public class UserEntityRouter extends FitmeRouter {
             userEntityService.findAll()
     );
 
+    private final Route sendMessage = doInTransaction(true, (Request request, Response response) ->
+    {
+        TipRequestDTO tip = (TipRequestDTO) jsonTransformer.asJson(request.body(), TipRequestDTO.class);
+
+        User user = userEntityService.get(request.params("id"));
+        UserRoutine userRoutine = user.getUserRoutine();
+        userRoutine.getScoring().setTip(tip.getTip());
+
+        user.setUserRoutine(userRoutine);
+
+        userEntityService.update(user);
+
+        return "";
+    });
+
+
     private final Route getUser = doInTransaction(true, (Request request, Response response) ->
             userEntityService.get(request.params("id"))
     );
+
 
     private final Route callbackSession = doInTransaction(true, (Request request, Response response) ->
     {

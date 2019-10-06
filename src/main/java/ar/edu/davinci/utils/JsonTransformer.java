@@ -1,6 +1,7 @@
 package ar.edu.davinci.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import spark.ResponseTransformer;
 
 import javax.inject.Inject;
@@ -12,8 +13,10 @@ public class JsonTransformer<T> implements ResponseTransformer {
     private Gson objectMapper;
 
     @Inject
-    public JsonTransformer(Gson gson) {
-        this.objectMapper = gson;
+    public JsonTransformer() {
+        this.objectMapper = new GsonBuilder()
+                .serializeNulls()
+                .create();;
     }
 
     @Override

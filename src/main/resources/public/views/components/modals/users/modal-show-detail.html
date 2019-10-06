@@ -1,0 +1,37 @@
+<div class="modal fade" id="modal-show-detail">
+    <div class="modal-dialog modal-success modal-lg">
+        <div class="modal-content modal-info">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    {{ userSelected.name }} -
+                    <small> {{ 'commons.detail' | translate }}</small>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+
+                {{ userSelected.description }}
+
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5> {{ 'commons.difficulty' | translate }}</h5>
+                        {{ exerciseSelected.difficulty }}
+                    </div>
+                    <div class="col-lg-6">
+                        <h5> {{ 'commons.type' | translate }}</h5>
+                        {{ exerciseSelected.type }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {{ 'commons.close' | translate }}
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

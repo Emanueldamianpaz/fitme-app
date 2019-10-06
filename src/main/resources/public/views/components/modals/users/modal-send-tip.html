@@ -1,0 +1,29 @@
+<div class="modal fade" id="modal-send-tip">
+    <div class="modal-dialog modal-info modal-lg">
+        <div class="modal-content modal-success">
+
+            <div class="modal-header">
+                <h4 class="modal-title">{{ 'commons.send-tip' | translate }}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+
+                <textarea id="textarea-input" name="textarea-input" ng-model="userTip.message" rows="9"
+                          class="form-control" placeholder="{{ 'commons.insert-tip' | translate }}"
+                          style="margin-top: 0px; margin-bottom: 0px; height: 196px;"></textarea>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {{ 'commons.close' | translate }}
+                </button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="sendTip()">
+                    {{ 'commons.send' | translate }}
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
