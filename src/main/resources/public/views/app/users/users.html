@@ -92,11 +92,13 @@
 
                                 <td>
                                     <a class="btn btn-outline-info" href="#" data-toggle="modal"
-                                       data-target="#modal-show-routines">
+                                       ng-click="setUserSelected(userItem)"
+                                       data-target="#modal-send-tip">
                                         <i class="fa fa-comments "></i>
                                     </a>
                                     <a class="btn btn-outline-success" href="#" data-toggle="modal"
-                                       data-target="#modal-score-routines">
+                                       ng-click="setUserSelected(userItem)"
+                                       data-target="#modal-show-detail">
                                         <i class="fa fa-dashboard"></i>
                                     </a>
                                 </td>
@@ -160,8 +162,5 @@
 </div>
 
 
-<div ng-include="'views/components/modals/routines/modal-add-routines.html'"></div>
-<div ng-include="'views/components/modals/routines/modal-show-routines.html'"></div>
-<div ng-include="'views/components/modals/routines/modal-score-routines.html'"></div>
-<div ng-include="'views/components/modals/routines/modal-edit-routines.html'"></div>
-<div ng-include="'views/components/modals/routines/modal-delete-routines.html'"></div>
+<div ng-include="'views/components/modals/users/modal-send-tip.html'"></div>
+<div ng-include="'views/components/modals/users/modal-show-detail.html'"></div>

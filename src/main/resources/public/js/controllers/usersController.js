@@ -2,28 +2,26 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
 
     $rootScope.stateCurrent = "users";
 
-    $scope.userList = [{
-        email: null,
-        gender: null,
-        id: null,
-        lastName: null,
-        name: null,
-        nickname: null,
-        picture: null,
-        role: null,
-        userInfo: {
-            id: null, weight: null, height: null, currentFat: null,
-            exerciseSession: [],
-            frecuencyExercise: null,
-            goal: null,
-            height: null,
-            id: null,
-            weight: null,
-            userRoutine: null
-        }
-    }]
+    $scope.userList = [];
+    $scope.userSelected = {};
+    $scope.userTip = {id: '', message: ''};
+
     UsersService.getListUsersInfo().then(function (response) {
         $scope.userList = response.data;
     });
+
+    $scope.setUserSelected = function (user) {
+        $scope.userSelected = Object.create(user);
+    };
+
+    $scope.sendTip = function () {
+        $scope.userTip.id = $scope.userSelected.id;
+
+        // TODO
+        // UsersService.sendMessage(message, id)
+
+    };
+
+
 })
 

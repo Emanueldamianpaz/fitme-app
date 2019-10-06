@@ -72,7 +72,10 @@
     "genre": "Sexo",
     "weight": "Peso",
     "height": "Altura",
-    "goals": "Objetivos"
+    "goals": "Objetivos",
+    "send-tip": "Enviar tip",
+    "insert-tip": "Agregue un tip",
+    "send": "Enviar"
   },
   "menu": {
     "dashboard": "Dashboard",
