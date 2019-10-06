@@ -68,7 +68,11 @@
     "insert-type": "Inserte un tipo",
     "difficulty": "Dificultad",
     "insert-calories": "Agregar calorias posee",
-    "calories": "Calorias"
+    "calories": "Calorias",
+    "genre": "Sexo",
+    "weight": "Peso",
+    "height": "Altura",
+    "goals": "Objetivos"
   },
   "menu": {
     "dashboard": "Dashboard",

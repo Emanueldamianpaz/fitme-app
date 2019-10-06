@@ -1,6 +1,6 @@
 fitme.service('UsersService', function ($http) {
 
-    var pathUsers = api + '/user';
+    var pathUsers = '/fitme/user';
     var pathUsersInfo = api + '/user_info';
 
     this.getListUsersInfo = function () {
@@ -10,7 +10,7 @@ fitme.service('UsersService', function ($http) {
     function getListUsersInfo() {
         return req = {
             method: 'get',
-            url: pathUsersInfo
+            url: pathUsers
         }
     };
 
@@ -21,7 +21,7 @@ fitme.service('UsersService', function ($http) {
     function getDetailUser(id) {
         return req = {
             method: 'get',
-            url:  pathUsers + '/' + id + '/info',
+            url: pathUsers + '/' + id + '/info',
         }
     };
 
@@ -32,7 +32,7 @@ fitme.service('UsersService', function ($http) {
     function sendMessage(message, id) {
         return req = {
             method: 'post',
-            url:  pathUsers + '/' + id + '/message',
+            url: pathUsers + '/' + id + '/message',
             data: message
         }
     };
