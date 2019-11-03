@@ -4,6 +4,7 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
 
     $scope.userList = [];
     $scope.userSelected = {};
+    $scope.userSelectedDetail = {};
     $scope.userTip = {id: '', message: ''};
 
     UsersService.getListUsersInfo().then(function (response) {
@@ -13,6 +14,12 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
     $scope.setUserSelected = function (user) {
         $scope.userSelected = Object.create(user);
     };
+
+    $scope.getDetailUser = function () {
+        UsersService.getDetailUser($scope.userSelected.id).then(function (response) {
+            $scope.userSelectedDetail = response.data;
+        })
+    }
 
     $scope.sendTip = function () {
         $scope.userTip.id = $scope.userSelected.id;
