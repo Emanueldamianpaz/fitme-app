@@ -1,4 +1,4 @@
-package ar.edu.davinci.infraestructure.security.util;
+package ar.edu.davinci.infraestructure.security.roles;
 
 public enum FitmeRoles {
     ADMIN,

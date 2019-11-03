@@ -1,10 +1,9 @@
 package ar.edu.davinci.routers.user;
 
-import ar.edu.davinci.domain.model.Scoring;
 import ar.edu.davinci.domain.model.User;
 import ar.edu.davinci.domain.model.UserRoutine;
 import ar.edu.davinci.dto.fitme.scoring.TipRequestDTO;
-import ar.edu.davinci.infraestructure.security.UserSessionFactory;
+import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.UserEntityService;
 import ar.edu.davinci.utils.JsonTransformer;
@@ -24,7 +23,7 @@ import spark.RouteGroup;
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 
-import static ar.edu.davinci.infraestructure.security.SecurityFilter.authClient;
+import static ar.edu.davinci.infraestructure.security.filters.SecurityFilter.authClient;
 import static spark.Spark.*;
 
 @Slf4j

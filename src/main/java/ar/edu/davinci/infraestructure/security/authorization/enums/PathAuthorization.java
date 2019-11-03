@@ -1,5 +1,6 @@
-package ar.edu.davinci.infraestructure.security;
+package ar.edu.davinci.infraestructure.security.authorization.enums;
 
+import ar.edu.davinci.infraestructure.security.roles.Role;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.Arrays;

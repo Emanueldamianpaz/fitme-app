@@ -1,6 +1,6 @@
-package ar.edu.davinci.infraestructure.security;
+package ar.edu.davinci.infraestructure.security.authorization;
 
-import ar.edu.davinci.infraestructure.security.util.Exclusion;
+import ar.edu.davinci.infraestructure.security.authorization.enums.Exclusion;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

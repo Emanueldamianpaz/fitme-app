@@ -1,6 +1,8 @@
-package ar.edu.davinci.infraestructure.security;
+package ar.edu.davinci.infraestructure.security.authorization;
 
 
+import ar.edu.davinci.infraestructure.security.authorization.enums.PathAuthorization;
+import ar.edu.davinci.infraestructure.security.roles.Role;
 import com.auth0.jwt.JWT;
 import lombok.extern.slf4j.Slf4j;
 

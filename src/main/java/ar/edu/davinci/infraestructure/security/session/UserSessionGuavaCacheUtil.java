@@ -1,4 +1,4 @@
-package ar.edu.davinci.infraestructure.security;
+package ar.edu.davinci.infraestructure.security.session;
 
 import ar.edu.davinci.exception.FitmeException;
 import com.google.common.cache.CacheBuilder;

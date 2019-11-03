@@ -1,7 +1,7 @@
 package ar.edu.davinci.domain.model;
 
 import ar.edu.davinci.domain.FitmeDomain;
-import ar.edu.davinci.infraestructure.security.util.FitmeRoles;
+import ar.edu.davinci.infraestructure.security.roles.FitmeRoles;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import lombok.*;
 

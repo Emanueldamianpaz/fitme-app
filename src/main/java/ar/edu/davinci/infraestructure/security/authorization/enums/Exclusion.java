@@ -1,4 +1,4 @@
-package ar.edu.davinci.infraestructure.security.util;
+package ar.edu.davinci.infraestructure.security.authorization.enums;
 
 import com.google.common.collect.ImmutableSet;
 

@@ -1,4 +1,4 @@
-package ar.edu.davinci.infraestructure.security;
+package ar.edu.davinci.infraestructure.security.roles;
 
 import java.util.Arrays;
 import java.util.List;

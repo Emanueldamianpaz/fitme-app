@@ -1,6 +1,7 @@
-package ar.edu.davinci.infraestructure.security;
+package ar.edu.davinci.infraestructure.security.filters;
 
-import ar.edu.davinci.exception.UnauthorizedRequestException;
+import ar.edu.davinci.exception.runtime.UnauthorizedRequestException;
+import ar.edu.davinci.infraestructure.security.session.UserSession;
 import org.eclipse.jetty.http.HttpMethod;
 import spark.Filter;
 import spark.Request;
