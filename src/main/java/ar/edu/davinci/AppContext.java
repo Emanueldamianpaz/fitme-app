@@ -21,7 +21,7 @@ import static spark.Spark.*;
 
 @Slf4j
 @Singleton
-public class ApiContext {
+public class AppContext {
 
     private final Integer port;
     private final String basePath;
@@ -34,7 +34,7 @@ public class ApiContext {
     private final Set<Router> routers;
 
     @Inject
-    public ApiContext(
+    public AppContext(
             @TypesafeConfig("server.port") Integer port,
             @TypesafeConfig("app.api") String apiPath,
             @TypesafeConfig("app.context") String basePath,

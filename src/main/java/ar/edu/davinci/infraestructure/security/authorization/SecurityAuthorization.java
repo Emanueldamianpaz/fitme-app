@@ -6,6 +6,7 @@ import ar.edu.davinci.infraestructure.security.roles.Role;
 import com.auth0.jwt.JWT;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -37,9 +38,7 @@ public final class SecurityAuthorization {
                     .distinct()
                     .collect(Collectors.toList());
 
-            authorized = allowedPermission.stream()
-                    //.map(permission -> jwt.hasPermission(permission))
-                    .collect(Collectors.toList())
+            authorized = new ArrayList<>(allowedPermission)
                     .contains(true);
         }
         return authorized;

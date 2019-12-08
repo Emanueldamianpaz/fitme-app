@@ -29,8 +29,8 @@ public final class App {
                 new ServiceModule()
         );
 
-        ApiContext context = injector.getBinding(ApiContext.class).getProvider().get();
-        log.info("Defining API context...");
+        AppContext context = injector.getBinding(AppContext.class).getProvider().get();
+        log.info("Defining APP context...");
 
         context.init();
 
