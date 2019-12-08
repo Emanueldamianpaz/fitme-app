@@ -1,17 +1,17 @@
 package ar.edu.davinci;
 
-import ar.edu.davinci.exception.runtime.*;
-import com.github.racc.tscg.TypesafeConfig;
-import com.google.gson.Gson;
 import ar.edu.davinci.dto.ExceptionDTO;
-import ar.edu.davinci.exception.*;
+import ar.edu.davinci.exception.FitmeException;
+import ar.edu.davinci.exception.runtime.*;
+import ar.edu.davinci.infraestructure.Router;
 import ar.edu.davinci.infraestructure.security.filters.ReadOnlyFilter;
 import ar.edu.davinci.infraestructure.security.filters.RoleAssignedFilter;
 import ar.edu.davinci.infraestructure.security.filters.SecurityFilter;
+import com.github.racc.tscg.TypesafeConfig;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Filter;
-import ar.edu.davinci.infraestructure.Router;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -1,16 +1,15 @@
 package ar.edu.davinci;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import ar.edu.davinci.infraestructure.conf.ParametersModuleProvider;
-import ar.edu.davinci.infraestructure.security.SecurityModule;
-import lombok.extern.slf4j.Slf4j;
 import ar.edu.davinci.infraestructure.GsonModule;
-import ar.edu.davinci.infraestructure.persistence.*;
-import ar.edu.davinci.infraestructure.ui.*;
+import ar.edu.davinci.infraestructure.conf.ParametersModuleProvider;
+import ar.edu.davinci.infraestructure.persistence.PersistenceModule;
+import ar.edu.davinci.infraestructure.security.SecurityModule;
+import ar.edu.davinci.infraestructure.ui.StaticFilesModule;
 import ar.edu.davinci.routers.RouterModule;
 import ar.edu.davinci.service.ServiceModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j

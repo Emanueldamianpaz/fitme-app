@@ -1,18 +1,16 @@
 package ar.edu.davinci.infraestructure.security.filters;
 
-import ar.edu.davinci.infraestructure.security.authorization.enums.PathAuthorization;
+import ar.edu.davinci.exception.runtime.UnauthorizedRequestException;
 import ar.edu.davinci.infraestructure.security.authorization.SecurityExclusions;
+import ar.edu.davinci.infraestructure.security.authorization.enums.PathAuthorization;
 import ar.edu.davinci.infraestructure.security.session.UserSession;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import com.auth0.AuthenticationController;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-
 import com.auth0.jwt.interfaces.RSAKeyProvider;
 import com.github.racc.tscg.TypesafeConfig;
-import ar.edu.davinci.exception.runtime.UnauthorizedRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpMethod;
 import spark.Filter;

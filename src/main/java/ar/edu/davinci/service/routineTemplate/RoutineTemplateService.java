@@ -1,10 +1,8 @@
 package ar.edu.davinci.service.routineTemplate;
 
-import ar.edu.davinci.domain.model.Goal;
 import ar.edu.davinci.domain.model.Nutrition;
 import ar.edu.davinci.domain.model.RoutineTemplate;
 import ar.edu.davinci.domain.model.UserInfo;
-import ar.edu.davinci.domain.types.GoalType;
 import ar.edu.davinci.exception.FitmeException;
 import ar.edu.davinci.service.FitmeService;
 import org.hibernate.SessionFactory;
@@ -12,11 +10,7 @@ import org.hibernate.SessionFactory;
 import javax.inject.Inject;
 import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static ar.edu.davinci.domain.types.GoalType.*;
 
 public class RoutineTemplateService extends FitmeService<RoutineTemplate, RoutineTemplate> {
 

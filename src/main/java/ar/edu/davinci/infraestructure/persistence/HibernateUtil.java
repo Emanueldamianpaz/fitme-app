@@ -1,8 +1,8 @@
 package ar.edu.davinci.infraestructure.persistence;
 
 import ar.edu.davinci.domain.model.*;
-import com.github.racc.tscg.TypesafeConfig;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
+import com.github.racc.tscg.TypesafeConfig;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.hibernate.SessionFactory;

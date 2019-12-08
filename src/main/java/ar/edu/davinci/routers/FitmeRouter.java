@@ -1,11 +1,11 @@
 package ar.edu.davinci.routers;
 
 
-import com.google.gson.Gson;
 import ar.edu.davinci.exception.FitmeException;
 import ar.edu.davinci.exception.runtime.InternalServerErrorException;
 import ar.edu.davinci.infraestructure.Router;
 import ar.edu.davinci.infraestructure.security.session.UserSession;
+import com.google.gson.Gson;
 import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -20,7 +20,6 @@ import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
-
 import java.util.HashSet;
 import java.util.Set;
 

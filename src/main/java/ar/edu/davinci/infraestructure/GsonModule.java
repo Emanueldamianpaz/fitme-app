@@ -1,8 +1,8 @@
 package ar.edu.davinci.infraestructure;
 
+import ar.edu.davinci.utils.ObjectMapperProvider;
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
-import ar.edu.davinci.utils.ObjectMapperProvider;
 
 public class GsonModule extends AbstractModule {
 

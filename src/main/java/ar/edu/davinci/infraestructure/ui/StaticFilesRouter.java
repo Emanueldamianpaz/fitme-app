@@ -1,26 +1,24 @@
 
 package ar.edu.davinci.infraestructure.ui;
 
-import static spark.Spark.get;
-import static spark.Spark.halt;
+import ar.edu.davinci.infraestructure.Router;
+import com.google.common.io.Files;
+import com.google.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.http.MimeTypes;
+import org.webjars.WebJarAssetLocator;
+import spark.Response;
+import spark.RouteGroup;
+import spark.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import com.google.inject.Inject;
-import ar.edu.davinci.infraestructure.Router;
-import org.apache.commons.lang3.StringUtils;
-import org.eclipse.jetty.http.HttpStatus;
-import org.eclipse.jetty.http.MimeTypes;
-
-import com.google.common.io.Files;
-
-import org.webjars.WebJarAssetLocator;
-import spark.Response;
-import spark.RouteGroup;
-import spark.utils.IOUtils;
+import static spark.Spark.get;
+import static spark.Spark.halt;
 
 public class StaticFilesRouter extends Router {
 

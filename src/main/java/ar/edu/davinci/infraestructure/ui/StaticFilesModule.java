@@ -1,8 +1,8 @@
 package ar.edu.davinci.infraestructure.ui;
 
+import ar.edu.davinci.infraestructure.Router;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
-import ar.edu.davinci.infraestructure.Router;
 
 public class StaticFilesModule extends AbstractModule {
 

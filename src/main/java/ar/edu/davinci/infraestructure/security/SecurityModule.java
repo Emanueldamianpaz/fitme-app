@@ -1,5 +1,6 @@
 package ar.edu.davinci.infraestructure.security;
 
+import ar.edu.davinci.exception.FitmeException;
 import ar.edu.davinci.infraestructure.security.session.UserSession;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import ar.edu.davinci.infraestructure.security.session.UserSessionGuavaCacheUtil;
@@ -8,10 +9,9 @@ import com.auth0.jwk.JwkProvider;
 import com.auth0.jwk.JwkProviderBuilder;
 import com.auth0.jwt.interfaces.RSAKeyProvider;
 import com.github.racc.tscg.TypesafeConfig;
+import com.google.common.cache.LoadingCache;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.common.cache.LoadingCache;
-import ar.edu.davinci.exception.FitmeException;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;

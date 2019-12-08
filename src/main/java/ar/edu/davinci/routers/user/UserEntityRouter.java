@@ -25,7 +25,8 @@ import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 
 import static ar.edu.davinci.infraestructure.security.filters.SecurityFilter.authClient;
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 @Slf4j
 public class UserEntityRouter extends FitmeRouter {

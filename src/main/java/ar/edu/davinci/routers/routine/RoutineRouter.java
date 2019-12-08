@@ -2,22 +2,22 @@ package ar.edu.davinci.routers.routine;
 
 import ar.edu.davinci.domain.model.*;
 import ar.edu.davinci.domain.types.ScoringType;
+import ar.edu.davinci.dto.ResponseDTO;
 import ar.edu.davinci.dto.fitme.routine.RoutineRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
+import ar.edu.davinci.routers.FitmeRouter;
+import ar.edu.davinci.service.routine.RoutineService;
 import ar.edu.davinci.service.routineTemplate.RoutineTemplateService;
 import ar.edu.davinci.service.scoring.ScoringService;
 import ar.edu.davinci.service.user.UserEntityService;
+import ar.edu.davinci.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
-import ar.edu.davinci.dto.ResponseDTO;
 import org.hibernate.SessionFactory;
-import ar.edu.davinci.routers.FitmeRouter;
-import ar.edu.davinci.service.routine.RoutineService;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.RouteGroup;
-import ar.edu.davinci.utils.JsonTransformer;
 
 import javax.inject.Inject;
 

@@ -1,17 +1,17 @@
 package ar.edu.davinci.routers;
 
+import ar.edu.davinci.infraestructure.Router;
+import ar.edu.davinci.routers.exercise.ExerciseRouter;
 import ar.edu.davinci.routers.goal.GoalRouter;
+import ar.edu.davinci.routers.nutrition.NutritionRouter;
+import ar.edu.davinci.routers.routine.RoutineRouter;
 import ar.edu.davinci.routers.routineTemplate.RoutineTemplateRouter;
 import ar.edu.davinci.routers.scoring.ScoringRouter;
-import ar.edu.davinci.routers.user.UserEntityRouter;
 import ar.edu.davinci.routers.user.ExerciseSessionRouter;
+import ar.edu.davinci.routers.user.UserEntityRouter;
 import ar.edu.davinci.routers.user.UserInfoRouter;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
-import ar.edu.davinci.infraestructure.Router;
-import ar.edu.davinci.routers.exercise.ExerciseRouter;
-import ar.edu.davinci.routers.nutrition.NutritionRouter;
-import ar.edu.davinci.routers.routine.RoutineRouter;
 
 public class RouterModule extends AbstractModule {
 

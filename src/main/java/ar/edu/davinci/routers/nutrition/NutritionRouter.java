@@ -1,19 +1,19 @@
 package ar.edu.davinci.routers.nutrition;
 
 import ar.edu.davinci.domain.model.Nutrition;
+import ar.edu.davinci.dto.ResponseDTO;
 import ar.edu.davinci.dto.fitme.nutrition.NutritionRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
-import com.github.racc.tscg.TypesafeConfig;
-import com.google.gson.Gson;
-import ar.edu.davinci.dto.ResponseDTO;
-import org.hibernate.SessionFactory;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.nutrition.NutritionService;
+import ar.edu.davinci.utils.JsonTransformer;
+import com.github.racc.tscg.TypesafeConfig;
+import com.google.gson.Gson;
+import org.hibernate.SessionFactory;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.RouteGroup;
-import ar.edu.davinci.utils.JsonTransformer;
 
 import javax.inject.Inject;
 

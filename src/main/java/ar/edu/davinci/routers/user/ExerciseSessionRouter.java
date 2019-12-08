@@ -18,7 +18,8 @@ import spark.RouteGroup;
 
 import javax.inject.Inject;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class ExerciseSessionRouter extends FitmeRouter {
 
