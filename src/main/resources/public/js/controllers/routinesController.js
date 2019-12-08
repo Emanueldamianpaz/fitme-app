@@ -302,7 +302,6 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
 
     $scope.deleteRoutine = function () {
         RoutinesService.deleteRoutine($scope.routineSelected.id).then(function (response) {
-            // TODO Poner un response correcto
 
             RoutinesService.getRoutines().then(function (response) {
                 $scope.routineList = response.data;

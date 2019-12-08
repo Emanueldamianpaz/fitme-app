@@ -61,9 +61,7 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
                             .orElseThrow(() -> new FitmeException("No value present"));
 
 
-                    //.map(nutrition -> nutrition.ge)
             }
-            ;
 
             return routine;
         });

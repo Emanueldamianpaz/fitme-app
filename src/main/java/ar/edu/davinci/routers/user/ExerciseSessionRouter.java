@@ -62,7 +62,6 @@ public class ExerciseSessionRouter extends FitmeRouter {
 
     private final Route addExerciseSession = doInTransaction(false, (Request request, Response response) ->
             {
-                // TODO Hacer un try catch en caso de que falle
 
                 String id = request.params("id");
                 UserInfo userInfo = userInfoService.get(id);
@@ -80,7 +79,6 @@ public class ExerciseSessionRouter extends FitmeRouter {
 
     private final Route addNutritionSession = doInTransaction(true, (Request request, Response response) ->
             {
-                // TODO Hacer un try catch en caso de que falle
 
                 String id = request.params("id");
                 UserInfo userInfo = userInfoService.get(id);

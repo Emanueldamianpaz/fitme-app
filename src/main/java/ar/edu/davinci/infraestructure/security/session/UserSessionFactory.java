@@ -35,7 +35,6 @@ public class UserSessionFactory {
     }
 
     public UserSession createUserSession(DecodedJWT jwt) {
-        // TODO Revisar donde handlea esta excepción
         try {
             return usersCache.get(jwt.getSubject(),
                     () -> {
@@ -60,7 +59,6 @@ public class UserSessionFactory {
 
             Transaction transaction = session.beginTransaction();
 
-            // TODO Revisar el tema del upsert.
             if (Optional.ofNullable(session.find(UserInfo.class, user.getId())).isPresent()) {
                 session.update(new UserInfo(user.getId()));
             } else {
