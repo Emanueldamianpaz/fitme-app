@@ -60,7 +60,6 @@ fitme.factory('MessageNotification', function () {
 
 
 fitme.factory('responseHandler', function ($q, $window, MessageService) {
-    var SESSION_EXPIRED = 401;
     return {
         'responseError': function (res) {
             var data = res.data;

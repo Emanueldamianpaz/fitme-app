@@ -33,7 +33,7 @@ fitme.service('UsersService', function ($http) {
         return req = {
             method: 'post',
             url: pathUsers + '/' + id + '/message',
-            data: message
+            data: {tip: message}
         }
     };
 })

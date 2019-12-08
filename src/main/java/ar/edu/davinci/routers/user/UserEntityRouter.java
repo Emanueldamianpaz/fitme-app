@@ -3,6 +3,7 @@ package ar.edu.davinci.routers.user;
 import ar.edu.davinci.domain.model.User;
 import ar.edu.davinci.domain.model.UserRoutine;
 import ar.edu.davinci.dto.fitme.scoring.TipRequestDTO;
+import ar.edu.davinci.exception.FitmeException;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.UserEntityService;
@@ -73,6 +74,10 @@ public class UserEntityRouter extends FitmeRouter {
 
         User user = userEntityService.get(request.params("id"));
         UserRoutine userRoutine = user.getUserRoutine();
+
+        if(userRoutine == null){
+          throw new FitmeException("User not active because, user haven't associated routine");
+        };
         userRoutine.getScoring().setTip(tip.getTip());
 
         user.setUserRoutine(userRoutine);
@@ -104,7 +109,6 @@ public class UserEntityRouter extends FitmeRouter {
 
         userSessionFactory.createUserSession(jwt);
 
-        // TODO Esto debería devolver un accessToken
         response.header("Authorization", jwt.getToken());
         response.raw().addCookie(new Cookie("Authorization", jwt.getToken()));
         response.cookie("/fitme", "fitme_session", jwt.getToken(), 3600, false, false);

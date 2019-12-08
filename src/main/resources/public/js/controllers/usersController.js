@@ -24,8 +24,7 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
     $scope.sendTip = function () {
         $scope.userTip.id = $scope.userSelected.id;
 
-        // TODO
-        // UsersService.sendMessage(message, id)
+        UsersService.sendMessage($scope.userTip.message, $scope.userTip.id)
 
     };
 
