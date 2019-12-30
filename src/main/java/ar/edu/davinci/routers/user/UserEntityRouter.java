@@ -1,11 +1,16 @@
 package ar.edu.davinci.routers.user;
 
+import ar.edu.davinci.domain.model.Routine;
+import ar.edu.davinci.domain.model.Scoring;
 import ar.edu.davinci.domain.model.User;
 import ar.edu.davinci.domain.model.UserRoutine;
+import ar.edu.davinci.domain.types.ScoringType;
+import ar.edu.davinci.dto.fitme.routine.SetRoutineRequestDTO;
 import ar.edu.davinci.dto.fitme.scoring.TipRequestDTO;
 import ar.edu.davinci.exception.FitmeException;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import ar.edu.davinci.routers.FitmeRouter;
+import ar.edu.davinci.service.routine.RoutineService;
 import ar.edu.davinci.service.user.UserEntityService;
 import ar.edu.davinci.utils.JsonTransformer;
 import com.auth0.IdentityVerificationException;
@@ -24,6 +29,11 @@ import spark.RouteGroup;
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import static ar.edu.davinci.infraestructure.security.filters.SecurityFilter.authClient;
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -34,15 +44,18 @@ public class UserEntityRouter extends FitmeRouter {
     private JsonTransformer jsonTransformer;
     private UserEntityService userEntityService;
     private UserSessionFactory userSessionFactory;
+    private RoutineService routineService;
 
     @Inject
     public UserEntityRouter(Gson objectMapper,
                             UserEntityService userEntityService,
                             SessionFactory sessionFactory,
                             UserSessionFactory userSessionFactory,
+                            RoutineService routineService,
                             JsonTransformer jsonTransformer) {
         super(objectMapper, sessionFactory);
         this.userEntityService = userEntityService;
+        this.routineService = routineService;
         this.userSessionFactory = userSessionFactory;
         this.jsonTransformer = jsonTransformer;
     }
@@ -61,13 +74,42 @@ public class UserEntityRouter extends FitmeRouter {
 
             get("/:id/info", getUser, jsonTransformer);
             post("/:id/message", sendMessage, jsonTransformer);
+            post("/:id/routines", setRoutines, jsonTransformer);
+
         };
     }
-
 
     private final Route getListUsers = doInTransaction(false, (Request request, Response response) ->
             userEntityService.findAll()
     );
+
+    private final Route setRoutines = doInTransaction(true, (Request request, Response response) ->
+    {
+        SetRoutineRequestDTO req = (SetRoutineRequestDTO) jsonTransformer.asJson(request.body(), SetRoutineRequestDTO.class);
+        User user = userEntityService.get(request.params("id"));
+
+        Set<Routine> routines = new HashSet<>();
+        for (Long id : req.getRoutines()) {
+
+            /*
+             * TODO Esto no anda no sé bien porque puede ser.
+             *
+             * SQLState: 42883
+             * ERROR: ERROR: operator does not exist: character varying = bigint
+             * Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
+             *
+             */
+
+            routines.add(routineService.get(id));
+        }
+
+        UserRoutine userRoutine = new UserRoutine(user, new Scoring(ScoringType.UNKNOWN.name(), ""), routines);
+        user.setUserRoutine(userRoutine);
+
+        userEntityService.update(user);
+
+        return "";
+    });
 
     private final Route sendMessage = doInTransaction(true, (Request request, Response response) ->
     {
@@ -76,9 +118,10 @@ public class UserEntityRouter extends FitmeRouter {
         User user = userEntityService.get(request.params("id"));
         UserRoutine userRoutine = user.getUserRoutine();
 
-        if(userRoutine == null){
-          throw new FitmeException("User not active because, user haven't associated routine");
-        };
+        if (userRoutine == null) {
+            throw new FitmeException("User not active because, user haven't associated routine");
+        }
+
         userRoutine.getScoring().setTip(tip.getTip());
 
         user.setUserRoutine(userRoutine);

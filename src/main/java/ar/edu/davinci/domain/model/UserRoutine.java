@@ -4,6 +4,7 @@ import ar.edu.davinci.domain.FitmeDomain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -26,11 +27,11 @@ public class UserRoutine extends FitmeDomain<String> {
     @JoinColumn(name = "id_scoring")
     private Scoring scoring;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "id_routine")
-    private Routine routine;
+    private Set<Routine> routine;
 
-    public UserRoutine(User user, Scoring scoring, Routine routine) {
+    public UserRoutine(User user, Scoring scoring, Set<Routine> routine) {
         this.id = user.getId();
         this.user = user;
         this.scoring = scoring;

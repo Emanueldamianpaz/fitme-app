@@ -3,6 +3,7 @@ package ar.edu.davinci.routers.routine;
 import ar.edu.davinci.domain.model.*;
 import ar.edu.davinci.domain.types.ScoringType;
 import ar.edu.davinci.dto.ResponseDTO;
+import ar.edu.davinci.dto.fitme.routine.RoutineLightResponseDTO;
 import ar.edu.davinci.dto.fitme.routine.RoutineRequestDTO;
 import ar.edu.davinci.routers.EnumResponse;
 import ar.edu.davinci.routers.FitmeRouter;
@@ -20,6 +21,11 @@ import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static spark.Spark.*;
 
@@ -61,6 +67,8 @@ public class RoutineRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getRoutines, jsonTransformer);
+            get("/light", getRoutinesLight, jsonTransformer);
+
             get("/:id", getRoutine, jsonTransformer);
             get("/:id/info", getInfoRoutine, jsonTransformer);
 
@@ -78,6 +86,15 @@ public class RoutineRouter extends FitmeRouter {
             routineService.findAll()
     );
 
+    private final Route getRoutinesLight = doInTransaction(false, (Request request, Response response) -> {
+                List<Routine> list = routineService.findAll();
+                List<RoutineLightResponseDTO> routineLight = new ArrayList<>();
+                for (Routine routine : list) {
+                    routineLight.add(new RoutineLightResponseDTO(routine.getId(), routine.getName(), routine.getDescription()));
+                }
+                return routineLight;
+            }
+    );
     private final Route getRoutine = doInTransaction(false, (Request request, Response response) ->
             routineService.get(request.params("id"))
     );
@@ -95,7 +112,10 @@ public class RoutineRouter extends FitmeRouter {
                 String userId = request.params("user_id");
 
                 User user = userEntityService.get(userId);
-                Routine routine = routineService.get(routineId);
+                Set<Routine> routine = new HashSet<>();
+                routine.add(routineService.get(routineId));
+
+
                 Scoring scoring = scoringService.create(new Scoring(ScoringType.UNKNOWN.name(), ""));
                 UserRoutine userR = new UserRoutine(user, scoring, routine);
 

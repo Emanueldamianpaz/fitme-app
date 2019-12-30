@@ -91,6 +91,11 @@
                                 <td>{{ userItem.userInfo.goal }}</td>
 
                                 <td>
+                                    <a class="btn btn-outline-dark" href="#" data-toggle="modal"
+                                       ng-click="setUserSelected(userItem)"
+                                       data-target="#modal-set-routine">
+                                        <i class="fa fa-plus-square "></i>
+                                    </a>
                                     <a class="btn btn-outline-info" href="#" data-toggle="modal"
                                        ng-click="setUserSelected(userItem)"
                                        data-target="#modal-send-tip">
@@ -161,6 +166,7 @@
     </div>
 </div>
 
-
+<div ng-include="'views/components/modals/users/modal-set-routine.html'"></div>
 <div ng-include="'views/components/modals/users/modal-send-tip.html'"></div>
 <div ng-include="'views/components/modals/users/modal-show-detail.html'"></div>
+

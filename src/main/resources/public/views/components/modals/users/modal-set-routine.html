@@ -1,0 +1,47 @@
+<div class="modal fade" id="modal-set-routine">
+    <div class="modal-dialog modal-dark">
+        <div class="modal-content modal-dark">
+
+            <div class="modal-header">
+                <h4 class="modal-title">{{ 'commons.send-tip' | translate }}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+
+
+                <div class="input-group">
+                    <select class="form-control" ng-model="routineToAdd.object"
+                            ng-options="i as i.name for i in routineList">
+                    </select>
+                    <button type="button" class="btn btn-dark" ng-click="addRoutineToUser()">
+                        <li class="fa fa-plus"></li>
+                    </button>
+
+                </div>
+                <br>
+
+                <div class="container">
+                    <div class="row">
+                        <button type="button" class="btn btn-sm btn-outline-primary margin-light"
+                                ng-repeat="item in routinesToAdd"
+                                ng-click="removeRoutine(item.id)">
+                            {{ item.name | cut:true:20:'...' }}
+                        </button>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ 'commons.close' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="addRoutinesToUser()">
+                        {{ 'commons.send' | translate }}
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>

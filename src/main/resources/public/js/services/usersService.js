@@ -14,6 +14,18 @@ fitme.service('UsersService', function ($http) {
         }
     };
 
+    this.setRoutines = function (userId, routineIds) {
+        return $http(setRoutines(userId, routineIds))
+    }
+
+    function setRoutines(userId, routineIds) {
+        return req = {
+            method: 'post',
+            url: pathUsers + '/' + userId + '/routines',
+            data: {routines: routineIds}
+        }
+    }
+
     this.getDetailUser = function (id) {
         return $http(getDetailUser(id));
     }

@@ -13,6 +13,16 @@ fitme.service('RoutinesService', function ($http) {
         }
     };
 
+    this.getRoutinesLight = function () {
+        return $http(getRoutinesLight());
+    }
+
+    function getRoutinesLight() {
+        return req = {
+            method: 'get',
+            url: path + '/light'
+        }
+    };
     this.getRoutine = function (id) {
         return $http(getRoutine(id));
     }
