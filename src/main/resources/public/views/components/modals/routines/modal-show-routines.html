@@ -21,9 +21,9 @@
 
                         <div class="container">
                             <div class="row">
-                                <button type="button"  class="btn btn-sm btn-primary margin-light"
+                                <button type="button" class="btn btn-sm btn-primary margin-light"
                                         ng-repeat="exerciseItem in routineSelected.routineTemplate.exercises">
-                                    {{ exerciseItem.name }}
+                                    {{ exerciseItem.name | cut:true:20:'...' }}
                                 </button>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                             <div class="row">
                                 <button type="button" class="btn btn-sm btn-success margin-light"
                                         ng-repeat="nutritionItem in routineSelected.routineTemplate.nutritions">
-                                    {{ nutritionItem.name }}
+                                    {{ nutritionItem.name | cut:true:20:'...' }}
                                 </button>
 
                             </div>

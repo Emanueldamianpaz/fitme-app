@@ -1,7 +1,6 @@
 package ar.edu.davinci.service;
 
 import ar.edu.davinci.domain.FitmeDomain;
-import ar.edu.davinci.domain.model.Nutrition;
 import ar.edu.davinci.exception.runtime.ResourceNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
