@@ -25,11 +25,6 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
         return super.findAll();
     }
 
-    @Override
-    public RoutineTemplate get(String id) {
-        return super.get(id);
-    }
-
     public RoutineTemplate getOptimizedRoutineTemplate(UserInfo user) {
 
         Double gatAbsolute = Math.abs(user.getGoal().getGoalFat() - user.getCurrentFat());

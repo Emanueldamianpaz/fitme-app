@@ -1,6 +1,7 @@
 package ar.edu.davinci.service;
 
 import ar.edu.davinci.domain.FitmeDomain;
+import ar.edu.davinci.domain.model.Nutrition;
 import ar.edu.davinci.exception.runtime.ResourceNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,6 +23,14 @@ public abstract class FitmeService<ENTITY extends FitmeDomain, PARENT_ENTITY ext
     }
 
     public ENTITY get(String id) {
+        ENTITY result = currentSession().get(clazz, id);
+
+        return Optional
+                .ofNullable(result)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("%s with id %d%n", clazz.getSimpleName(), id)));
+    }
+
+    public ENTITY get(Long id) {
         ENTITY result = currentSession().get(clazz, id);
 
         return Optional

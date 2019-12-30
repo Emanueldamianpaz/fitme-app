@@ -42,7 +42,7 @@
                 <button type="button" class="btn btn-sm btn-outline-primary margin-light"
                         ng-repeat="exerciseItem in routineModelEdit.routineTemplate.exercises"
                         ng-click="removeExercise(exerciseItem.id, 'edit')">
-                    {{ exerciseItem.name }}
+                    {{ exerciseItem.name | cut:true:20:'...' }}
                 </button>
             </div>
         </div>
@@ -67,7 +67,7 @@
                 <button type="button" class="btn btn-sm btn-outline-success margin-light"
                         ng-repeat="nutritionItem in routineModelEdit.routineTemplate.nutritions"
                         ng-click="removeNutrition(nutritionItem.id, 'edit')">
-                    {{ nutritionItem.name }}
+                    {{ nutritionItem.name | cut:true:20:'...'}}
                 </button>
             </div>
         </div>
@@ -93,7 +93,7 @@
         <div class="container">
             <div class="row">
                 <div class="margin-light" ng-repeat="nutritionItem in routineEdit.routineTemplateSelected.nutritions">
-                    <i class="fa fa-circle text-success"></i>&nbsp; {{ nutritionItem.name }}
+                    <i class="fa fa-circle text-success"></i>&nbsp; {{ nutritionItem.name}}
                 </div>
 
             </div>
