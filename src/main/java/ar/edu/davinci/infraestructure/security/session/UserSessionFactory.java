@@ -1,6 +1,9 @@
 package ar.edu.davinci.infraestructure.security.session;
 
-import ar.edu.davinci.domain.model.*;
+import ar.edu.davinci.domain.model.Scoring;
+import ar.edu.davinci.domain.model.User;
+import ar.edu.davinci.domain.model.UserInfo;
+import ar.edu.davinci.domain.model.UserRoutine;
 import ar.edu.davinci.domain.types.ScoringType;
 import ar.edu.davinci.infraestructure.security.roles.FitmeRoles;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
@@ -18,7 +21,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import static ar.edu.davinci.infraestructure.security.roles.FitmeRoles.READONLY;

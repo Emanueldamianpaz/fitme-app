@@ -45,7 +45,7 @@ public class UserInfo extends FitmeDomain<String> {
     public UserInfo(UserInfoRequestDTO userInfoRequest) {
         this.initialWeight = userInfoRequest.getInitialWeight();
         this.height = userInfoRequest.getHeight();
-        this.currentFat = Double.parseDouble(userInfoRequest.getCurrentFat());
+        this.currentFat = userInfoRequest.getCurrentFat();
         this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
     }
 
@@ -53,7 +53,7 @@ public class UserInfo extends FitmeDomain<String> {
         this.id = id;
         this.initialWeight = userInfoRequest.getInitialWeight();
         this.height = userInfoRequest.getHeight();
-        this.currentFat = Double.parseDouble(userInfoRequest.getCurrentFat());
+        this.currentFat = userInfoRequest.getCurrentFat();
         this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
     }
 

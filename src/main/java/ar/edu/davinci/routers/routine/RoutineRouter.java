@@ -1,7 +1,7 @@
 package ar.edu.davinci.routers.routine;
 
-import ar.edu.davinci.domain.model.*;
-import ar.edu.davinci.domain.types.ScoringType;
+import ar.edu.davinci.domain.model.Routine;
+import ar.edu.davinci.domain.model.RoutineTemplate;
 import ar.edu.davinci.dto.ResponseDTO;
 import ar.edu.davinci.dto.fitme.routine.RoutineLightResponseDTO;
 import ar.edu.davinci.dto.fitme.routine.RoutineRequestDTO;
@@ -21,11 +21,8 @@ import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static spark.Spark.*;
 

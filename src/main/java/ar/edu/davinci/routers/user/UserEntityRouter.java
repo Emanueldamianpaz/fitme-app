@@ -29,7 +29,6 @@ import spark.RouteGroup;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
-
 import java.util.HashSet;
 import java.util.Set;
 
