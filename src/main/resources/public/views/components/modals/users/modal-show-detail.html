@@ -1,31 +1,95 @@
 <div class="modal fade" id="modal-show-detail">
     <div class="modal-dialog modal-success modal-lg">
-        <div class="modal-content modal-info">
+        <div class="modal-content modal-success">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    {{ userSelected.name }} -
-                    <small> {{ 'commons.detail' | translate }}</small>
+                    {{ 'commons.detail' | translate }}
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <div class="modal-body">
+                <div class="col-lg-12">
 
-                {{ userSelected.description }}
+                    <img src="{{userSelected.picture}}" class="img-avatar pull-right" alt="{{userSelected.email}}">
 
-                <hr>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h5> {{ 'commons.difficulty' | translate }}</h5>
-                        {{ exerciseSelected.difficulty }}
+                    <h4> {{ userSelected.name.concat(' ',userSelected.lastName) }}
+                        <small class="text-capitalize"><i> - ({{userSelected.role}})</i> </small>
+                    </h4>
+                    <br>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <h6 class="col-lg-12">{{'commons.user-info' | translate }}:</h6>
+
+                            <div class="col-lg-6">
+                                {{'commons.weight' | translate }}:
+                                {{userSelected.userInfo.weight ? userSelected.userInfo.weight.concat(' m.') : 'n/a'}}
+                            </div>
+                            <div class="col-lg-6">
+                                {{'commons.height' | translate }}:
+                                {{userSelected.userInfo.height ? userSelected.userInfo.height.concat(' kg.') : 'n/a'}}
+                            </div>
+
+                            <div class="col-lg-12">
+                                {{'commons.current-fat' | translate }}:
+                                {{userSelected.userInfo.currentFat ? userSelected.userInfo.currentFat.concat(' kg.') :
+                                'n/a'}}
+                                <br>
+                                {{'commons.goals' | translate }}:
+                                {{userSelected.userInfo.goal ? userSelected.userInfo.goal: 'n/a'}}
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-lg-6">
-                        <h5> {{ 'commons.type' | translate }}</h5>
-                        {{ exerciseSelected.type }}
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5> {{ 'commons.routines' | translate }}
+                                <div class="pull-right">
+                                    {{ 'commons.scoring' | translate }} -
+                                    <small>({{userSelected.userRoutine.scoring.scoring}})</small>
+
+                                </div>
+                            </h5>
+                        </div>
+                        <br>
+                        <br>
+
+                        <div class="col-lg-12" ng-repeat="item in userSelected.userRoutine.routine">
+                            <div class="alert alert-gray-200">
+                                <h6> {{item.name}}</h6>
+                                <hr>
+                                <p>{{'commons.description' | translate}}: {{item.description}}</p>
+
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            {{'commons.exercise' | translate}}
+                                            <div class="margin-light"
+                                                 ng-repeat="exercise in item.routineTemplate.exercises">
+                                                <i class="fa fa-circle text-info"></i>&nbsp;
+                                                {{ exercise.difficulty}} - {{ exercise.name}} ({{ exercise.type}})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            {{'commons.nutrition' | translate}}
+
+                                            <div class="margin-light"
+                                                 ng-repeat="nutrition in item.routineTemplate.nutritions">
+                                                <i class="fa fa-circle text-success"></i>&nbsp;
+                                                {{ nutrition.type}} - {{ nutrition.name }} ({{
+                                                nutrition.calories}} {{'commons.calories' | translate }})
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     {{ 'commons.close' | translate }}

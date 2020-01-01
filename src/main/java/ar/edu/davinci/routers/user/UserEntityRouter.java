@@ -46,7 +46,6 @@ public class UserEntityRouter extends FitmeRouter {
     private UserEntityService userEntityService;
     private UserSessionFactory userSessionFactory;
     private RoutineService routineService;
-    private UserRoutineService userRoutineService;
 
     @Inject
     public UserEntityRouter(Gson objectMapper,
@@ -54,13 +53,11 @@ public class UserEntityRouter extends FitmeRouter {
                             SessionFactory sessionFactory,
                             UserSessionFactory userSessionFactory,
                             RoutineService routineService,
-                            JsonTransformer jsonTransformer,
-                            UserRoutineService userRoutineService) {
+                            JsonTransformer jsonTransformer) {
         super(objectMapper, sessionFactory);
         this.userEntityService = userEntityService;
         this.routineService = routineService;
         this.userSessionFactory = userSessionFactory;
-        this.userRoutineService = userRoutineService;
         this.jsonTransformer = jsonTransformer;
     }
 
