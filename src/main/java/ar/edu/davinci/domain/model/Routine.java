@@ -30,9 +30,6 @@ public class Routine extends FitmeDomain<Long> {
     @JoinColumn(name = "id_routine_template")
     private RoutineTemplate routineTemplate;
 
-    @OneToMany(mappedBy = "routine")
-    private Set<UserRoutine> routineUserList;
-
     public Routine(RoutineRequestDTO routine, RoutineTemplate routineTemplate) {
         this.name = routine.getName();
         this.description = routine.getDescription();

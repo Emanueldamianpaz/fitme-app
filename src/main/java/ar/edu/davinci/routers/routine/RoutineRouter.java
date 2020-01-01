@@ -117,9 +117,9 @@ public class RoutineRouter extends FitmeRouter {
 
 
                 Scoring scoring = scoringService.create(new Scoring(ScoringType.UNKNOWN.name(), ""));
-                UserRoutine userR = new UserRoutine(user, scoring, routine);
+              //  UserRoutine userR = new UserRoutine(user, scoring, routine);
 
-                user.setUserRoutine(userR);
+//                user.setUserRoutine(userR);
 
                 return userEntityService.update(user);
 

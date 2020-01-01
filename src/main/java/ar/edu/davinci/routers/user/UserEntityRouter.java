@@ -12,6 +12,7 @@ import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.routine.RoutineService;
 import ar.edu.davinci.service.user.UserEntityService;
+import ar.edu.davinci.service.user.UserRoutineService;
 import ar.edu.davinci.utils.JsonTransformer;
 import com.auth0.IdentityVerificationException;
 import com.auth0.SessionUtils;
@@ -45,6 +46,7 @@ public class UserEntityRouter extends FitmeRouter {
     private UserEntityService userEntityService;
     private UserSessionFactory userSessionFactory;
     private RoutineService routineService;
+    private UserRoutineService userRoutineService;
 
     @Inject
     public UserEntityRouter(Gson objectMapper,
@@ -52,11 +54,13 @@ public class UserEntityRouter extends FitmeRouter {
                             SessionFactory sessionFactory,
                             UserSessionFactory userSessionFactory,
                             RoutineService routineService,
-                            JsonTransformer jsonTransformer) {
+                            JsonTransformer jsonTransformer,
+                            UserRoutineService userRoutineService) {
         super(objectMapper, sessionFactory);
         this.userEntityService = userEntityService;
         this.routineService = routineService;
         this.userSessionFactory = userSessionFactory;
+        this.userRoutineService = userRoutineService;
         this.jsonTransformer = jsonTransformer;
     }
 
@@ -90,22 +94,15 @@ public class UserEntityRouter extends FitmeRouter {
 
         Set<Routine> routines = new HashSet<>();
         for (Long id : req.getRoutines()) {
-
-            /*
-             * TODO Esto no anda no sé bien porque puede ser.
-             *
-             * SQLState: 42883
-             * ERROR: ERROR: operator does not exist: character varying = bigint
-             * Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-             *
-             */
-
-            routines.add(routineService.get(id));
+            Routine routine = routineService.get(id);
+            routines.add(routine);
         }
 
-        UserRoutine userRoutine = new UserRoutine(user, new Scoring(ScoringType.UNKNOWN.name(), ""), routines);
-        user.setUserRoutine(userRoutine);
+        UserRoutine userRoutine = user.getUserRoutine();
+        userRoutine.addRoutine(routines);
 
+
+        user.setUserRoutine(userRoutine);
         userEntityService.update(user);
 
         return "";

@@ -5,6 +5,7 @@ import ar.edu.davinci.service.FitmeService;
 import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
+import java.util.Optional;
 
 public class UserEntityService extends FitmeService<User, User> {
 
@@ -19,4 +20,11 @@ public class UserEntityService extends FitmeService<User, User> {
         return (User) currentSession().merge(newInstance);
     }
 
+    public User upsert(User user) {
+        if (Optional.ofNullable(currentSession().find(User.class, user.getId())).isPresent()) {
+            return update(user);
+        } else {
+            return create(user);
+        }
+    }
 }

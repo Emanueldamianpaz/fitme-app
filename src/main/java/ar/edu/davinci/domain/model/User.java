@@ -4,6 +4,7 @@ import ar.edu.davinci.domain.FitmeDomain;
 import ar.edu.davinci.infraestructure.security.roles.FitmeRoles;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -46,10 +47,9 @@ public class User extends FitmeDomain<String> {
     private String role;
 
     @OneToOne
-    @JoinColumn(name = "id")
     private UserRoutine userRoutine;
 
-    public User(FitmeUser user, UserInfo userInfo, FitmeRoles role) {
+    public User(FitmeUser user, UserInfo userInfo, FitmeRoles role, UserRoutine userRoutine) {
         this.id = user.getId();
         this.userInfo = userInfo;
         this.name = user.getName();
@@ -59,6 +59,6 @@ public class User extends FitmeDomain<String> {
         this.role = role.name();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
-
+        this.userRoutine = userRoutine;
     }
 }

@@ -12,31 +12,27 @@ import java.util.Set;
 @Data
 @Builder
 @Table(name = "user_routine")
-public class UserRoutine extends FitmeDomain<String> {
+public class UserRoutine extends FitmeDomain<Long> {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
-    private User user;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "id_scoring")
     private Scoring scoring;
 
     @OneToMany
-    @JoinColumn(name = "id_routine")
     private Set<Routine> routine;
 
-    public UserRoutine(User user, Scoring scoring, Set<Routine> routine) {
-        this.id = user.getId();
-        this.user = user;
+    public UserRoutine(Scoring scoring, Set<Routine> routine) {
         this.scoring = scoring;
         this.routine = routine;
     }
 
+    public void addRoutine(Set<Routine> routine) {
+        this.routine = routine;
+    }
 
 }

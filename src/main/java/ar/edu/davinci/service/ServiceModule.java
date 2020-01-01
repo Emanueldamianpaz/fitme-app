@@ -8,6 +8,7 @@ import ar.edu.davinci.service.routineTemplate.RoutineTemplateService;
 import ar.edu.davinci.service.scoring.ScoringService;
 import ar.edu.davinci.service.user.UserEntityService;
 import ar.edu.davinci.service.user.UserInfoService;
+import ar.edu.davinci.service.user.UserRoutineService;
 import com.google.inject.AbstractModule;
 
 public class ServiceModule extends AbstractModule {
@@ -22,5 +23,6 @@ public class ServiceModule extends AbstractModule {
         bind(ScoringService.class);
         bind(UserEntityService.class);
         bind(UserInfoService.class);
+        bind(UserRoutineService.class);
     }
 }
