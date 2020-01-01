@@ -37,4 +37,5 @@ fitme.config(function ($stateProvider) {
             controller: 'nutritionsController'
         })
 
+
 })

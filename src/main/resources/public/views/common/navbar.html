@@ -26,7 +26,7 @@
             </a>
         </li>
     </ul>
-    <ul class="nav navbar-nav ml-auto d-md-down-none">
+    <ul class="nav navbar-nav ml-auto d-md-down-none" style="margin-right: 20px">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false">
@@ -36,25 +36,14 @@
             <div class="dropdown-menu dropdown-menu-right">
 
                 <div class="dropdown-header text-center">
-                    <strong>{{ 'commons.settings' | translate }}</strong>
+                    <strong>{{ 'commons.menu' | translate }}</strong>
                 </div>
 
-                <a class="dropdown-item" href="#"><i class="fa fa-user"></i>
-                    {{ 'commons.profile' | translate }}
-                </a>
-                <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i>
-                    {{ 'commons.settings' | translate }}
-                </a>
+
                 <a class="dropdown-item" href="#" ng-click="logout()"><i class="fa fa-lock"></i>
                     {{ 'commons.logout' | translate }}
                 </a>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link navbar-toggler aside-menu-toggler" href="#">
-                <span class="navbar-toggler-icon"></span>
-            </a>
-        </li>
-
     </ul>
 </header>

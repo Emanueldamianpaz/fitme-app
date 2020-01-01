@@ -12,11 +12,5 @@ fitme.config(function ($stateProvider) {
             templateUrl: 'views/fitme/404.html',
             data: {pageTitle: '404'}
         })
-        .state('fitme.500', {
-            url: '/500',
-            templateUrl: 'views/fitme/500.html',
-            data: {pageTitle: '500'}
-
-        })
 
 })

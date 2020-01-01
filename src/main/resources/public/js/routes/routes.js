@@ -1,5 +1,5 @@
 fitme.config(function ($urlRouterProvider, $httpProvider, $locationProvider) {
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.otherwise('/404');
 
     $httpProvider.interceptors.push('responseHandler');
 

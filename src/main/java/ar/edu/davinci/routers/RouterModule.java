@@ -2,7 +2,6 @@ package ar.edu.davinci.routers;
 
 import ar.edu.davinci.infraestructure.Router;
 import ar.edu.davinci.routers.exercise.ExerciseRouter;
-import ar.edu.davinci.routers.goal.GoalRouter;
 import ar.edu.davinci.routers.nutrition.NutritionRouter;
 import ar.edu.davinci.routers.routine.RoutineRouter;
 import ar.edu.davinci.routers.routineTemplate.RoutineTemplateRouter;
@@ -20,7 +19,6 @@ public class RouterModule extends AbstractModule {
         Multibinder<Router> routerBinder = Multibinder.newSetBinder(binder(), Router.class);
 
         routerBinder.addBinding().to(ExerciseRouter.class);
-        routerBinder.addBinding().to(GoalRouter.class);
         routerBinder.addBinding().to(NutritionRouter.class);
         routerBinder.addBinding().to(RoutineRouter.class);
         routerBinder.addBinding().to(RoutineTemplateRouter.class);
