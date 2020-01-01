@@ -67,8 +67,8 @@ public class UserEntityRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getListUsers, jsonTransformer);
-            get("/session", createSession, jsonTransformer); // For all users(normally fitness_users)
             get("/callback", callbackSession, jsonTransformer); // Only for Admin/Coach/Web
+            post("/session", createSession, jsonTransformer); // For all users(normally fitness_users)
 
             get("/:id/info", getUser, jsonTransformer);
             get("/:id/info/light", getUserLight, jsonTransformer);
