@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public final class SecurityAuthorization {
 
-    // TODO Esto es la autorización segun role de usuario
+    // TODO Esto es la autorizacion segun role de usuario
 
     public static boolean isAuthorized(String path, JWT jwt, String method) {
 

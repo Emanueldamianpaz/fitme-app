@@ -67,7 +67,7 @@ public class UserInfoRouter extends FitmeRouter {
     private final Route deleteUserInfo = doInTransaction(true, (Request request, Response response) ->
             {
                 userInfoService.delete(request.params("id"));
-                return new ResponseDTO(EnumResponse.DeleteOk.name(), "Información del usuario eliminado eliminada");
+                return new ResponseDTO(EnumResponse.DeleteOk.name(), "Informacion del usuario eliminado eliminada");
             }
     );
 }
