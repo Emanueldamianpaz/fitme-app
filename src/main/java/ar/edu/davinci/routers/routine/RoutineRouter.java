@@ -70,11 +70,9 @@ public class RoutineRouter extends FitmeRouter {
             get("/light", getRoutinesLight, jsonTransformer);
 
             get("/:id", getRoutine, jsonTransformer);
-            get("/:id/info", getInfoRoutine, jsonTransformer);
+            get("/:id/info", getInfoRoutine, jsonTransformer); // TODO Candidato a eliminarse
 
             post("", createRoutine, jsonTransformer);
-
-            post("/:id/assign/:user_id", assignRoutine, jsonTransformer);
 
             patch("/:id", updateRoutine, jsonTransformer);
             delete("/:id", deleteRoutine, jsonTransformer);
@@ -106,26 +104,6 @@ public class RoutineRouter extends FitmeRouter {
 
             }
     );
-    private final Route assignRoutine = doInTransaction(true, (Request request, Response response) ->
-            {
-                String routineId = request.params("id");
-                String userId = request.params("user_id");
-
-                User user = userEntityService.get(userId);
-                Set<Routine> routine = new HashSet<>();
-                routine.add(routineService.get(routineId));
-
-
-                Scoring scoring = scoringService.create(new Scoring(ScoringType.UNKNOWN.name(), ""));
-              //  UserRoutine userR = new UserRoutine(user, scoring, routine);
-
-//                user.setUserRoutine(userR);
-
-                return userEntityService.update(user);
-
-            }
-    );
-
 
     private final Route createRoutine = doInTransaction(true, (Request request, Response response) ->
             {

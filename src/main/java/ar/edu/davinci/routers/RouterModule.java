@@ -6,7 +6,6 @@ import ar.edu.davinci.routers.goal.GoalRouter;
 import ar.edu.davinci.routers.nutrition.NutritionRouter;
 import ar.edu.davinci.routers.routine.RoutineRouter;
 import ar.edu.davinci.routers.routineTemplate.RoutineTemplateRouter;
-import ar.edu.davinci.routers.scoring.ScoringRouter;
 import ar.edu.davinci.routers.user.ExerciseSessionRouter;
 import ar.edu.davinci.routers.user.UserEntityRouter;
 import ar.edu.davinci.routers.user.UserInfoRouter;
@@ -25,7 +24,6 @@ public class RouterModule extends AbstractModule {
         routerBinder.addBinding().to(NutritionRouter.class);
         routerBinder.addBinding().to(RoutineRouter.class);
         routerBinder.addBinding().to(RoutineTemplateRouter.class);
-        routerBinder.addBinding().to(ScoringRouter.class);
         routerBinder.addBinding().to(UserEntityRouter.class);
         routerBinder.addBinding().to(UserInfoRouter.class);
         routerBinder.addBinding().to(ExerciseSessionRouter.class);

@@ -18,8 +18,8 @@ public class UserInfo extends FitmeDomain<String> {
     @Id
     private String id;
 
-    @Column(name = "weight")
-    private Double weight;
+    @Column(name = "initial_weight")
+    private Double initialWeight;
 
     @Column(name = "height")
     private String height;
@@ -43,7 +43,7 @@ public class UserInfo extends FitmeDomain<String> {
     }
 
     public UserInfo(UserInfoRequestDTO userInfoRequest) {
-        this.weight = userInfoRequest.getWeight();
+        this.initialWeight = userInfoRequest.getInitialWeight();
         this.height = userInfoRequest.getHeight();
         this.currentFat = Double.parseDouble(userInfoRequest.getCurrentFat());
         this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
@@ -51,7 +51,7 @@ public class UserInfo extends FitmeDomain<String> {
 
     public UserInfo(String id, UserInfoRequestDTO userInfoRequest) {
         this.id = id;
-        this.weight = userInfoRequest.getWeight();
+        this.initialWeight = userInfoRequest.getInitialWeight();
         this.height = userInfoRequest.getHeight();
         this.currentFat = Double.parseDouble(userInfoRequest.getCurrentFat());
         this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();

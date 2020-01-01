@@ -79,7 +79,7 @@ public class StaticFilesRouter extends Router {
             configureFile(contextUI + "/exercises", "public/index.html");
             configureFile(contextUI + "/nutritions", "public/index.html");
 
-
+            // TODO Debería hacer un get("/ui.*) return fitme-app/404
 
         };
     }

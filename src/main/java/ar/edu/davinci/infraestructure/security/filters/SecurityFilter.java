@@ -27,11 +27,12 @@ import java.util.regex.Pattern;
 @Slf4j
 public class SecurityFilter implements Filter {
 
-    private Boolean enabled;
     public static JWTVerifier verifier;
     public static AuthenticationController authClient;
-    private String fakeToken;
+
+    private Boolean enabled;
     private UserSessionFactory userSessionFactory;
+    private String fakeToken;
     private String audience2;
     private String issuer;
 
@@ -47,13 +48,13 @@ public class SecurityFilter implements Filter {
             @TypesafeConfig("auth0.fakeToken") String fakeToken,
             UserSessionFactory userSessionFactory
     ) {
-
         this.enabled = enabled;
         this.fakeToken = fakeToken;
         this.audience2 = audience2;
         this.issuer = issuer;
         this.userSessionFactory = userSessionFactory;
-        this.authClient = AuthenticationController.newBuilder(issuer, clientId, clientSecret)
+        this.authClient = AuthenticationController
+                .newBuilder(issuer, clientId, clientSecret)
                 .build();
         this.verifier = JWT.require(Algorithm.RSA256(keyProvider))
                 .withIssuer(issuer)
@@ -69,7 +70,9 @@ public class SecurityFilter implements Filter {
         }
 
         UserSession userSession = null;
+
         if (!enabled) {
+            // Es para utilizarlo sin auth0 por eso no va via api
             userSession = userSessionFactory.createUserSession(JWT.decode(fakeToken));
         } else if (!SecurityExclusions.isUnrestricted(request.pathInfo(), request.requestMethod()))
             getUserSession(request, response);
@@ -77,7 +80,6 @@ public class SecurityFilter implements Filter {
             log.debug("Matches unrestricted access. JWT is not necessary.");
 
         request.attribute("current-session", userSession);
-
     }
 
     public void getUserSession(Request request, Response response) {

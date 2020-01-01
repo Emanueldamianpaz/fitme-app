@@ -35,9 +35,7 @@ public class UserSessionFactory {
 
     @Inject
     public UserSessionFactory(
-            LoadingCache<String, UserSession> usersCache,
-            SessionFactory sessionFactory,
-            UserRoutineService userRoutineService,
+            LoadingCache<String, UserSession> usersCache, SessionFactory sessionFactory, UserRoutineService userRoutineService,
             UserEntityService userEntityService,
             ScoringService scoringService
     ) {

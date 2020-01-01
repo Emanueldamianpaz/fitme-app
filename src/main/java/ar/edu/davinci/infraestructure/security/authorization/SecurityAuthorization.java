@@ -1,6 +1,5 @@
 package ar.edu.davinci.infraestructure.security.authorization;
 
-
 import ar.edu.davinci.infraestructure.security.authorization.enums.PathAuthorization;
 import ar.edu.davinci.infraestructure.security.roles.Role;
 import com.auth0.jwt.JWT;
@@ -12,15 +11,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Slf4j
 public final class SecurityAuthorization {
 
+    // TODO Esto es la autorización segun role de usuario
 
     public static boolean isAuthorized(String path, JWT jwt, String method) {
 
         Boolean authorized;
-
         PathAuthorization match = Arrays.stream(PathAuthorization.values())
                 .filter(pathSecure -> pathSecure.getPattern().matcher(path).matches() && pathSecure.getMethodsAvailable().contains(method))
                 .collect(Collectors.toList()).get(0);

@@ -27,7 +27,7 @@ public class UserSession {
                 .name(payload.getClaim("given_name").asString())
                 .last_name(payload.getClaim("family_name").asString())
                 .picture(payload.getClaim("picture").asString())
-                .gender(payload.getClaim("gender").asString())
+                .genre(payload.getClaim("genre").asString())
                 .nickname(payload.getClaim("nickname").asString())
                 .email(payload.getClaim("email").asString())
                 .build();

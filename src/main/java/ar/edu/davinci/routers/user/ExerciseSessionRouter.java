@@ -27,7 +27,7 @@ public class ExerciseSessionRouter extends FitmeRouter {
     private JsonTransformer jsonTransformer;
     private ExerciseSessionService exerciseSessionService;
     private UserInfoService userInfoService;
-
+// TODO HAY QUE HACER ESTO PARA EL MOBILE
     @Inject
     public ExerciseSessionRouter(Gson objectMapper,
                                  ExerciseSessionService exerciseSessionService,

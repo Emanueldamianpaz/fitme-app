@@ -15,7 +15,7 @@ public class FitmeUser {
     private String name;
     private String last_name;
     private String picture;
-    private String gender;
+    private String genre;
     private String email;
     private String nickname;
 }

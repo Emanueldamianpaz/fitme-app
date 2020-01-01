@@ -4,7 +4,6 @@ import ar.edu.davinci.domain.FitmeDomain;
 import ar.edu.davinci.infraestructure.security.roles.FitmeRoles;
 import ar.edu.davinci.infraestructure.security.util.FitmeUser;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -40,8 +39,8 @@ public class User extends FitmeDomain<String> {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "gender")
-    private String gender;
+    @Column(name = "genre")
+    private String genre;
 
     @Column(name = "role")
     private String role;
@@ -54,7 +53,7 @@ public class User extends FitmeDomain<String> {
         this.userInfo = userInfo;
         this.name = user.getName();
         this.lastName = user.getLast_name();
-        this.gender = user.getGender();
+        this.genre = user.getGenre();
         this.picture = user.getPicture();
         this.role = role.name();
         this.email = user.getEmail();

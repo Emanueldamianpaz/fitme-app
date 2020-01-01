@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 public enum Exclusion {
 
-
     APP_METADATA_PATH(Pattern.compile("/fitme/api/app_metadata"), ImmutableSet.of("GET")),
 
     INDEX_PATH(Pattern.compile("/fitme/ui/index.html"), ImmutableSet.of("GET")),

@@ -1,18 +1,18 @@
 package ar.edu.davinci.routers.user;
 
 import ar.edu.davinci.domain.model.Routine;
-import ar.edu.davinci.domain.model.Scoring;
 import ar.edu.davinci.domain.model.User;
+import ar.edu.davinci.domain.model.UserInfo;
 import ar.edu.davinci.domain.model.UserRoutine;
-import ar.edu.davinci.domain.types.ScoringType;
 import ar.edu.davinci.dto.fitme.routine.SetRoutineRequestDTO;
 import ar.edu.davinci.dto.fitme.scoring.TipRequestDTO;
+import ar.edu.davinci.dto.fitme.user.UserInfoLightRequestDTO;
+import ar.edu.davinci.dto.fitme.user.UserInfoRequestDTO;
 import ar.edu.davinci.exception.FitmeException;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.routine.RoutineService;
 import ar.edu.davinci.service.user.UserEntityService;
-import ar.edu.davinci.service.user.UserRoutineService;
 import ar.edu.davinci.utils.JsonTransformer;
 import com.auth0.IdentityVerificationException;
 import com.auth0.SessionUtils;
@@ -30,9 +30,7 @@ import spark.RouteGroup;
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static ar.edu.davinci.infraestructure.security.filters.SecurityFilter.authClient;
@@ -69,11 +67,16 @@ public class UserEntityRouter extends FitmeRouter {
     @Override
     public RouteGroup routes() {
         return () -> {
-            get("", getListUsers, jsonTransformer); //
-            get("/session", createSession, jsonTransformer);
-            get("/callback", callbackSession, jsonTransformer);
+            get("", getListUsers, jsonTransformer);
+            get("/session", createSession, jsonTransformer); // For all users(normally fitness_users)
+            get("/callback", callbackSession, jsonTransformer); // Only for Admin/Coach/Web
 
             get("/:id/info", getUser, jsonTransformer);
+            get("/:id/info/light", getUserLight, jsonTransformer);
+
+            get("/:id/info/routines", getUserRoutines, jsonTransformer);
+
+
             post("/:id/message", sendMessage, jsonTransformer);
             post("/:id/routines", setRoutines, jsonTransformer);
 
@@ -130,6 +133,23 @@ public class UserEntityRouter extends FitmeRouter {
             userEntityService.get(request.params("id"))
     );
 
+    private final Route getUserLight = doInTransaction(true, (Request request, Response response) -> {
+                User u = userEntityService.get(request.params("id"));
+                UserInfo ui = u.getUserInfo();
+
+                UserInfoRequestDTO userInfoRequestDTO = new UserInfoRequestDTO(ui.getInitialWeight(), ui.getHeight(),
+                        ui.getCurrentFat(), ui.getFrecuencyExercise());
+
+                UserInfoLightRequestDTO userResponse = new UserInfoLightRequestDTO(u.getId(), userInfoRequestDTO,
+                        u.getName(), u.getLastName(), u.getEmail(), u.getPicture(), u.getNickname(), u.getGenre(),
+                        u.getRole());
+
+                return userResponse;
+            }
+    );
+    private final Route getUserRoutines = doInTransaction(true, (Request request, Response response) ->
+            userEntityService.get(request.params("id")).getUserRoutine()
+    );
 
     private final Route callbackSession = doInTransaction(true, (Request request, Response response) ->
     {

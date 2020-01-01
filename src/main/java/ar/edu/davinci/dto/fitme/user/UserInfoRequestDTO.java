@@ -7,10 +7,9 @@ import lombok.Data;
 @Data
 public class UserInfoRequestDTO {
 
-    private Double weight;
+    private Double initialWeight;
     private String height;
-    private String genre;
-    private String currentFat;
+    private Double currentFat;
     private String frecuencyExercise;
 
 }

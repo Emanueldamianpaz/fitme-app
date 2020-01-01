@@ -9,7 +9,6 @@ import java.util.List;
 @Slf4j
 public final class SecurityExclusions {
 
-
     public static boolean isUnrestricted(String path, String reqMethod) {
         Exclusion[] exclusionList = Exclusion.values();
         List<Boolean> pathUnrestricted = new ArrayList<>();

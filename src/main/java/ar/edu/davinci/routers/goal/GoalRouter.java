@@ -45,6 +45,8 @@ public class GoalRouter extends FitmeRouter {
     @Override
     public RouteGroup routes() {
         return () -> {
+
+            // TODO Candidato para eliminar
             get("", getGoals, jsonTransformer);
             get("/:id", getGoal, jsonTransformer);
             post("", createGoal, jsonTransformer);
