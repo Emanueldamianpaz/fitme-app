@@ -48,13 +48,14 @@ public class UserSessionFactory {
         this.scoringService = scoringService;
     }
 
-    public UserSession createUserSession(DecodedJWT jwt) {
+    public UserSession createUserSession(DecodedJWT jwt, FitmeRoles role) {
         try {
             return usersCache.get(jwt.getSubject(),
                     () -> {
 
                         UserSession userSession = new UserSession(jwt);
-                        persistUser(userSession);
+
+                        persistUser(userSession, role);
 
                         return userSession;
                     });
@@ -65,7 +66,7 @@ public class UserSessionFactory {
         }
     }
 
-    private FitmeUser persistUser(UserSession userSession) {
+    private FitmeUser persistUser(UserSession userSession, FitmeRoles role) {
 
         FitmeUser user = userSession.getUser();
 
@@ -78,9 +79,6 @@ public class UserSessionFactory {
             } else {
                 session.save(new UserInfo(user.getId()));
             }
-
-
-            FitmeRoles role = userSession.getUncheckedRole().orElse(READONLY); // In case that auth0 defaultRole failure
 
             Scoring scoring = scoringService.create(new Scoring(ScoringType.UNKNOWN.name(), ""));
             UserRoutine userRoutine = userRoutineService.create(new UserRoutine(scoring, new HashSet<>()));

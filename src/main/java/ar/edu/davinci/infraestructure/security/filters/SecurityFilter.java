@@ -3,6 +3,7 @@ package ar.edu.davinci.infraestructure.security.filters;
 import ar.edu.davinci.exception.runtime.UnauthorizedRequestException;
 import ar.edu.davinci.infraestructure.security.authorization.SecurityExclusions;
 import ar.edu.davinci.infraestructure.security.authorization.enums.PathAuthorization;
+import ar.edu.davinci.infraestructure.security.roles.FitmeRoles;
 import ar.edu.davinci.infraestructure.security.session.UserSession;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import com.auth0.AuthenticationController;
@@ -73,7 +74,7 @@ public class SecurityFilter implements Filter {
 
         if (!enabled) {
             // Es para utilizarlo sin auth0 por eso no va via api
-            userSession = userSessionFactory.createUserSession(JWT.decode(fakeToken));
+            userSession = userSessionFactory.createUserSession(JWT.decode(fakeToken), FitmeRoles.READONLY);
         } else if (!SecurityExclusions.isUnrestricted(request.pathInfo(), request.requestMethod()))
             getUserSession(request, response);
         else

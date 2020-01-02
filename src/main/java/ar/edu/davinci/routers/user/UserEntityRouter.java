@@ -8,7 +8,9 @@ import ar.edu.davinci.dto.fitme.routine.SetRoutineRequestDTO;
 import ar.edu.davinci.dto.fitme.scoring.TipRequestDTO;
 import ar.edu.davinci.dto.fitme.user.UserInfoLightRequestDTO;
 import ar.edu.davinci.dto.fitme.user.UserInfoRequestDTO;
+import ar.edu.davinci.dto.fitme.user.UserSessionDTO;
 import ar.edu.davinci.exception.FitmeException;
+import ar.edu.davinci.infraestructure.security.roles.FitmeRoles;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.routine.RoutineService;
@@ -30,6 +32,7 @@ import spark.RouteGroup;
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static ar.edu.davinci.infraestructure.security.filters.SecurityFilter.authClient;
@@ -164,7 +167,7 @@ public class UserEntityRouter extends FitmeRouter {
 
         DecodedJWT jwt = JWT.decode(tokens.getIdToken());
 
-        userSessionFactory.createUserSession(jwt);
+        userSessionFactory.createUserSession(jwt, FitmeRoles.COACH);
 
         response.header("Authorization", jwt.getToken());
         response.raw().addCookie(new Cookie("Authorization", jwt.getToken()));
@@ -176,10 +179,14 @@ public class UserEntityRouter extends FitmeRouter {
 
     private final Route createSession = doInTransaction(true, (Request request, Response response) ->
     {
+        UserSessionDTO session = (UserSessionDTO) jsonTransformer.asJson(request.body(), UserSessionDTO.class);
 
-        DecodedJWT jwt = JWT.decode(request.body());
+        DecodedJWT jwt = JWT.decode(session.getToken_id());
+        FitmeRoles role = Optional.of(
+                FitmeRoles.valueOf(session.getRole())
+        ).orElse(FitmeRoles.READONLY);
 
-        userSessionFactory.createUserSession(jwt);
+        userSessionFactory.createUserSession(jwt, role);
 
         return "";
     });
