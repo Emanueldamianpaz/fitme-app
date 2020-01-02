@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "user_entity", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "user_entity")
 public class User extends FitmeDomain<String> {
 
     @Id
