@@ -2,8 +2,8 @@ package ar.edu.davinci.routers.user;
 
 import ar.edu.davinci.domain.model.ExerciseSession;
 import ar.edu.davinci.domain.model.UserInfo;
-import ar.edu.davinci.dto.fitme.user.ExerciseSessionExerciseDTO;
-import ar.edu.davinci.dto.fitme.user.ExerciseSessionNutritionDTO;
+import ar.edu.davinci.dto.fitme.exercise_session.ExerciseSessionExerciseDTO;
+import ar.edu.davinci.dto.fitme.exercise_session.ExerciseSessionNutritionDTO;
 import ar.edu.davinci.routers.FitmeRouter;
 import ar.edu.davinci.service.user.ExerciseSessionService;
 import ar.edu.davinci.service.user.UserInfoService;

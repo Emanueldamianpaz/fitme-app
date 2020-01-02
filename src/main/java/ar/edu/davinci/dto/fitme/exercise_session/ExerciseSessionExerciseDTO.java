@@ -1,4 +1,4 @@
-package ar.edu.davinci.dto.fitme.user;
+package ar.edu.davinci.dto.fitme.exercise_session;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
