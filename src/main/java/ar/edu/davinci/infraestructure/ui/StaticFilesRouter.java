@@ -77,6 +77,8 @@ public class StaticFilesRouter extends Router {
             configureFile(contextUI + "/routines", "public/index.html");
             configureFile(contextUI + "/users", "public/index.html");
             configureFile(contextUI + "/exercises", "public/index.html");
+            configureFile(contextUI + "/404", "public/index.html");
+
             configureFile(contextUI + "/nutritions", "public/index.html");
 
             // TODO should be do get("/ui.*) return fitme-app/404

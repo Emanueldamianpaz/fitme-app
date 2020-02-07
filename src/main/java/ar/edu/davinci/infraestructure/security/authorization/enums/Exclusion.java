@@ -10,6 +10,7 @@ public enum Exclusion {
     APP_METADATA_PATH(Pattern.compile("/fitme/api/app_metadata"), ImmutableSet.of("GET")),
 
     INDEX_PATH(Pattern.compile("/fitme/ui/index.html"), ImmutableSet.of("GET")),
+    NOT_FOUND_PATH(Pattern.compile("/fitme/ui/404"), ImmutableSet.of("GET")),
 
     STATIC_PATTERN(Pattern.compile("/fitme/ui/css.*"), ImmutableSet.of("GET")),
     RESOURCES_PATTERN(Pattern.compile("/fitme/ui/js.*"), ImmutableSet.of("GET")),

@@ -25,7 +25,7 @@ public class Routine extends FitmeDomain<Long> {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_routine_template")
     private RoutineTemplate routineTemplate;
 

@@ -20,7 +20,7 @@ fitme.service('UsersService', function ($http) {
 
     function setRoutines(userId, routineIds) {
         return req = {
-            method: 'post',
+            method: 'put',
             url: pathUsers + '/' + userId + '/routines',
             data: {routines: routineIds}
         }

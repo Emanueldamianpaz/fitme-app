@@ -23,7 +23,10 @@ public class UserRoutine extends FitmeDomain<Long> {
     @JoinColumn(name = "id_scoring")
     private Scoring scoring;
 
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private Set<Routine> routine;
 
     public UserRoutine(Scoring scoring, Set<Routine> routine) {
@@ -31,8 +34,19 @@ public class UserRoutine extends FitmeDomain<Long> {
         this.routine = routine;
     }
 
-    public void addRoutine(Set<Routine> routine) {
+    public void setRoutine(Set<Routine> routine) {
         this.routine = routine;
     }
 
+    public void removeRoutine(Routine routine) {
+        if (this.routine.contains(routine)) {
+            this.routine.remove(routine);
+        }
+    }
+
+    public void addRoutine(Routine routine) {
+        if (!this.routine.contains(routine)) {
+            this.routine.add(routine);
+        }
+    }
 }

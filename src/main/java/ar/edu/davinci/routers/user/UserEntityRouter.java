@@ -17,6 +17,7 @@ import ar.edu.davinci.service.routine.RoutineService;
 import ar.edu.davinci.service.user.UserEntityService;
 import ar.edu.davinci.utils.JsonTransformer;
 import com.auth0.IdentityVerificationException;
+import com.auth0.InvalidRequestException;
 import com.auth0.SessionUtils;
 import com.auth0.Tokens;
 import com.auth0.jwt.JWT;
@@ -36,8 +37,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static ar.edu.davinci.infraestructure.security.filters.SecurityFilter.authClient;
-import static spark.Spark.get;
-import static spark.Spark.post;
+import static spark.Spark.*;
 
 @Slf4j
 public class UserEntityRouter extends FitmeRouter {
@@ -75,12 +75,14 @@ public class UserEntityRouter extends FitmeRouter {
 
             get("/:id/info", getUser, jsonTransformer);
             get("/:id/info/light", getUserLight, jsonTransformer);
+            get("/:id/info/tip", getUserTip, jsonTransformer);
+
 
             get("/:id/info/routines", getUserRoutines, jsonTransformer);
 
 
             post("/:id/message", sendMessage, jsonTransformer);
-            post("/:id/routines", setRoutines, jsonTransformer);
+            put("/:id/routines", setRoutines, jsonTransformer);
 
         };
     }
@@ -94,16 +96,10 @@ public class UserEntityRouter extends FitmeRouter {
         SetRoutineRequestDTO req = (SetRoutineRequestDTO) jsonTransformer.asJson(request.body(), SetRoutineRequestDTO.class);
         User user = userEntityService.get(request.params("id"));
 
-        Set<Routine> routines = new HashSet<>();
-        for (Long id : req.getRoutines()) {
-            Routine routine = routineService.get(id);
-            routines.add(routine);
-        }
-
         UserRoutine userRoutine = user.getUserRoutine();
-        userRoutine.addRoutine(routines);
-
-
+        for (Long id : req.getRoutines()) {
+            userRoutine.addRoutine(routineService.get(id));
+        }
         user.setUserRoutine(userRoutine);
         userEntityService.update(user);
 
@@ -149,6 +145,13 @@ public class UserEntityRouter extends FitmeRouter {
                 return userResponse;
             }
     );
+
+    private final Route getUserTip = doInTransaction(true, (Request request, Response response) -> {
+                User u = userEntityService.get(request.params("id"));
+                return new TipRequestDTO(u.getUserRoutine().getScoring().getTip());
+            }
+    );
+
     private final Route getUserRoutines = doInTransaction(true, (Request request, Response response) ->
             userEntityService.get(request.params("id")).getUserRoutine()
     );
@@ -158,21 +161,23 @@ public class UserEntityRouter extends FitmeRouter {
         Tokens tokens = null;
         try {
             tokens = authClient.handle(request.raw());
-        } catch (IdentityVerificationException e) {
+            SessionUtils.set(request.raw(), "accessToken", tokens.getAccessToken());
+            SessionUtils.set(request.raw(), "idToken", tokens.getIdToken());
+
+            DecodedJWT jwt = JWT.decode(tokens.getIdToken());
+
+            userSessionFactory.createUserSession(jwt, FitmeRoles.COACH);
+
+            response.header("Authorization", jwt.getToken());
+            response.raw().addCookie(new Cookie("Authorization", jwt.getToken()));
+            response.cookie("/fitme", "fitme_session", jwt.getToken(), 3600, false, false);
+            response.redirect("/fitme/ui/dashboard");
+        } catch (IdentityVerificationException | NullPointerException e) {
             log.error("Error handling auth", e);
+            response.redirect("/fitme/ui/404");
+
         }
 
-        SessionUtils.set(request.raw(), "accessToken", tokens.getAccessToken());
-        SessionUtils.set(request.raw(), "idToken", tokens.getIdToken());
-
-        DecodedJWT jwt = JWT.decode(tokens.getIdToken());
-
-        userSessionFactory.createUserSession(jwt, FitmeRoles.COACH);
-
-        response.header("Authorization", jwt.getToken());
-        response.raw().addCookie(new Cookie("Authorization", jwt.getToken()));
-        response.cookie("/fitme", "fitme_session", jwt.getToken(), 3600, false, false);
-        response.redirect("/fitme/ui/dashboard");
 
         return "";
     });
