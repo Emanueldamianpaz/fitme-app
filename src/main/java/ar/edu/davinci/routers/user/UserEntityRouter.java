@@ -136,7 +136,7 @@ public class UserEntityRouter extends FitmeRouter {
                 UserInfo ui = u.getUserInfo();
 
                 UserInfoRequestDTO userInfoRequestDTO = new UserInfoRequestDTO(ui.getInitialWeight(), ui.getHeight(),
-                        ui.getCurrentFat(), ui.getFrecuencyExercise());
+                        ui.getCurrentFat(), ui.getFrecuencyExercise(), ui.getGoal());
 
                 UserInfoLightRequestDTO userResponse = new UserInfoLightRequestDTO(u.getId(), userInfoRequestDTO,
                         u.getName(), u.getLastName(), u.getEmail(), u.getPicture(), u.getNickname(), u.getGenre(),
