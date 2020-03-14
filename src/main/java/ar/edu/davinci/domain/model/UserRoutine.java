@@ -23,10 +23,8 @@ public class UserRoutine extends FitmeDomain<Long> {
     @JoinColumn(name = "id_scoring")
     private Scoring scoring;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany
+    @JoinColumn(name = "id_routine")
     private Set<Routine> routine;
 
     public UserRoutine(Scoring scoring, Set<Routine> routine) {
