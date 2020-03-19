@@ -12,9 +12,13 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
     $scope.userSelectedDetail = {};
     $scope.userTip = {id: '', message: ''};
 
-    UsersService.getListUsersInfo().then(function (response) {
-        $scope.userList = response.data;
-    });
+    $scope.refreshList = function () {
+        UsersService.getListUsersInfo().then(function (response) {
+            $scope.userList = response.data;
+        });
+    }
+
+    $scope.refreshList();
 
     RoutinesService.getRoutinesLight().then(function (response) {
         $scope.routineList = response.data;

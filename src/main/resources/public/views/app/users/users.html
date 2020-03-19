@@ -28,6 +28,11 @@
                                 {{ 'commons.new' | translate}}
 
                             </a>
+
+                            <button class="btn btn-info" ng-click="refreshList()" style="margin-left:20px">
+                                <li class="fa fa-plus"></li>
+                                {{ 'commons.refresh' | translate}}
+                            </button>
                         </div>
 
                     </div>
@@ -82,7 +87,13 @@
                             <tbody>
 
                             <tr role="row" class="odd" ng-repeat="userItem in userList">
+
                                 <td class="sorting_1">
+
+                                    <img src="{{userItem.picture}}"
+                                         class="img-avatar margin-light-horizontal"
+                                         style="height: 40px; width: auto"
+                                         alt="{{userItem.email}}">
                                     {{ userItem.name }}
                                 </td>
                                 <td>{{ userItem.genre }}</td>
