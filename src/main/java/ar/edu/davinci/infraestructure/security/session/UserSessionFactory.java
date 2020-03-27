@@ -1,15 +1,10 @@
 package ar.edu.davinci.infraestructure.security.session;
 
-import ar.edu.davinci.domain.model.Scoring;
-import ar.edu.davinci.domain.model.User;
-import ar.edu.davinci.domain.model.UserInfo;
-import ar.edu.davinci.domain.model.UserRoutine;
-import ar.edu.davinci.domain.types.ScoringType;
-import ar.edu.davinci.infraestructure.security.roles.FitmeRoles;
-import ar.edu.davinci.infraestructure.security.util.FitmeUser;
-import ar.edu.davinci.service.scoring.ScoringService;
-import ar.edu.davinci.service.user.UserEntityService;
-import ar.edu.davinci.service.user.UserRoutineService;
+import ar.edu.davinci.domain.model.user.UserEntity;
+import ar.edu.davinci.domain.model.user.detail.UserInfo;
+import ar.edu.davinci.infraestructure.exception.FitmeException;
+import ar.edu.davinci.domain.FitmeRoles;
+import ar.edu.davinci.dao.user.UserEntityService;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.common.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +14,8 @@ import org.hibernate.Transaction;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-
-import static ar.edu.davinci.infraestructure.security.roles.FitmeRoles.READONLY;
 
 @Slf4j
 @Singleton
@@ -31,47 +23,38 @@ public class UserSessionFactory {
 
     private LoadingCache<String, UserSession> usersCache;
     private SessionFactory sessionFactory;
-    private UserRoutineService userRoutineService;
     private UserEntityService userEntityService;
-    private ScoringService scoringService;
 
     @Inject
     public UserSessionFactory(
-            LoadingCache<String, UserSession> usersCache, SessionFactory sessionFactory, UserRoutineService userRoutineService,
-            UserEntityService userEntityService,
-            ScoringService scoringService
+            LoadingCache<String, UserSession> usersCache,
+            SessionFactory sessionFactory,
+            UserEntityService userEntityService
     ) {
         this.usersCache = usersCache;
         this.sessionFactory = sessionFactory;
-        this.userRoutineService = userRoutineService;
         this.userEntityService = userEntityService;
-        this.scoringService = scoringService;
     }
 
     public UserSession createUserSession(DecodedJWT jwt, FitmeRoles role) {
         try {
             return usersCache.get(jwt.getSubject(),
                     () -> {
-
                         UserSession userSession = new UserSession(jwt);
-
                         persistUser(userSession, role);
 
                         return userSession;
                     });
         } catch (ExecutionException e) {
             log.error("Fail to retrieve a user session " + jwt.getId(), e);
-
-            throw new RuntimeException("Fail to retrieve a user session " + jwt.getId());
+            throw new FitmeException("Fail to retrieve a user session " + jwt.getId());
         }
     }
 
     private FitmeUser persistUser(UserSession userSession, FitmeRoles role) {
-
         FitmeUser user = userSession.getUser();
 
         try (Session session = sessionFactory.openSession()) {
-
             Transaction transaction = session.beginTransaction();
 
             if (Optional.ofNullable(session.find(UserInfo.class, user.getId())).isPresent()) {
@@ -80,14 +63,9 @@ public class UserSessionFactory {
                 session.save(new UserInfo(user.getId()));
             }
 
-            Scoring scoring = scoringService.create(new Scoring(ScoringType.UNKNOWN.name(), ""));
-            UserRoutine userRoutine = userRoutineService.create(new UserRoutine(scoring, new HashSet<>()));
-
-            userEntityService.upsert(new User(user, session.get(UserInfo.class, user.getId()), role, userRoutine));
-
+            userEntityService.upsert(new UserEntity(user, session.get(UserInfo.class, user.getId()), role));
 
             transaction.commit();
-
         } catch (Exception e) {
             log.error("Fail to persist a user " + user.getId(), e);
         }

@@ -13,7 +13,7 @@ public final class SecurityExclusions {
         Exclusion[] exclusionList = Exclusion.values();
         List<Boolean> pathUnrestricted = new ArrayList<>();
 
-        log.debug("Checking if ['" + path + "'] is unrestricted.");
+        log.debug("Checking if [ " + reqMethod + " '" + path + "'] is unrestricted.");
 
         for (Exclusion exclusion : exclusionList) {
             pathUnrestricted.add(exclusion.getExclusion().matcher(path).matches() && exclusion.getMethodsAvailable().contains(reqMethod));

@@ -12,7 +12,7 @@ public class PersistenceModule extends AbstractModule {
     }
 
     @Provides
-    SessionFactory provideSessionFactoryHibernate(HibernateUtil util){
+    SessionFactory provideSessionFactoryHibernate(HibernateUtil util) {
         return util.getSessionFactory();
     }
 }

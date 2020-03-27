@@ -1,7 +1,15 @@
 package ar.edu.davinci.infraestructure.persistence;
 
-import ar.edu.davinci.domain.model.*;
-import ar.edu.davinci.infraestructure.security.util.FitmeUser;
+import ar.edu.davinci.domain.model.routine.RoutineTemplate;
+import ar.edu.davinci.domain.model.routine.detail.MealNutrition;
+import ar.edu.davinci.domain.model.routine.detail.WorkoutExercise;
+import ar.edu.davinci.domain.model.training.TrainingSession;
+import ar.edu.davinci.domain.model.user.UserEntity;
+import ar.edu.davinci.domain.model.user.detail.UserExperience;
+import ar.edu.davinci.domain.model.user.detail.UserGoal;
+import ar.edu.davinci.domain.model.user.detail.UserInfo;
+import ar.edu.davinci.domain.model.user.detail.UserRoutine;
+import ar.edu.davinci.infraestructure.security.session.FitmeUser;
 import com.github.racc.tscg.TypesafeConfig;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -61,16 +69,15 @@ public class HibernateUtil {
 
         registry = registryBuilder.build();
         MetadataSources sources = new MetadataSources(registry)
-                .addAnnotatedClass(Routine.class)
                 .addAnnotatedClass(RoutineTemplate.class)
-                .addAnnotatedClass(Exercise.class)
-                .addAnnotatedClass(Nutrition.class)
+                .addAnnotatedClass(WorkoutExercise.class)
+                .addAnnotatedClass(MealNutrition.class)
                 .addAnnotatedClass(UserRoutine.class)
-                .addAnnotatedClass(Scoring.class)
-                .addAnnotatedClass(User.class)
+                .addAnnotatedClass(UserExperience.class)
+                .addAnnotatedClass(UserEntity.class)
                 .addAnnotatedClass(UserInfo.class)
-                .addAnnotatedClass(Goal.class)
-                .addAnnotatedClass(ExerciseSession.class)
+                .addAnnotatedClass(UserGoal.class)
+                .addAnnotatedClass(TrainingSession.class)
                 .addAnnotatedClass(FitmeUser.class);
 
 

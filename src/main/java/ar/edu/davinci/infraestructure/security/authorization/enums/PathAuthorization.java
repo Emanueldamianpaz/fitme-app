@@ -1,6 +1,5 @@
 package ar.edu.davinci.infraestructure.security.authorization.enums;
 
-import ar.edu.davinci.infraestructure.security.roles.Role;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.Arrays;
@@ -11,8 +10,6 @@ import java.util.regex.Pattern;
 public enum PathAuthorization {
     ADMIN_PATTERN(Pattern.compile("/admin.*"), ImmutableSet.of("GET", "POST", "PUT", "DELETE"), Arrays.asList(Role.ADMIN)),
     UI_PATTERN(Pattern.compile("/fitme/ui.*"), ImmutableSet.of("GET"), Arrays.asList(Role.NO_AUTHORIZATION)),
-    EXPORT_CSV_PATTERN(Pattern.compile("/export\\.csv.*"), ImmutableSet.of("GET"), Arrays.asList(Role.NO_AUTHORIZATION)),
-
     SERVICE_PATTERN(Pattern.compile("/service.*"), ImmutableSet.of("POST", "PUT", "DELETE"), Arrays.asList(Role.NO_AUTHORIZATION));
 
     private Pattern pattern;

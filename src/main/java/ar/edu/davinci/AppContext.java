@@ -1,12 +1,10 @@
 package ar.edu.davinci;
 
-import ar.edu.davinci.dto.ExceptionDTO;
-import ar.edu.davinci.exception.FitmeException;
-import ar.edu.davinci.exception.runtime.*;
+import ar.edu.davinci.domain.dto.ResponseError;
+import ar.edu.davinci.infraestructure.exception.FitmeException;
+import ar.edu.davinci.infraestructure.exception.runtime.*;
 import ar.edu.davinci.infraestructure.Router;
-import ar.edu.davinci.infraestructure.security.filters.ReadOnlyFilter;
-import ar.edu.davinci.infraestructure.security.filters.RoleAssignedFilter;
-import ar.edu.davinci.infraestructure.security.filters.SecurityFilter;
+import ar.edu.davinci.infraestructure.security.SecurityHandler;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +25,7 @@ public class AppContext {
     private final String basePath;
     private final String apiPath;
     private String url;
-    private SecurityFilter securityFilter;
-    private RoleAssignedFilter roleAssignedFilter;
-    private ReadOnlyFilter readOnlyFilter;
+    private SecurityHandler securityHandler;
     private Gson jsonTransformer;
     private final Set<Router> routers;
 
@@ -41,9 +37,7 @@ public class AppContext {
             @TypesafeConfig("app.url") String url,
             Gson jsonTransformer,
             Set<Router> routers,
-            SecurityFilter securityFilter,
-            RoleAssignedFilter roleAssignedFilter,
-            ReadOnlyFilter readOnlyFilter
+            SecurityHandler securityHandler
     ) {
 
         this.port = port;
@@ -53,9 +47,7 @@ public class AppContext {
         this.jsonTransformer = jsonTransformer;
         this.routers = routers;
         this.url = url;
-        this.securityFilter = securityFilter;
-        this.roleAssignedFilter = roleAssignedFilter;
-        this.readOnlyFilter = readOnlyFilter;
+        this.securityHandler = securityHandler;
     }
 
     void init() {
@@ -76,8 +68,8 @@ public class AppContext {
     }
 
     private void configureAuth() {
-      //  before(basePath + "/*", securityFilter, roleAssignedFilter, readOnlyFilter);
-        before(basePath + "/*", securityFilter);
+        //  before(basePath + "/*", securityFilter, roleAssignedFilter, readOnlyFilter);
+        before(basePath + "/*", securityHandler);
 
     }
 
@@ -117,7 +109,7 @@ public class AppContext {
         exception(InternalServerErrorException.class, (e, request, response) -> {
             response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
             response.body(jsonTransformer.toJson(
-                    new ExceptionDTO(
+                    new ResponseError(
                             e.getCause().getClass().getName(),
                             e.getCause().getMessage()
                     ))
@@ -127,7 +119,7 @@ public class AppContext {
         exception(FitmeException.class, (e, request, response) -> {
             response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
             response.body(jsonTransformer.toJson(
-                    new ExceptionDTO(
+                    new ResponseError(
                             FitmeException.class.getSimpleName(),
                             e.getMessage()
                     ))
@@ -137,7 +129,7 @@ public class AppContext {
         exception(BusinessConstrainException.class, (e, request, response) -> {
             response.status(HttpStatus.BAD_REQUEST_400);
             response.body(jsonTransformer.toJson(
-                    new ExceptionDTO(
+                    new ResponseError(
                             BusinessConstrainException.class.getSimpleName(),
                             e.getMessage()
                     ))
@@ -147,7 +139,7 @@ public class AppContext {
         exception(MissingParameterException.class, (e, request, response) -> {
             response.status(HttpStatus.BAD_REQUEST_400);
             response.body(jsonTransformer.toJson(
-                    new ExceptionDTO(
+                    new ResponseError(
                             MissingParameterException.class.getSimpleName(),
                             e.getMessage()
                     ))
@@ -157,7 +149,7 @@ public class AppContext {
         exception(ResourceNotFoundException.class, (e, request, response) -> {
             response.status(HttpStatus.NOT_FOUND_404);
             response.body(jsonTransformer.toJson(
-                    new ExceptionDTO(
+                    new ResponseError(
                             ResourceNotFoundException.class.getSimpleName(),
                             e.getMessage()
                     ))
@@ -167,7 +159,7 @@ public class AppContext {
         exception(InvalidParameterException.class, (e, request, response) -> {
             response.status(HttpStatus.BAD_REQUEST_400);
             response.body(jsonTransformer.toJson(
-                    new ExceptionDTO(
+                    new ResponseError(
                             InvalidParameterException.class.getSimpleName(),
                             e.getMessage()
                     ))
@@ -177,7 +169,7 @@ public class AppContext {
         exception(UnauthorizedRequestException.class, (e, request, response) -> {
             response.status(HttpStatus.UNAUTHORIZED_401);
             response.body(jsonTransformer.toJson(
-                    new ExceptionDTO(
+                    new ResponseError(
                             UnauthorizedRequestException.class.getSimpleName(),
                             e.getMessage()
                     ))

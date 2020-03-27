@@ -1,6 +1,6 @@
 package ar.edu.davinci.infraestructure.security;
 
-import ar.edu.davinci.exception.FitmeException;
+import ar.edu.davinci.infraestructure.exception.FitmeException;
 import ar.edu.davinci.infraestructure.security.session.UserSession;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
 import ar.edu.davinci.infraestructure.security.session.UserSessionGuavaCacheUtil;

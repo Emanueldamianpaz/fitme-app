@@ -1,8 +1,7 @@
 package ar.edu.davinci.infraestructure.security.session;
 
-import ar.edu.davinci.exception.FitmeException;
-import ar.edu.davinci.infraestructure.security.roles.FitmeRoles;
-import ar.edu.davinci.infraestructure.security.util.FitmeUser;
+import ar.edu.davinci.infraestructure.exception.FitmeException;
+import ar.edu.davinci.domain.FitmeRoles;
 import com.auth0.jwt.interfaces.Payload;
 import lombok.Data;
 import lombok.NoArgsConstructor;

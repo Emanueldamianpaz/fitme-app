@@ -1,6 +1,6 @@
 package ar.edu.davinci.infraestructure.security.session;
 
-import ar.edu.davinci.exception.FitmeException;
+import ar.edu.davinci.infraestructure.exception.FitmeException;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
