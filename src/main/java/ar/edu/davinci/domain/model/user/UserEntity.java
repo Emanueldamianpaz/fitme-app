@@ -1,9 +1,9 @@
 package ar.edu.davinci.domain.model.user;
 
 import ar.edu.davinci.domain.FitmeEntity;
+import ar.edu.davinci.domain.FitmeRoles;
 import ar.edu.davinci.domain.model.user.detail.UserInfo;
 import ar.edu.davinci.domain.model.user.detail.UserRoutine;
-import ar.edu.davinci.domain.FitmeRoles;
 import ar.edu.davinci.infraestructure.security.session.FitmeUser;
 import lombok.*;
 
@@ -27,9 +27,9 @@ public class UserEntity extends FitmeEntity<String> {
     @JoinColumn(name = "id")
     private UserInfo userInfo;
 
-    @ManyToMany
-    @JoinColumn(name = "id_user_routine")
-    private Set<UserRoutine> userRoutine;
+    @OneToMany
+    @JoinColumn(name = "id_user_routine", referencedColumnName = "id")
+    private Set<UserRoutine> userRoutines;
 
     @Column(name = "name")
     private String name;
@@ -65,14 +65,14 @@ public class UserEntity extends FitmeEntity<String> {
     }
 
     public void removeUserRoutine(UserRoutine userRoutine) {
-        if (this.userRoutine.contains(userRoutine)) {
-            this.userRoutine.remove(userRoutine);
+        if (this.userRoutines.contains(userRoutine)) {
+            this.userRoutines.remove(userRoutine);
         }
     }
 
     public void addUserRoutine(UserRoutine userRoutine) {
-        if (!this.userRoutine.contains(userRoutine)) {
-            this.userRoutine.add(userRoutine);
+        if (!this.userRoutines.contains(userRoutine)) {
+            this.userRoutines.add(userRoutine);
         }
     }
 }

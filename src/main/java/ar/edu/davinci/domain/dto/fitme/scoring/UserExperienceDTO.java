@@ -6,7 +6,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class ScoringRequestDTO {
+public class UserExperienceDTO {
 
     private ScoringType scoring;
     private String coachTip;

@@ -1,16 +1,16 @@
-package ar.edu.davinci.controller.routineTemplate;
+package ar.edu.davinci.controller.routine;
 
+import ar.edu.davinci.controller.EnumResponse;
+import ar.edu.davinci.controller.FitmeRouter;
+import ar.edu.davinci.dao.routine.detail.WorkoutExerciseService;
+import ar.edu.davinci.dao.routine.detail.MealNutritionService;
+import ar.edu.davinci.dao.routine.RoutineTemplateService;
+import ar.edu.davinci.domain.dto.ResponseBody;
+import ar.edu.davinci.domain.dto.fitme.routineTemplate.RoutineTemplateRequestDTO;
 import ar.edu.davinci.domain.model.routine.RoutineTemplate;
 import ar.edu.davinci.domain.model.routine.detail.MealNutrition;
 import ar.edu.davinci.domain.model.routine.detail.WorkoutExercise;
 import ar.edu.davinci.domain.types.ScoringType;
-import ar.edu.davinci.domain.dto.ResponseBody;
-import ar.edu.davinci.domain.dto.fitme.routineTemplate.RoutineTemplateRequestDTO;
-import ar.edu.davinci.controller.EnumResponse;
-import ar.edu.davinci.controller.FitmeRouter;
-import ar.edu.davinci.dao.exercise.ExerciseService;
-import ar.edu.davinci.dao.nutrition.NutritionService;
-import ar.edu.davinci.dao.routineTemplate.RoutineTemplateService;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
@@ -32,28 +32,28 @@ public class RoutineTemplateRouter extends FitmeRouter {
     private String apiPath;
     private JsonTransformer jsonTransformer;
     private RoutineTemplateService routineTemplateService;
-    private NutritionService nutritionService;
-    private ExerciseService exerciseService;
+    private MealNutritionService mealNutritionService;
+    private WorkoutExerciseService workoutExerciseService;
 
     @Inject
     public RoutineTemplateRouter(Gson objectMapper,
                                  RoutineTemplateService routineTemplateService,
                                  SessionFactory sessionFactory,
                                  JsonTransformer jsonTransformer,
-                                 NutritionService nutritionService,
-                                 ExerciseService exerciseService,
+                                 MealNutritionService mealNutritionService,
+                                 WorkoutExerciseService workoutExerciseService,
                                  @TypesafeConfig("app.api") String apiPath) {
         super(objectMapper, sessionFactory);
         this.apiPath = apiPath;
         this.routineTemplateService = routineTemplateService;
         this.jsonTransformer = jsonTransformer;
-        this.nutritionService = nutritionService;
-        this.exerciseService = exerciseService;
+        this.mealNutritionService = mealNutritionService;
+        this.workoutExerciseService = workoutExerciseService;
     }
 
     @Override
     public String path() {
-        return apiPath + "/routine_template";
+        return apiPath + "/routine-template";
     }
 
     @Override
@@ -84,11 +84,11 @@ public class RoutineTemplateRouter extends FitmeRouter {
                 Set<WorkoutExercise> workoutExercises = new HashSet<>();
 
                 for (Long id : routineTemplateRequest.getNutritions()) {
-                    mealNutritions.add(nutritionService.get(id));
+                    mealNutritions.add(mealNutritionService.get(id));
                 }
 
                 for (Long id : routineTemplateRequest.getExercises()) {
-                    workoutExercises.add(exerciseService.get(id));
+                    workoutExercises.add(workoutExerciseService.get(id));
                 }
 
                 return routineTemplateService.create(new RoutineTemplate(workoutExercises, mealNutritions, ScoringType.UNKNOWN));
@@ -103,11 +103,11 @@ public class RoutineTemplateRouter extends FitmeRouter {
                 Set<WorkoutExercise> workoutExercises = new HashSet<>();
 
                 for (Long id : routineTemplateRequest.getNutritions()) {
-                    mealNutritions.add(nutritionService.get(id));
+                    mealNutritions.add(mealNutritionService.get(id));
                 }
 
                 for (Long id : routineTemplateRequest.getExercises()) {
-                    workoutExercises.add(exerciseService.get(id));
+                    workoutExercises.add(workoutExerciseService.get(id));
                 }
                 return routineTemplateService.update(new RoutineTemplate(Long.parseLong(request.params("id")), workoutExercises, mealNutritions));
             }

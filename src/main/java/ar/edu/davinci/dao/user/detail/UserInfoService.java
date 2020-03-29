@@ -1,4 +1,4 @@
-package ar.edu.davinci.dao.user;
+package ar.edu.davinci.dao.user.detail;
 
 import ar.edu.davinci.domain.model.user.detail.UserInfo;
 import ar.edu.davinci.dao.FitmeService;

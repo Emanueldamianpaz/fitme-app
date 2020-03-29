@@ -22,6 +22,12 @@ public class RoutineTemplate extends FitmeEntity<Long> {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
     @ManyToMany
     @JoinColumn(name = "id_exercise")
     private Set<WorkoutExercise> workoutExercises;
@@ -31,7 +37,7 @@ public class RoutineTemplate extends FitmeEntity<Long> {
     private Set<MealNutrition> mealNutritions;
 
     @Column(name = "scoring")
-    private ScoringType scoring;
+    private ScoringType scoring; // Dado por el sistema
 
 
     public RoutineTemplate(Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions, ScoringType scoring) {

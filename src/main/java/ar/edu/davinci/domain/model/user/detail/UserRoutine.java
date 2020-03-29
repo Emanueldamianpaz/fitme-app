@@ -2,10 +2,10 @@ package ar.edu.davinci.domain.model.user.detail;
 
 import ar.edu.davinci.domain.FitmeEntity;
 import ar.edu.davinci.domain.model.routine.RoutineTemplate;
-import ar.edu.davinci.domain.dto.fitme.routine.RoutineRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -20,31 +20,24 @@ public class UserRoutine extends FitmeEntity<Long> {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "description")
-    private String description;
-
-    @OneToOne
-    @JoinColumn(name = "id_scoring")
-    private UserExperience userExperience;
+    @OneToMany
+    @JoinColumn(name = "id_user_experience")
+    private Set<UserExperience> userExperiences;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_routine_template")
     private RoutineTemplate routineTemplate;
 
-    public UserRoutine(RoutineRequestDTO routine, RoutineTemplate routineTemplate) {
-        this.name = routine.getName();
-        this.description = routine.getDescription();
+    public UserRoutine(RoutineTemplate routineTemplate) {
         this.routineTemplate = routineTemplate;
     }
 
-    public UserRoutine(Long id, RoutineRequestDTO routine, RoutineTemplate routineTemplate) {
+    public UserRoutine(Long id, RoutineTemplate routineTemplate) {
         this.id = id;
-        this.name = routine.getName();
-        this.description = routine.getDescription();
         this.routineTemplate = routineTemplate;
     }
 
+    public void addUserExperience(UserExperience userExperience) {
+        this.userExperiences.add(userExperience);
+    }
 }

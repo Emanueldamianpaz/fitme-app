@@ -1,57 +1,36 @@
-package ar.edu.davinci.controller.routine;
+package ar.edu.davinci.controller.user;
 
-import ar.edu.davinci.domain.model.routine.Routine;
-import ar.edu.davinci.domain.model.routine.RoutineTemplate;
-import ar.edu.davinci.domain.dto.ResponseBody;
-import ar.edu.davinci.domain.dto.fitme.routine.RoutineLightResponseDTO;
-import ar.edu.davinci.domain.dto.fitme.routine.RoutineRequestDTO;
-import ar.edu.davinci.controller.EnumResponse;
 import ar.edu.davinci.controller.FitmeRouter;
-import ar.edu.davinci.dao.routine.RoutineService;
-import ar.edu.davinci.dao.routineTemplate.RoutineTemplateService;
-import ar.edu.davinci.dao.scoring.ScoringService;
-import ar.edu.davinci.dao.user.UserEntityService;
+import ar.edu.davinci.dao.routine.RoutineTemplateService;
+import ar.edu.davinci.dao.user.detail.UserRoutineService;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import org.hibernate.SessionFactory;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-
-import static spark.Spark.*;
 
 
-public class RoutineRouter extends FitmeRouter {
+public class UserRoutineRouter extends FitmeRouter {
 
     private String apiPath;
     private JsonTransformer jsonTransformer;
-    private RoutineService routineService;
+    private UserRoutineService userRoutineService;
     private RoutineTemplateService routineTemplateService;
-    private UserEntityService userEntityService;
-    private ScoringService scoringService;
 
 
     @Inject
-    public RoutineRouter(Gson objectMapper,
-                         RoutineService routineService,
-                         SessionFactory sessionFactory,
-                         JsonTransformer jsonTransformer,
-                         ScoringService scoringService,
-                         UserEntityService userEntityService,
-                         RoutineTemplateService routineTemplateService,
-                         @TypesafeConfig("app.api") String apiPath) {
+    public UserRoutineRouter(Gson objectMapper,
+                             SessionFactory sessionFactory,
+                             JsonTransformer jsonTransformer,
+                             UserRoutineService userRoutineService,
+                             RoutineTemplateService routineTemplateService,
+                             @TypesafeConfig("app.api") String apiPath) {
         super(objectMapper, sessionFactory);
         this.apiPath = apiPath;
-        this.routineService = routineService;
+        this.userRoutineService = userRoutineService;
         this.jsonTransformer = jsonTransformer;
-        this.scoringService = scoringService;
-        this.userEntityService = userEntityService;
         this.routineTemplateService = routineTemplateService;
     }
 
@@ -63,7 +42,7 @@ public class RoutineRouter extends FitmeRouter {
     @Override
     public RouteGroup routes() {
         return () -> {
-            get("", getRoutines, jsonTransformer);
+         /*   get("", getRoutines, jsonTransformer);
             get("/light", getRoutinesLight, jsonTransformer);
 
             get("/:id", getRoutine, jsonTransformer);
@@ -72,17 +51,17 @@ public class RoutineRouter extends FitmeRouter {
             post("", createRoutine, jsonTransformer);
 
             patch("/:id", updateRoutine, jsonTransformer);
-            delete("/:id", deleteRoutine, jsonTransformer);
+            delete("/:id", deleteRoutine, jsonTransformer);*/
         };
     }
-
+/*
 
     private final Route getRoutines = doInTransaction(false, (Request request, Response response) ->
-            routineService.findAll()
+            userRoutineService.findAll()
     );
 
     private final Route getRoutinesLight = doInTransaction(false, (Request request, Response response) -> {
-                List<Routine> list = routineService.findAll();
+                List<UserRoutine> list = userRoutineService.findAll();
                 List<RoutineLightResponseDTO> routineLight = new ArrayList<>();
                 for (Routine routine : list) {
                     routineLight.add(new RoutineLightResponseDTO(routine.getId(), routine.getName(), routine.getDescription()));
@@ -91,11 +70,11 @@ public class RoutineRouter extends FitmeRouter {
             }
     );
     private final Route getRoutine = doInTransaction(false, (Request request, Response response) ->
-            routineService.get(request.params("id"))
+            userRoutineService.get(request.params("id"))
     );
 
     private final Route getInfoRoutine = doInTransaction(false, (Request request, Response response) -> {
-                Routine routine = routineService.get(request.params("id"));
+                Routine routine = userRoutineService.get(request.params("id"));
 
                 return routine.getRoutineTemplate();
 
@@ -107,7 +86,7 @@ public class RoutineRouter extends FitmeRouter {
                 RoutineRequestDTO routineRequest = (RoutineRequestDTO) jsonTransformer.asJson(request.body(), RoutineRequestDTO.class);
 
                 RoutineTemplate routineTemplate = routineTemplateService.get(routineRequest.getRoutineTemplate());
-                return routineService.create(new Routine(routineRequest, routineTemplate));
+                return userRoutineService.create(new Routine(routineRequest, routineTemplate));
             }
     );
 
@@ -116,16 +95,16 @@ public class RoutineRouter extends FitmeRouter {
                 RoutineRequestDTO routineRequest = (RoutineRequestDTO) jsonTransformer.asJson(request.body(), RoutineRequestDTO.class);
                 RoutineTemplate routineTemplate = routineTemplateService.get(routineRequest.getRoutineTemplate());
 
-                return routineService.update(new Routine(Long.parseLong(request.params("id")), routineRequest, routineTemplate));
+                return userRoutineService.update(new Routine(Long.parseLong(request.params("id")), routineRequest, routineTemplate));
             }
     );
 
     private final Route deleteRoutine = doInTransaction(true, (Request request, Response response) ->
             {
-                routineService.delete(request.params("id"));
+                userRoutineService.delete(request.params("id"));
                 return new ResponseBody(EnumResponse.DELETED.name(), "Rutina eliminada");
             }
     );
 
-
+*/
 }

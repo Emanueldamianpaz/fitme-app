@@ -5,7 +5,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class TipRequestDTO {
+public class CoachTipDTO {
 
     private String tip;
 }

@@ -10,21 +10,21 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @Builder
-@Table(name = "exercise_session")
+@Table(name = "training_session")
 public class TrainingSession extends FitmeEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nutrition_info_raw", columnDefinition = "TEXT")
-    private String nutritionSession;
+    @Column(name = "meal_nutrition_info_raw", columnDefinition = "TEXT")
+    private String mealNutrition;
 
-    @Column(name = "exercise_info_raw", columnDefinition = "TEXT")
-    private String exerciseSession;
+    @Column(name = "workout_exercise_info_raw", columnDefinition = "TEXT")
+    private String workoutExercise;
 
-    public TrainingSession(String exerciseSession, String nutritionSession) {
-        this.exerciseSession = exerciseSession;
-        this.nutritionSession = nutritionSession;
+    public TrainingSession(String workoutExercise, String mealNutrition) {
+        this.workoutExercise = workoutExercise;
+        this.mealNutrition = mealNutrition;
     }
 }

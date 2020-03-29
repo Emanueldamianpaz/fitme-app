@@ -1,28 +1,29 @@
 package ar.edu.davinci.dao;
 
-import ar.edu.davinci.dao.exercise.ExerciseService;
-import ar.edu.davinci.dao.goal.GoalService;
-import ar.edu.davinci.dao.nutrition.NutritionService;
-import ar.edu.davinci.dao.routine.RoutineService;
-import ar.edu.davinci.dao.routineTemplate.RoutineTemplateService;
-import ar.edu.davinci.dao.scoring.ScoringService;
+import ar.edu.davinci.dao.routine.detail.WorkoutExerciseService;
+import ar.edu.davinci.dao.routine.detail.MealNutritionService;
+import ar.edu.davinci.dao.routine.RoutineTemplateService;
+import ar.edu.davinci.dao.user.detail.UserExperienceService;
 import ar.edu.davinci.dao.user.UserEntityService;
-import ar.edu.davinci.dao.user.UserInfoService;
-import ar.edu.davinci.dao.user.UserRoutineService;
+import ar.edu.davinci.dao.user.detail.UserInfoService;
+import ar.edu.davinci.dao.user.detail.UserRoutineService;
+import ar.edu.davinci.dao.user.detail.GoalService;
+import ar.edu.davinci.domain.model.user.detail.UserRoutine;
 import com.google.inject.AbstractModule;
 
 public class ServiceModule extends AbstractModule {
     @Override
     protected void configure() {
-        bind(ExerciseService.class);
+        bind(WorkoutExerciseService.class);
         bind(GoalService.class);
-        bind(NutritionService.class);
-        bind(RoutineService.class);
+        bind(MealNutritionService.class);
         bind(RoutineTemplateService.class);
-        bind(ScoringService.class);
-        bind(ScoringService.class);
+        bind(UserExperienceService.class);
+        bind(UserExperienceService.class);
         bind(UserEntityService.class);
         bind(UserInfoService.class);
         bind(UserRoutineService.class);
+        bind(UserRoutine.class);
+
     }
 }

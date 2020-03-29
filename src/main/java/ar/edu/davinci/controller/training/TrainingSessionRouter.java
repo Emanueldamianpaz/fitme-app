@@ -1,14 +1,14 @@
-package ar.edu.davinci.controller.user;
+package ar.edu.davinci.controller.training;
 
-import ar.edu.davinci.domain.model.training.TrainingSession;
-import ar.edu.davinci.domain.model.user.detail.UserInfo;
-import ar.edu.davinci.domain.types.ScoringType;
+import ar.edu.davinci.controller.FitmeRouter;
+import ar.edu.davinci.dao.training.TrainingSessionService;
+import ar.edu.davinci.dao.user.detail.UserInfoService;
 import ar.edu.davinci.domain.dto.fitme.exercise_session.ExerciseRunningSession;
 import ar.edu.davinci.domain.dto.fitme.exercise_session.ExerciseSessionNutritionDTO;
 import ar.edu.davinci.domain.dto.fitme.exercise_session.RunningSessionDTO;
-import ar.edu.davinci.controller.FitmeRouter;
-import ar.edu.davinci.dao.user.ExerciseSessionService;
-import ar.edu.davinci.dao.user.UserInfoService;
+import ar.edu.davinci.domain.model.training.TrainingSession;
+import ar.edu.davinci.domain.model.user.detail.UserInfo;
+import ar.edu.davinci.domain.types.ScoringType;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
@@ -24,30 +24,31 @@ import java.util.UUID;
 
 import static spark.Spark.*;
 
-public class ExerciseSessionRouter extends FitmeRouter {
+public class TrainingSessionRouter extends FitmeRouter {
 
     private String apiPath;
     private JsonTransformer jsonTransformer;
-    private ExerciseSessionService exerciseSessionService;
+    private TrainingSessionService trainingSessionService;
     private UserInfoService userInfoService;
 
     @Inject
-    public ExerciseSessionRouter(Gson objectMapper,
-                                 ExerciseSessionService exerciseSessionService,
+    public TrainingSessionRouter(Gson objectMapper,
                                  SessionFactory sessionFactory,
+                                 @TypesafeConfig("app.api") String apiPath,
                                  JsonTransformer jsonTransformer,
-                                 UserInfoService userInfoService,
-                                 @TypesafeConfig("app.api") String apiPath) {
+                                 TrainingSessionService trainingSessionService,
+                                 UserInfoService userInfoService
+    ) {
         super(objectMapper, sessionFactory);
         this.apiPath = apiPath;
         this.userInfoService = userInfoService;
-        this.exerciseSessionService = exerciseSessionService;
+        this.trainingSessionService = trainingSessionService;
         this.jsonTransformer = jsonTransformer;
     }
 
     @Override
     public String path() {
-        return apiPath + "/exercise_session";
+        return apiPath + "/exercise-session";
     }
 
     @Override
@@ -77,7 +78,7 @@ public class ExerciseSessionRouter extends FitmeRouter {
                 );
 
                 TrainingSession trainingSession = new TrainingSession(jsonTransformer.render(exerciseRunningSession), "");
-                exerciseSessionService.create(trainingSession);
+                trainingSessionService.create(trainingSession);
 
                 userInfo.addExerciseSession(trainingSession);
 
@@ -97,7 +98,7 @@ public class ExerciseSessionRouter extends FitmeRouter {
                 );
 
                 TrainingSession trainingSession = new TrainingSession(jsonTransformer.render(exerciseRunningSession), "");
-                exerciseSessionService.create(trainingSession);
+                trainingSessionService.create(trainingSession);
 
                 userInfo.addExerciseSession(trainingSession);
 
@@ -114,7 +115,7 @@ public class ExerciseSessionRouter extends FitmeRouter {
                 ExerciseSessionNutritionDTO session = (ExerciseSessionNutritionDTO) jsonTransformer.asJson(request.body(), ExerciseSessionNutritionDTO.class);
 
                 TrainingSession trainingSession = new TrainingSession("", jsonTransformer.render(session));
-                exerciseSessionService.create(trainingSession);
+                trainingSessionService.create(trainingSession);
                 userInfo.addExerciseSession(trainingSession);
 
                 return userInfoService.update(userInfo);

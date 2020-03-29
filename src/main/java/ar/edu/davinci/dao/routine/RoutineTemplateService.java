@@ -1,4 +1,4 @@
-package ar.edu.davinci.dao.routineTemplate;
+package ar.edu.davinci.dao.routine;
 
 import ar.edu.davinci.domain.model.routine.RoutineTemplate;
 import ar.edu.davinci.domain.model.routine.detail.MealNutrition;
