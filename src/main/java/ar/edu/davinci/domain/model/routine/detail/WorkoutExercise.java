@@ -3,7 +3,6 @@ package ar.edu.davinci.domain.model.routine.detail;
 import ar.edu.davinci.domain.FitmeEntity;
 import ar.edu.davinci.domain.types.DifficultyType;
 import ar.edu.davinci.domain.types.WorkoutExerciseType;
-import ar.edu.davinci.domain.dto.fitme.exercise.ExerciseRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,18 +32,11 @@ public class WorkoutExercise extends FitmeEntity<Long> {
     @Column(name = "difficulty")
     private DifficultyType difficulty;
 
-    public WorkoutExercise(ExerciseRequestDTO exercise) {
-        this.name = exercise.getName();
-        this.type = exercise.getType();
-        this.description = exercise.getDescription();
-        this.difficulty = exercise.getDifficulty();
-    }
-
-    public WorkoutExercise(Long id, ExerciseRequestDTO exercise) {
+    public WorkoutExercise(Long id, WorkoutExercise workoutExercise) {
         this.id = id;
-        this.name = exercise.getName();
-        this.type = exercise.getType();
-        this.description = exercise.getDescription();
-        this.difficulty = exercise.getDifficulty();
+        this.name = workoutExercise.getName();
+        this.type = workoutExercise.getType();
+        this.description = workoutExercise.getDescription();
+        this.difficulty = workoutExercise.getDifficulty();
     }
 }

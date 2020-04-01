@@ -2,9 +2,9 @@ package ar.edu.davinci.controller.routine;
 
 import ar.edu.davinci.controller.EnumResponse;
 import ar.edu.davinci.controller.FitmeRouter;
-import ar.edu.davinci.dao.routine.detail.WorkoutExerciseService;
-import ar.edu.davinci.dao.routine.detail.MealNutritionService;
 import ar.edu.davinci.dao.routine.RoutineTemplateService;
+import ar.edu.davinci.dao.routine.detail.MealNutritionService;
+import ar.edu.davinci.dao.routine.detail.WorkoutExerciseService;
 import ar.edu.davinci.domain.dto.ResponseBody;
 import ar.edu.davinci.domain.dto.fitme.routineTemplate.RoutineTemplateRequestDTO;
 import ar.edu.davinci.domain.model.routine.RoutineTemplate;
@@ -60,7 +60,7 @@ public class RoutineTemplateRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getRoutineTemplates, jsonTransformer);
-            get("/:id", getRoutineTemplate, jsonTransformer);
+            //   get("/:id", getRoutineTemplate, jsonTransformer);
             post("", createRoutineTemplate, jsonTransformer);
             patch("/:id", updateRoutineTemplate, jsonTransformer);
             delete("/:id", deleteRoutineTemplate, jsonTransformer);

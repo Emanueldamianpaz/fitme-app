@@ -4,7 +4,6 @@ import ar.edu.davinci.controller.EnumResponse;
 import ar.edu.davinci.controller.FitmeRouter;
 import ar.edu.davinci.dao.routine.detail.MealNutritionService;
 import ar.edu.davinci.domain.dto.ResponseBody;
-import ar.edu.davinci.domain.dto.fitme.nutrition.NutritionRequestDTO;
 import ar.edu.davinci.domain.model.routine.detail.MealNutrition;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
@@ -18,7 +17,6 @@ import spark.RouteGroup;
 import javax.inject.Inject;
 
 import static spark.Spark.*;
-
 
 public class MealNutritionRouter extends FitmeRouter {
 
@@ -47,7 +45,7 @@ public class MealNutritionRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getMealNutritions, jsonTransformer);
-            get("/:id", getMealNutrition, jsonTransformer);
+            //get("/:id", getMealNutrition, jsonTransformer);
 
             post("", createMealNutrition, jsonTransformer);
             patch("/:id", updateMealNutrition, jsonTransformer);
@@ -65,17 +63,16 @@ public class MealNutritionRouter extends FitmeRouter {
     );
 
     private final Route createMealNutrition = doInTransaction(true, (Request request, Response response) ->
-            {
-                NutritionRequestDTO nutritionRequest = (NutritionRequestDTO) jsonTransformer.asJson(request.body(), NutritionRequestDTO.class);
-                return mealNutritionService.create(new MealNutrition(nutritionRequest));
-            }
+            mealNutritionService.create((MealNutrition) jsonTransformer.asJson(request.body(), MealNutrition.class))
     );
 
     private final Route updateMealNutrition = doInTransaction(true, (Request request, Response response) ->
-            {
-                NutritionRequestDTO nutritionRequest = (NutritionRequestDTO) jsonTransformer.asJson(request.body(), NutritionRequestDTO.class);
-                return mealNutritionService.update(new MealNutrition(Long.parseLong(request.params("id")), nutritionRequest));
-            }
+            mealNutritionService.update(
+                    new MealNutrition(
+                            Long.parseLong(request.params("id")),
+                            (MealNutrition) jsonTransformer.asJson(request.body(), MealNutrition.class)
+                    )
+            )
     );
 
     private final Route deleteMealNutrition = doInTransaction(true, (Request request, Response response) ->

@@ -4,7 +4,6 @@ import ar.edu.davinci.controller.EnumResponse;
 import ar.edu.davinci.controller.FitmeRouter;
 import ar.edu.davinci.dao.routine.detail.WorkoutExerciseService;
 import ar.edu.davinci.domain.dto.ResponseBody;
-import ar.edu.davinci.domain.dto.fitme.exercise.ExerciseRequestDTO;
 import ar.edu.davinci.domain.model.routine.detail.WorkoutExercise;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
@@ -47,11 +46,11 @@ public class WorkoutExerciseRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getWorkoutExercises, jsonTransformer);
-            get("/:id", getExercise, jsonTransformer);
+            // get("/:id", getExercise, jsonTransformer);
 
-            post("", createExercise, jsonTransformer);
-            patch("/:id", updateExercise, jsonTransformer);
-            delete("/:id", deleteExercise, jsonTransformer);
+            post("", createWorkoutExercise, jsonTransformer);
+            patch("/:id", updateWorkoutExercise, jsonTransformer);
+            delete("/:id", deleteWorkoutExercise, jsonTransformer);
         };
     }
 
@@ -63,21 +62,20 @@ public class WorkoutExerciseRouter extends FitmeRouter {
             workoutExerciseService.get(request.params("id"))
     );
 
-    private final Route createExercise = doInTransaction(true, (Request request, Response response) ->
-            {
-                ExerciseRequestDTO exerciseRequest = (ExerciseRequestDTO) jsonTransformer.asJson(request.body(), ExerciseRequestDTO.class);
-                return workoutExerciseService.create(new WorkoutExercise(exerciseRequest));
-            }
+    private final Route createWorkoutExercise = doInTransaction(true, (Request request, Response response) ->
+            workoutExerciseService.create((WorkoutExercise) jsonTransformer.asJson(request.body(), WorkoutExercise.class))
     );
 
-    private final Route updateExercise = doInTransaction(true, (Request request, Response response) ->
-            {
-                ExerciseRequestDTO exerciseRequest = (ExerciseRequestDTO) jsonTransformer.asJson(request.body(), ExerciseRequestDTO.class);
-                return workoutExerciseService.update(new WorkoutExercise(Long.parseLong(request.params("id")), exerciseRequest));
-            }
+    private final Route updateWorkoutExercise = doInTransaction(true, (Request request, Response response) ->
+            workoutExerciseService.update(
+                    new WorkoutExercise(
+                            Long.parseLong(request.params("id")),
+                            (WorkoutExercise) jsonTransformer.asJson(request.body(), WorkoutExercise.class)
+                    )
+            )
     );
 
-    private final Route deleteExercise = doInTransaction(true, (Request request, Response response) ->
+    private final Route deleteWorkoutExercise = doInTransaction(true, (Request request, Response response) ->
             {
                 workoutExerciseService.delete(Long.parseLong(request.params("id")));
                 return new ResponseBody(EnumResponse.DELETED.name(), "Ejercicio eliminada");

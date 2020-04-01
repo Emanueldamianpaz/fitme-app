@@ -2,7 +2,6 @@ package ar.edu.davinci.domain.model.routine.detail;
 
 import ar.edu.davinci.domain.FitmeEntity;
 import ar.edu.davinci.domain.types.MealNutritionType;
-import ar.edu.davinci.domain.dto.fitme.nutrition.NutritionRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,16 +28,10 @@ public class MealNutrition extends FitmeEntity<Long> {
     @Column(name = "calories")
     private Double calories;
 
-    public MealNutrition(NutritionRequestDTO nutrition) {
-        this.name = nutrition.getName();
-        this.type = nutrition.getType();
-        this.calories = nutrition.getCalories();
-    }
-
-    public MealNutrition(Long id, NutritionRequestDTO nutrition) {
+    public MealNutrition(Long id, MealNutrition mealNutrition) {
         this.id = id;
-        this.name = nutrition.getName();
-        this.type = nutrition.getType();
-        this.calories = nutrition.getCalories();
+        this.name = mealNutrition.getName();
+        this.type = mealNutrition.getType();
+        this.calories = mealNutrition.getCalories();
     }
 }
