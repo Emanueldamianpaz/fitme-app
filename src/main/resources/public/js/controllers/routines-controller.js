@@ -1,7 +1,12 @@
-fitme.controller('routinesController', function ($rootScope, $scope, RoutinesService, ExercisesService, NutritionsService, RoutineTemplatesService, MessageNotification, $filter) {
+fitme.controller('routinesController', function ($rootScope, $scope,
+                                                 RoutinesService,
+                                                 WorkoutExerciseService,
+                                                 NutritionsService,
+                                                 RoutineTemplatesService,
+                                                 MessageNotification,
+                                                 $filter) {
 
     $rootScope.stateCurrent = "routines";
-
     $scope.routineSelected = {};
 
     $scope.routineEdit = {exercises: [], nutritions: []};
@@ -23,20 +28,22 @@ fitme.controller('routinesController', function ($rootScope, $scope, RoutinesSer
         }
     };
 
+    $scope.refreshData = function () {
 
-    ExercisesService.getExercises().then(function (response) {
-        $scope.exerciseList = response.data;
-    });
-    NutritionsService.getNutritions().then(function (response) {
-        $scope.nutritionList = response.data;
-    });
-    RoutinesService.getRoutines().then(function (response) {
-        $scope.routineList = response.data;
-    });
+        WorkoutExerciseService.getWorkoutExercises().then(function (response) {
+            $scope.exerciseList = response.data;
+        });
+        NutritionsService.getNutritions().then(function (response) {
+            $scope.nutritionList = response.data;
+        });
+        RoutinesService.getRoutines().then(function (response) {
+            $scope.routineList = response.data;
+        });
 
-    RoutineTemplatesService.getRoutinesTemplates().then(function (response) {
-        $scope.routineTemplateList = response.data;
-    })
+        RoutineTemplatesService.getRoutinesTemplates().then(function (response) {
+            $scope.routineTemplateList = response.data;
+        })
+    }
 
     $scope.setRoutineSelected = function (routine) {
         $scope.routineSelected = Object.create(routine);
