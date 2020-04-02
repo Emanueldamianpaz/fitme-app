@@ -49,10 +49,15 @@ public class RoutineTemplate extends FitmeEntity<Long> {
         this.scoringSystem = scoringSystem;
     }
 
-    public RoutineTemplate(Long id, Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions) {
+    public RoutineTemplate(Long id, String name, String description, ScoringType scoringSystem, Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions) {
+
         this.id = id;
+        this.name = name;
+        this.description = description;
+        this.scoringSystem = scoringSystem;
         this.workoutExercises = workoutExercises;
         this.mealNutritions = mealNutritions;
+        this.scoringSystem = scoringSystem;
     }
 
 }

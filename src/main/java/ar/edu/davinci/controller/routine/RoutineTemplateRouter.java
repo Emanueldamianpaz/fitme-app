@@ -6,7 +6,6 @@ import ar.edu.davinci.dao.routine.RoutineTemplateService;
 import ar.edu.davinci.dao.routine.detail.MealNutritionService;
 import ar.edu.davinci.dao.routine.detail.WorkoutExerciseService;
 import ar.edu.davinci.domain.dto.ResponseBody;
-import ar.edu.davinci.domain.dto.fitme.routineTemplate.RoutineTemplateRequestDTO;
 import ar.edu.davinci.domain.model.routine.RoutineTemplate;
 import ar.edu.davinci.domain.model.routine.detail.MealNutrition;
 import ar.edu.davinci.domain.model.routine.detail.WorkoutExercise;
@@ -103,19 +102,28 @@ public class RoutineTemplateRouter extends FitmeRouter {
 
     private final Route updateRoutineTemplate = doInTransaction(true, (Request request, Response response) ->
             {
-                RoutineTemplateRequestDTO routineTemplateRequest = (RoutineTemplateRequestDTO) jsonTransformer.asJson(request.body(), RoutineTemplateRequestDTO.class);
+                RoutineTemplate routineTemplateRequest = (RoutineTemplate) jsonTransformer.asJson(request.body(), RoutineTemplate.class);
 
                 Set<MealNutrition> mealNutritions = new HashSet<>();
                 Set<WorkoutExercise> workoutExercises = new HashSet<>();
 
-                for (Long id : routineTemplateRequest.getNutritions()) {
-                    mealNutritions.add(mealNutritionService.get(id));
-                }
+                for (MealNutrition ml : routineTemplateRequest.getMealNutritions())
+                    mealNutritions.add(mealNutritionService.get(ml.getId()));
 
-                for (Long id : routineTemplateRequest.getExercises()) {
-                    workoutExercises.add(workoutExerciseService.get(id));
-                }
-                return routineTemplateService.update(new RoutineTemplate(Long.parseLong(request.params("id")), workoutExercises, mealNutritions));
+                for (WorkoutExercise we : routineTemplateRequest.getWorkoutExercises())
+                    workoutExercises.add(workoutExerciseService.get(we.getId()));
+
+                RoutineTemplate updateRoutineTemplate = new RoutineTemplate(
+                        Long.parseLong(request.params("id")),
+                        routineTemplateRequest.getName(),
+                        routineTemplateRequest.getDescription(),
+                        ScoringType.UNKNOWN,
+                        workoutExercises,
+                        mealNutritions
+                );
+
+                return routineTemplateService.update(updateRoutineTemplate);
+
             }
     );
 
