@@ -3,12 +3,9 @@ package ar.edu.davinci.controller.training;
 import ar.edu.davinci.controller.FitmeRouter;
 import ar.edu.davinci.dao.training.TrainingSessionService;
 import ar.edu.davinci.dao.user.detail.UserInfoService;
-import ar.edu.davinci.domain.dto.fitme.exercise_session.ExerciseRunningSession;
-import ar.edu.davinci.domain.dto.fitme.exercise_session.ExerciseSessionNutritionDTO;
-import ar.edu.davinci.domain.dto.fitme.exercise_session.RunningSessionDTO;
 import ar.edu.davinci.domain.model.training.TrainingSession;
+import ar.edu.davinci.domain.model.training.detail.ExerciseRunningSession;
 import ar.edu.davinci.domain.model.user.detail.UserInfo;
-import ar.edu.davinci.domain.types.ScoringType;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
@@ -22,7 +19,8 @@ import javax.inject.Inject;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class TrainingSessionRouter extends FitmeRouter {
 
@@ -48,53 +46,54 @@ public class TrainingSessionRouter extends FitmeRouter {
 
     @Override
     public String path() {
-        return apiPath + "/exercise-session";
+        return apiPath + "/training-session";
     }
 
     @Override
     public RouteGroup routes() {
         return () -> {
-            get("/:id/info", getExerciseSessions, jsonTransformer);
-            post("/:id/exercise", addExerciseSession, jsonTransformer);
-            put("/:id/exercise", updateExerciseSession, jsonTransformer);
+            get("/:id_user/info", getExerciseSessions, jsonTransformer);
+            post("/:id_user/exercise", addExerciseSession, jsonTransformer);
+            //     put("/:id_user/exercise", updateExerciseSession, jsonTransformer);
 
         };
     }
 
 
     private final Route getExerciseSessions = doInTransaction(false, (Request request, Response response) ->
-            userInfoService.get(request.params("id")).getTrainingSession()
+            userInfoService.get(request.params("id_user")).getTrainingSession()
     );
 
     private final Route addExerciseSession = doInTransaction(false, (Request request, Response response) ->
             {
-                UserInfo userInfo = userInfoService.get(request.params("id"));
+                UserInfo userInfo = userInfoService.get(request.params("id_user"));
+                ExerciseRunningSession exerciseRunningSessionRequest = (ExerciseRunningSession)
+                        jsonTransformer.asJson(request.body(), ExerciseRunningSession.class);
 
-                ExerciseRunningSession exerciseRunningSession = new ExerciseRunningSession(
+                ExerciseRunningSession ersNew = new ExerciseRunningSession(
                         UUID.randomUUID().toString(),
                         new Timestamp(System.currentTimeMillis()),
-                        ScoringType.UNKNOWN,
-                        (RunningSessionDTO) jsonTransformer.asJson(request.body(), RunningSessionDTO.class)
+                        exerciseRunningSessionRequest.getScoring(),
+                        exerciseRunningSessionRequest.getRunningSession()
                 );
 
-                TrainingSession trainingSession = new TrainingSession(jsonTransformer.render(exerciseRunningSession), "");
-                trainingSessionService.create(trainingSession);
+                TrainingSession trainingSession = new TrainingSession();
+                trainingSession.addExerciseRunningSession(ersNew);
 
-                userInfo.addExerciseSession(trainingSession);
-
+                userInfo.addExerciseSession(trainingSessionService.create(trainingSession));
                 return userInfoService.update(userInfo);
             }
     );
-
+/*
     private final Route updateExerciseSession = doInTransaction(false, (Request request, Response response) ->
             {
-                UserInfo userInfo = userInfoService.get(request.params("id"));
+                UserInfo userInfo = userInfoService.get(request.params("id_user"));
 
                 ExerciseRunningSession exerciseRunningSession = new ExerciseRunningSession(
                         UUID.randomUUID().toString(),
                         new Timestamp(System.currentTimeMillis()),
                         ScoringType.UNKNOWN,
-                        (RunningSessionDTO) jsonTransformer.asJson(request.body(), RunningSessionDTO.class)
+                        (RunningSession) jsonTransformer.asJson(request.body(), RunningSession.class)
                 );
 
                 TrainingSession trainingSession = new TrainingSession(jsonTransformer.render(exerciseRunningSession), "");
@@ -112,7 +111,7 @@ public class TrainingSessionRouter extends FitmeRouter {
                 String id = request.params("id");
                 UserInfo userInfo = userInfoService.get(id);
 
-                ExerciseSessionNutritionDTO session = (ExerciseSessionNutritionDTO) jsonTransformer.asJson(request.body(), ExerciseSessionNutritionDTO.class);
+                NutritionSession session = (NutritionSession) jsonTransformer.asJson(request.body(), NutritionSession.class);
 
                 TrainingSession trainingSession = new TrainingSession("", jsonTransformer.render(session));
                 trainingSessionService.create(trainingSession);
@@ -122,5 +121,5 @@ public class TrainingSessionRouter extends FitmeRouter {
 
             }
     );
-
+*/
 }
