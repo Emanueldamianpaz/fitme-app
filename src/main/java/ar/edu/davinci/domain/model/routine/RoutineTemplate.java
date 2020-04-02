@@ -37,13 +37,16 @@ public class RoutineTemplate extends FitmeEntity<Long> {
     private Set<MealNutrition> mealNutritions;
 
     @Column(name = "scoring")
-    private ScoringType scoring; // Dado por el sistema
+    private ScoringType scoringSystem; // Dado por el sistema
 
 
-    public RoutineTemplate(Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions, ScoringType scoring) {
+    public RoutineTemplate(String name, String description, ScoringType scoringSystem, Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions) {
+        this.name = name;
+        this.description = description;
+        this.scoringSystem = scoringSystem;
         this.workoutExercises = workoutExercises;
         this.mealNutritions = mealNutritions;
-        this.scoring = scoring;
+        this.scoringSystem = scoringSystem;
     }
 
     public RoutineTemplate(Long id, Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions) {
@@ -51,6 +54,5 @@ public class RoutineTemplate extends FitmeEntity<Long> {
         this.workoutExercises = workoutExercises;
         this.mealNutritions = mealNutritions;
     }
-
 
 }

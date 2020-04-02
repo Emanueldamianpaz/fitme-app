@@ -78,20 +78,26 @@ public class RoutineTemplateRouter extends FitmeRouter {
 
     private final Route createRoutineTemplate = doInTransaction(true, (Request request, Response response) ->
             {
-                RoutineTemplateRequestDTO routineTemplateRequest = (RoutineTemplateRequestDTO) jsonTransformer.asJson(request.body(), RoutineTemplateRequestDTO.class);
+                RoutineTemplate routineTemplateRequest = (RoutineTemplate) jsonTransformer.asJson(request.body(), RoutineTemplate.class);
 
                 Set<MealNutrition> mealNutritions = new HashSet<>();
                 Set<WorkoutExercise> workoutExercises = new HashSet<>();
 
-                for (Long id : routineTemplateRequest.getNutritions()) {
-                    mealNutritions.add(mealNutritionService.get(id));
-                }
+                for (MealNutrition ml : routineTemplateRequest.getMealNutritions())
+                    mealNutritions.add(mealNutritionService.get(ml.getId()));
 
-                for (Long id : routineTemplateRequest.getExercises()) {
-                    workoutExercises.add(workoutExerciseService.get(id));
-                }
+                for (WorkoutExercise we : routineTemplateRequest.getWorkoutExercises())
+                    workoutExercises.add(workoutExerciseService.get(we.getId()));
 
-                return routineTemplateService.create(new RoutineTemplate(workoutExercises, mealNutritions, ScoringType.UNKNOWN));
+                RoutineTemplate newRoutineTemplate = new RoutineTemplate(
+                        routineTemplateRequest.getName(),
+                        routineTemplateRequest.getDescription(),
+                        ScoringType.UNKNOWN,
+                        workoutExercises,
+                        mealNutritions
+                );
+
+                return routineTemplateService.create(newRoutineTemplate);
             }
     );
 
