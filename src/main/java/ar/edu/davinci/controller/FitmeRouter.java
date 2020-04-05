@@ -1,10 +1,9 @@
 package ar.edu.davinci.controller;
 
 
+import ar.edu.davinci.infraestructure.Router;
 import ar.edu.davinci.infraestructure.exception.FitmeException;
 import ar.edu.davinci.infraestructure.exception.runtime.InternalServerErrorException;
-import ar.edu.davinci.infraestructure.Router;
-import ar.edu.davinci.infraestructure.security.session.UserSession;
 import com.google.gson.Gson;
 import lombok.Getter;
 import org.hibernate.Session;
@@ -30,10 +29,6 @@ public abstract class FitmeRouter extends Router {
     public FitmeRouter(Gson objectMapper, SessionFactory sessionFactory) {
         this.objectMapper = objectMapper;
         this.sessionFactory = sessionFactory;
-    }
-
-    protected UserSession getCurrentUserSession(Request request) {
-        return request.attribute("current-session");
     }
 
     protected <R> Route doInTransaction(Boolean inTransaction, BiFunction<Request, Response, R> route) {

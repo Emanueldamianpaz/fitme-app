@@ -1,11 +1,9 @@
 package ar.edu.davinci.controller.user;
 
-import ar.edu.davinci.domain.model.user.detail.UserInfo;
-import ar.edu.davinci.domain.dto.ResponseBody;
-import ar.edu.davinci.domain.dto.fitme.user.UserInfoRequestDTO;
-import ar.edu.davinci.controller.EnumResponse;
 import ar.edu.davinci.controller.FitmeRouter;
 import ar.edu.davinci.dao.user.detail.UserInfoService;
+import ar.edu.davinci.domain.dto.fitme.user.UserInfoRequestDTO;
+import ar.edu.davinci.domain.model.user.detail.UserInfo;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
@@ -17,7 +15,8 @@ import spark.RouteGroup;
 
 import javax.inject.Inject;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.patch;
 
 public class UserInfoRouter extends FitmeRouter {
 
@@ -46,12 +45,9 @@ public class UserInfoRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("", getListUserInfo, jsonTransformer);
-
             patch("/:id", updateMyUserInfo, jsonTransformer);
-            delete("/:id", deleteUserInfo, jsonTransformer);
         };
     }
-
 
     private final Route getListUserInfo = doInTransaction(false, (Request request, Response response) ->
             userInfoService.findAll()
@@ -64,10 +60,4 @@ public class UserInfoRouter extends FitmeRouter {
             }
     );
 
-    private final Route deleteUserInfo = doInTransaction(true, (Request request, Response response) ->
-            {
-                userInfoService.delete(request.params("id"));
-                return new ResponseBody(EnumResponse.DELETED.name(), "Informacion del usuario eliminado eliminada");
-            }
-    );
 }

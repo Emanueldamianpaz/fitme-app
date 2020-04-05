@@ -3,7 +3,6 @@ package ar.edu.davinci.controller.training;
 import ar.edu.davinci.controller.FitmeRouter;
 import ar.edu.davinci.dao.training.TrainingSessionService;
 import ar.edu.davinci.dao.user.detail.UserInfoService;
-import ar.edu.davinci.domain.model.training.TrainingSession;
 import ar.edu.davinci.domain.model.training.detail.ExerciseRunningSession;
 import ar.edu.davinci.domain.model.training.detail.NutritionSession;
 import ar.edu.davinci.domain.model.user.detail.UserInfo;
@@ -17,8 +16,6 @@ import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
-import java.util.Date;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -54,7 +51,7 @@ public class TrainingSessionRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("/:id_user/info", getExerciseSessions, jsonTransformer);
-            post("/:id_user/exercise", addExerciseSession, jsonTransformer);
+            post("/:id_user/exercise", addExerciseSession2, jsonTransformer);
             post("/:id_user/nutrition", addNutritionSession, jsonTransformer);
         };
     }
@@ -64,29 +61,16 @@ public class TrainingSessionRouter extends FitmeRouter {
             userInfoService.get(request.params("id_user")).getTrainingSession()
     );
 
-    private final Route addExerciseSession = doInTransaction(true, (Request request, Response response) ->
-            {
 
+    private final Route addExerciseSession2 = doInTransaction(true, (Request request, Response response) ->
+            {
                 UserInfo userInfo = userInfoService.get(request.params("id_user"));
                 ExerciseRunningSession exerciseRunningSessionRequest = (ExerciseRunningSession)
                         jsonTransformer.asJson(request.body(), ExerciseRunningSession.class);
 
-                ExerciseRunningSession ersNew = new ExerciseRunningSession(exerciseRunningSessionRequest);
-
-                try {
-                    TrainingSession trainingSessionFromToday = trainingSessionService.findByDate(new Date());
-                    trainingSessionFromToday.addExerciseRunningSession(ersNew);
-                    userInfo.addExerciseSession(trainingSessionService.create(trainingSessionFromToday));
-                } catch (NoResultException e) {
-                    TrainingSession trainingSessionNew = new TrainingSession();
-                    trainingSessionNew.addExerciseRunningSession(ersNew);
-                    userInfo.addExerciseSession(trainingSessionService.create(trainingSessionNew));
-                }
-
-                return userInfoService.update(userInfo);
+                return trainingSessionService.addExerciseRunningSession(userInfo, exerciseRunningSessionRequest);
             }
     );
-
 
     private final Route addNutritionSession = doInTransaction(true, (Request request, Response response) ->
             {
@@ -94,19 +78,7 @@ public class TrainingSessionRouter extends FitmeRouter {
                 NutritionSession nutritionSessionRequest = (NutritionSession)
                         jsonTransformer.asJson(request.body(), NutritionSession.class);
 
-                NutritionSession nsNew = new NutritionSession(nutritionSessionRequest);
-
-                try {
-                    TrainingSession trainingSessionFromToday = trainingSessionService.findByDate(new Date());
-                    trainingSessionFromToday.addNutritionSession(nsNew);
-                    userInfo.addExerciseSession(trainingSessionService.create(trainingSessionFromToday));
-                } catch (NoResultException e) {
-                    TrainingSession trainingSessionNew = new TrainingSession();
-                    trainingSessionNew.addNutritionSession(nsNew);
-                    userInfo.addExerciseSession(trainingSessionService.create(trainingSessionNew));
-                }
-
-                return userInfoService.update(userInfo);
+                return trainingSessionService.addNutritionSession(userInfo, nutritionSessionRequest);
 
             }
     );
