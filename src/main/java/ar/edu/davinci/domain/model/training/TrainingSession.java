@@ -10,7 +10,9 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,6 +26,9 @@ public class TrainingSession extends FitmeEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "date")
+    private String date;
+
     @Column(name = "nutrition_session__info_raw", columnDefinition = "TEXT")
     @Convert(converter = NutritionSessionConverterJson.class)
     private List<NutritionSession> nutritionSessions;
@@ -33,6 +38,8 @@ public class TrainingSession extends FitmeEntity<Long> {
     private List<ExerciseRunningSession> runningSessions;
 
     public TrainingSession() {
+
+        this.date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         this.runningSessions = new ArrayList<>();
         this.nutritionSessions = new ArrayList<>();
     }

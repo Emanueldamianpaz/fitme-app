@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Data
@@ -21,4 +22,14 @@ public class ExerciseRunningSession implements Serializable {
         this.scoring = scoring;
         this.runningSession = runningSession;
     }
+
+
+    public ExerciseRunningSession(ExerciseRunningSession exerciseRunningSession) {
+        this.id = UUID.randomUUID().toString();
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+        this.scoring = exerciseRunningSession.getScoring();
+        this.runningSession = exerciseRunningSession.getRunningSession();
+    }
+
+
 }

@@ -5,6 +5,7 @@ import ar.edu.davinci.dao.training.TrainingSessionService;
 import ar.edu.davinci.dao.user.detail.UserInfoService;
 import ar.edu.davinci.domain.model.training.TrainingSession;
 import ar.edu.davinci.domain.model.training.detail.ExerciseRunningSession;
+import ar.edu.davinci.domain.model.training.detail.NutritionSession;
 import ar.edu.davinci.domain.model.user.detail.UserInfo;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
@@ -16,8 +17,8 @@ import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
-import java.sql.Timestamp;
-import java.util.UUID;
+import javax.persistence.NoResultException;
+import java.util.Date;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -54,8 +55,7 @@ public class TrainingSessionRouter extends FitmeRouter {
         return () -> {
             get("/:id_user/info", getExerciseSessions, jsonTransformer);
             post("/:id_user/exercise", addExerciseSession, jsonTransformer);
-            //     put("/:id_user/exercise", updateExerciseSession, jsonTransformer);
-
+            post("/:id_user/nutrition", addNutritionSession, jsonTransformer);
         };
     }
 
@@ -71,56 +71,43 @@ public class TrainingSessionRouter extends FitmeRouter {
                 ExerciseRunningSession exerciseRunningSessionRequest = (ExerciseRunningSession)
                         jsonTransformer.asJson(request.body(), ExerciseRunningSession.class);
 
-                ExerciseRunningSession ersNew = new ExerciseRunningSession(
-                        UUID.randomUUID().toString(),
-                        new Timestamp(System.currentTimeMillis()),
-                        exerciseRunningSessionRequest.getScoring(),
-                        exerciseRunningSessionRequest.getRunningSession()
-                );
+                ExerciseRunningSession ersNew = new ExerciseRunningSession(exerciseRunningSessionRequest);
 
-                TrainingSession trainingSession = new TrainingSession();
-                trainingSession.addExerciseRunningSession(ersNew);
-
-                userInfo.addExerciseSession(trainingSessionService.create(trainingSession));
-                return userInfoService.update(userInfo);
-            }
-    );
-/*
-    private final Route updateExerciseSession = doInTransaction(false, (Request request, Response response) ->
-            {
-                UserInfo userInfo = userInfoService.get(request.params("id_user"));
-
-                ExerciseRunningSession exerciseRunningSession = new ExerciseRunningSession(
-                        UUID.randomUUID().toString(),
-                        new Timestamp(System.currentTimeMillis()),
-                        ScoringType.UNKNOWN,
-                        (RunningSession) jsonTransformer.asJson(request.body(), RunningSession.class)
-                );
-
-                TrainingSession trainingSession = new TrainingSession(jsonTransformer.render(exerciseRunningSession), "");
-                trainingSessionService.create(trainingSession);
-
-                userInfo.addExerciseSession(trainingSession);
+                try {
+                    TrainingSession trainingSessionFromToday = trainingSessionService.findByDate(new Date());
+                    trainingSessionFromToday.addExerciseRunningSession(ersNew);
+                    userInfo.addExerciseSession(trainingSessionService.create(trainingSessionFromToday));
+                } catch (NoResultException e) {
+                    TrainingSession trainingSessionNew = new TrainingSession();
+                    trainingSessionNew.addExerciseRunningSession(ersNew);
+                    userInfo.addExerciseSession(trainingSessionService.create(trainingSessionNew));
+                }
 
                 return userInfoService.update(userInfo);
             }
     );
+
 
     private final Route addNutritionSession = doInTransaction(true, (Request request, Response response) ->
             {
+                UserInfo userInfo = userInfoService.get(request.params("id_user"));
+                NutritionSession nutritionSessionRequest = (NutritionSession)
+                        jsonTransformer.asJson(request.body(), NutritionSession.class);
 
-                String id = request.params("id");
-                UserInfo userInfo = userInfoService.get(id);
+                NutritionSession nsNew = new NutritionSession(nutritionSessionRequest);
 
-                NutritionSession session = (NutritionSession) jsonTransformer.asJson(request.body(), NutritionSession.class);
-
-                TrainingSession trainingSession = new TrainingSession("", jsonTransformer.render(session));
-                trainingSessionService.create(trainingSession);
-                userInfo.addExerciseSession(trainingSession);
+                try {
+                    TrainingSession trainingSessionFromToday = trainingSessionService.findByDate(new Date());
+                    trainingSessionFromToday.addNutritionSession(nsNew);
+                    userInfo.addExerciseSession(trainingSessionService.create(trainingSessionFromToday));
+                } catch (NoResultException e) {
+                    TrainingSession trainingSessionNew = new TrainingSession();
+                    trainingSessionNew.addNutritionSession(nsNew);
+                    userInfo.addExerciseSession(trainingSessionService.create(trainingSessionNew));
+                }
 
                 return userInfoService.update(userInfo);
 
             }
     );
-*/
 }
