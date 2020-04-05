@@ -64,8 +64,9 @@ public class TrainingSessionRouter extends FitmeRouter {
             userInfoService.get(request.params("id_user")).getTrainingSession()
     );
 
-    private final Route addExerciseSession = doInTransaction(false, (Request request, Response response) ->
+    private final Route addExerciseSession = doInTransaction(true, (Request request, Response response) ->
             {
+
                 UserInfo userInfo = userInfoService.get(request.params("id_user"));
                 ExerciseRunningSession exerciseRunningSessionRequest = (ExerciseRunningSession)
                         jsonTransformer.asJson(request.body(), ExerciseRunningSession.class);

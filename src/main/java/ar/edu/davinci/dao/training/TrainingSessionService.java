@@ -13,4 +13,5 @@ public class TrainingSessionService extends FitmeService<TrainingSession, Traini
         super(TrainingSession.class, sessionFactory);
     }
 
+
 }

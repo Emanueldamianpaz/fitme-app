@@ -7,9 +7,7 @@ import javax.persistence.AttributeConverter
 trait JpaConverterJson[T] extends AttributeConverter[T, String] {
   def typeReference: TypeReference[T]
 
-  val objectMapper: ObjectMapper =
-    new ObjectMapper().disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-
+  val objectMapper: ObjectMapper = new ObjectMapper().disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 
   override def convertToDatabaseColumn(entity: T): String = {
     objectMapper.writeValueAsString(entity)

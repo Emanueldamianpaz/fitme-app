@@ -6,6 +6,7 @@ import spark.ResponseTransformer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.lang.reflect.Type;
 
 @Singleton
 public class JsonTransformer<T> implements ResponseTransformer {
@@ -17,7 +18,6 @@ public class JsonTransformer<T> implements ResponseTransformer {
         this.objectMapper = new GsonBuilder()
                 .serializeNulls()
                 .create();
-        ;
     }
 
     @Override
@@ -27,6 +27,10 @@ public class JsonTransformer<T> implements ResponseTransformer {
 
     public T asJson(String json, Class<T> clazz) {
         return objectMapper.fromJson(json, clazz);
+    }
+
+    public T asJson(String json, Type typeGeneric) {
+        return objectMapper.fromJson(json, typeGeneric);
     }
 
 }
