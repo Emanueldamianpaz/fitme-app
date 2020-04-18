@@ -3,7 +3,6 @@ package ar.edu.davinci.domain.model.user.detail;
 import ar.edu.davinci.domain.FitmeEntity;
 import ar.edu.davinci.domain.dto.fitme.user.UserInfoRequestDTO;
 import ar.edu.davinci.domain.model.training.TrainingSession;
-import ar.edu.davinci.domain.model.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,12 +15,11 @@ import java.util.Set;
 @Data
 @Builder
 @Table(name = "user_info")
-public class UserInfo extends FitmeEntity<Long> {
+public class UserInfo extends FitmeEntity<String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private String id;
 
     @Column(name = "initial_weight")
     private Double initialWeight;
@@ -35,7 +33,7 @@ public class UserInfo extends FitmeEntity<Long> {
     @Column(name = "frecuency_exercise")
     private String frecuencyExercise;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private UserGoal userGoal;
@@ -44,8 +42,9 @@ public class UserInfo extends FitmeEntity<Long> {
     @JoinColumn(name = "id_user_fit", referencedColumnName = "id")
     private Set<TrainingSession> trainingSession;
 
-    public UserInfo() {
-        this.userGoal = new UserGoal();
+    public UserInfo(String id, UserGoal userGoal) {
+        this.id = id;
+        this.userGoal = userGoal;
     }
 
     public UserInfo(UserInfoRequestDTO userInfoRequest) {
@@ -55,7 +54,7 @@ public class UserInfo extends FitmeEntity<Long> {
         this.frecuencyExercise = userInfoRequest.getFrecuencyExercise();
     }
 
-    public UserInfo(Long id, UserInfoRequestDTO userInfoRequest) {
+    public UserInfo(String id, UserInfoRequestDTO userInfoRequest) {
         this.id = id;
         this.initialWeight = userInfoRequest.getInitialWeight();
         this.height = userInfoRequest.getHeight();

@@ -6,19 +6,21 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @AllArgsConstructor
 @Data
 @Builder
 @Table(name = "user_goal")
-public class UserGoal extends FitmeEntity<Long> {
+public class UserGoal extends FitmeEntity<String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id", columnDefinition = "varchar")
+    private String id;
 
     @Column(name = "type")
     private GoalType type;
@@ -27,7 +29,8 @@ public class UserGoal extends FitmeEntity<Long> {
     private Double goalFat;
 
 
-    public UserGoal() {
+    public UserGoal(String id) {
+        this.id = id;
         this.type = GoalType.UNKNOWN;
         this.goalFat = 0.0;
     }

@@ -1,8 +1,11 @@
 package ar.edu.davinci.infraestructure.security.session;
 
 import ar.edu.davinci.dao.user.UserEntityService;
+import ar.edu.davinci.dao.user.detail.UserGoalService;
+import ar.edu.davinci.dao.user.detail.UserInfoService;
 import ar.edu.davinci.domain.FitmeRoles;
 import ar.edu.davinci.domain.model.user.UserEntity;
+import ar.edu.davinci.domain.model.user.detail.UserGoal;
 import ar.edu.davinci.domain.model.user.detail.UserInfo;
 import ar.edu.davinci.infraestructure.exception.FitmeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -23,16 +26,22 @@ public class UserSessionFactory {
     private LoadingCache<String, UserSession> usersCache;
     private SessionFactory sessionFactory;
     private UserEntityService userEntityService;
+    private UserGoalService userGoalService;
+    private UserInfoService userInfoService;
 
     @Inject
     public UserSessionFactory(
             LoadingCache<String, UserSession> usersCache,
             SessionFactory sessionFactory,
-            UserEntityService userEntityService
+            UserEntityService userEntityService,
+            UserGoalService userGoalService,
+            UserInfoService userInfoService
     ) {
         this.usersCache = usersCache;
         this.sessionFactory = sessionFactory;
         this.userEntityService = userEntityService;
+        this.userGoalService = userGoalService;
+        this.userInfoService = userInfoService;
     }
 
     public UserSession createUserSession(DecodedJWT jwt, FitmeRoles role) {
@@ -56,10 +65,12 @@ public class UserSessionFactory {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
-           // TODO Arreglenme! Falla la cascada
+            UserGoal userGoal = userGoalService.create(new UserGoal(user.getId()));
+            UserInfo userInfo = userInfoService.create(new UserInfo(user.getId(), userGoal));
 
             UserEntity userEntity = new UserEntity(user, role);
-            userEntity.setUserInfo(new UserInfo());
+            userEntity.setUserInfo(userInfo);
+
             userEntityService.upsert(userEntity);
 
             transaction.commit();

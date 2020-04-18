@@ -6,10 +6,10 @@ import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
 
-public class GoalService extends FitmeService<UserGoal, UserGoal> {
+public class UserGoalService extends FitmeService<UserGoal, UserGoal> {
 
     @Inject
-    public GoalService(SessionFactory sessionFactory) {
+    public UserGoalService(SessionFactory sessionFactory) {
         super(UserGoal.class, sessionFactory);
     }
 

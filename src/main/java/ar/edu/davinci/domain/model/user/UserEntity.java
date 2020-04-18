@@ -23,8 +23,8 @@ public class UserEntity extends FitmeEntity<String> {
     private String id;
 
     @OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-    @MapsId("id") // TODO No sé porque, falla la cascada
-    @JoinColumn(name = "user_info_id", referencedColumnName = "id")
+    @MapsId
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private UserInfo userInfo;
 
     @OneToMany
