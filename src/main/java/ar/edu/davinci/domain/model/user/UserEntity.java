@@ -22,9 +22,9 @@ public class UserEntity extends FitmeEntity<String> {
     @Column(name = "id")
     private String id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    @OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @MapsId("id") // TODO No sé porque, falla la cascada
+    @JoinColumn(name = "user_info_id", referencedColumnName = "id")
     private UserInfo userInfo;
 
     @OneToMany
@@ -52,9 +52,8 @@ public class UserEntity extends FitmeEntity<String> {
     @Column(name = "role")
     private String role;
 
-    public UserEntity(FitmeUser user, UserInfo userInfo, FitmeRoles role) {
+    public UserEntity(FitmeUser user,  FitmeRoles role) {
         this.id = user.getId();
-        this.userInfo = userInfo;
         this.name = user.getName();
         this.lastName = user.getLast_name();
         this.genre = user.getGenre();

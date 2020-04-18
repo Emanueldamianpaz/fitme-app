@@ -2,17 +2,17 @@ package ar.edu.davinci.domain.model.user.detail;
 
 import ar.edu.davinci.domain.FitmeEntity;
 import ar.edu.davinci.domain.types.GoalType;
-import ar.edu.davinci.domain.dto.fitme.goal.GoalRequestDTO;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
-@Table(name = "goal")
+@Table(name = "user_goal")
 public class UserGoal extends FitmeEntity<Long> {
 
     @Id
@@ -27,14 +27,9 @@ public class UserGoal extends FitmeEntity<Long> {
     private Double goalFat;
 
 
-    public UserGoal(GoalRequestDTO goalRequest) {
-        this.type = goalRequest.getType();
-        this.goalFat = Double.parseDouble(goalRequest.getGoalFat());
+    public UserGoal() {
+        this.type = GoalType.UNKNOWN;
+        this.goalFat = 0.0;
     }
 
-    public UserGoal(Long id, GoalRequestDTO goalRequest) {
-        this.id = id;
-        this.type = goalRequest.getType();
-        this.goalFat = Double.parseDouble(goalRequest.getGoalFat());
-    }
 }

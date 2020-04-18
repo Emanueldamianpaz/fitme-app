@@ -1,10 +1,10 @@
 package ar.edu.davinci.infraestructure.security.session;
 
+import ar.edu.davinci.dao.user.UserEntityService;
+import ar.edu.davinci.domain.FitmeRoles;
 import ar.edu.davinci.domain.model.user.UserEntity;
 import ar.edu.davinci.domain.model.user.detail.UserInfo;
 import ar.edu.davinci.infraestructure.exception.FitmeException;
-import ar.edu.davinci.domain.FitmeRoles;
-import ar.edu.davinci.dao.user.UserEntityService;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.common.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import org.hibernate.Transaction;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
@@ -57,13 +56,11 @@ public class UserSessionFactory {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            if (Optional.ofNullable(session.find(UserInfo.class, user.getId())).isPresent()) {
-                session.update(new UserInfo(user.getId()));
-            } else {
-                session.save(new UserInfo(user.getId()));
-            }
+           // TODO Arreglenme! Falla la cascada
 
-            userEntityService.upsert(new UserEntity(user, session.get(UserInfo.class, user.getId()), role));
+            UserEntity userEntity = new UserEntity(user, role);
+            userEntity.setUserInfo(new UserInfo());
+            userEntityService.upsert(userEntity);
 
             transaction.commit();
         } catch (Exception e) {

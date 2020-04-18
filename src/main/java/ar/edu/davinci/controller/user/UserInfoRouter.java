@@ -56,7 +56,7 @@ public class UserInfoRouter extends FitmeRouter {
     private final Route updateMyUserInfo = doInTransaction(true, (Request request, Response response) ->
             {
                 UserInfoRequestDTO userInfoRequest = (UserInfoRequestDTO) jsonTransformer.asJson(request.body(), UserInfoRequestDTO.class);
-                return userInfoService.update(new UserInfo(request.params("id"), userInfoRequest));
+                return userInfoService.update(new UserInfo(Long.parseLong(request.params("id")), userInfoRequest));
             }
     );
 
