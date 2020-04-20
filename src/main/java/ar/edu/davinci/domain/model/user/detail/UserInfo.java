@@ -3,15 +3,14 @@ package ar.edu.davinci.domain.model.user.detail;
 import ar.edu.davinci.domain.FitmeEntity;
 import ar.edu.davinci.domain.dto.fitme.user.UserInfoRequestDTO;
 import ar.edu.davinci.domain.model.training.TrainingSession;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder
 @Table(name = "user_info")

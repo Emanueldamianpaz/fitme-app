@@ -51,7 +51,7 @@ public class TrainingSessionRouter extends FitmeRouter {
     public RouteGroup routes() {
         return () -> {
             get("/:id_user/info", getExerciseSessions, jsonTransformer);
-            post("/:id_user/exercise", addExerciseSession2, jsonTransformer);
+            post("/:id_user/exercise", addExerciseSession, jsonTransformer);
             post("/:id_user/nutrition", addNutritionSession, jsonTransformer);
         };
     }
@@ -62,7 +62,7 @@ public class TrainingSessionRouter extends FitmeRouter {
     );
 
 
-    private final Route addExerciseSession2 = doInTransaction(true, (Request request, Response response) ->
+    private final Route addExerciseSession = doInTransaction(true, (Request request, Response response) ->
             {
                 UserInfo userInfo = userInfoService.get(request.params("id_user"));
                 ExerciseRunningSession exerciseRunningSessionRequest = (ExerciseRunningSession)

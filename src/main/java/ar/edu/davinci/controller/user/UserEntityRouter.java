@@ -4,6 +4,7 @@ import ar.edu.davinci.controller.FitmeRouter;
 import ar.edu.davinci.dao.routine.RoutineTemplateService;
 import ar.edu.davinci.dao.user.UserEntityService;
 import ar.edu.davinci.dao.user.detail.UserExperienceService;
+import ar.edu.davinci.dao.user.detail.UserInfoService;
 import ar.edu.davinci.dao.user.detail.UserRoutineService;
 import ar.edu.davinci.domain.FitmeRoles;
 import ar.edu.davinci.domain.dto.fitme.routine.ListRoutineTemplateDTO;
@@ -43,8 +44,9 @@ import static spark.Spark.*;
 public class UserEntityRouter extends FitmeRouter {
 
     private JsonTransformer jsonTransformer;
-    private UserEntityService userEntityService;
     private UserSessionFactory userSessionFactory;
+    private UserEntityService userEntityService;
+    private UserInfoService userInfoService;
     private UserRoutineService userRoutineService;
     private UserExperienceService userExperienceService;
     private RoutineTemplateService routineTemplateService;
@@ -54,6 +56,7 @@ public class UserEntityRouter extends FitmeRouter {
                             UserEntityService userEntityService,
                             SessionFactory sessionFactory,
                             UserSessionFactory userSessionFactory,
+                            UserInfoService userInfoService,
                             UserRoutineService userRoutineService,
                             UserExperienceService userExperienceService,
                             RoutineTemplateService routineTemplateService,
@@ -62,6 +65,7 @@ public class UserEntityRouter extends FitmeRouter {
         this.userEntityService = userEntityService;
         this.userRoutineService = userRoutineService;
         this.userSessionFactory = userSessionFactory;
+        this.userInfoService = userInfoService;
         this.userExperienceService = userExperienceService;
         this.routineTemplateService = routineTemplateService;
         this.jsonTransformer = jsonTransformer;
@@ -79,8 +83,11 @@ public class UserEntityRouter extends FitmeRouter {
             get("/callback", callbackSession, jsonTransformer); // Only for Admin/Coach/Web
             post("/session", createSession, jsonTransformer); // For all users(normally fitness_users)
 
-            get("/:id_user/", getUser, jsonTransformer);
+            get("/:id_user", getUser, jsonTransformer);
             get("/:id_user/light", getUserLight, jsonTransformer);
+
+            get("/:id_user/info", getUserInfo, jsonTransformer);
+            patch("/:id_user/info", updateUserInfo, jsonTransformer);
 
             get("/:id_user/user-routine", getListUserRoutines, jsonTransformer);
             put("/:id_user/user-routine", setUserRoutine, jsonTransformer);
@@ -118,7 +125,23 @@ public class UserEntityRouter extends FitmeRouter {
     private final Route getUser = doInTransaction(true, (Request request, Response response) ->
             userEntityService.get(request.params("id_user"))
     );
+    private final Route getUserInfo = doInTransaction(true, (Request request, Response response) ->
+            userEntityService.get(request.params("id_user")).getUserInfo()
+    );
 
+    private final Route updateUserInfo = doInTransaction(true, (Request request, Response response) ->
+            {
+                UserInfo userInfoRequest = (UserInfo) jsonTransformer.asJson(request.body(), UserInfo.class);
+                UserInfo userInfo = userEntityService.get(request.params("id_user")).getUserInfo();
+
+                userInfo.setInitialWeight(userInfoRequest.getInitialWeight());
+                userInfo.setHeight(userInfoRequest.getHeight());
+                userInfo.setCurrentFat(userInfoRequest.getCurrentFat());
+                userInfo.setFrecuencyExercise(userInfoRequest.getFrecuencyExercise());
+
+                return userInfoService.update(userInfo);
+            }
+    );
     private final Route getUserLight = doInTransaction(true, (Request request, Response response) -> {
         UserEntity u = userEntityService.get(request.params("id_user"));
         UserInfo ui = u.getUserInfo();

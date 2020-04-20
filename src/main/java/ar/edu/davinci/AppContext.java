@@ -102,6 +102,8 @@ public class AppContext {
         Filter contentTypeFilter = (req, resp) -> resp.type("application/json");
 
         afterAfter(apiPath + "/*", contentTypeFilter);
+        afterAfter( "/user*", contentTypeFilter);
+
     }
 
     private void configureExceptions() {
