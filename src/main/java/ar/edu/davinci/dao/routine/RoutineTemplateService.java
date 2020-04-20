@@ -27,11 +27,7 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
 
     public RoutineTemplate getBestRoutineForMyGoalType(UserInfo userInfo) {
 
-        List<RoutineTemplate> routineTemplateList = this.findAll();
-        List<RoutineTemplate> rtSorted = routineTemplateList
-                .stream()
-                .filter(routine -> routine.getGoalType().equals(userInfo.getUserGoal().getType()))
-                .collect(Collectors.toList());
+        List<RoutineTemplate> rtSorted = this.findAll();
 
         Collections.sort(
                 rtSorted,
@@ -44,8 +40,15 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
                 }
         );
 
-        // TODO Validar que pasa si no tengo objetivo
+        List<RoutineTemplate> rtFiltered = rtSorted
+                .stream()
+                .filter(routine -> routine.getGoalType().equals(userInfo.getUserGoal().getType()))
+                .collect(Collectors.toList());
 
-        return rtSorted.get(0);
+        if (rtSorted.size() == 0) {
+            return rtSorted.get(0);
+        } else {
+            return rtFiltered.get(0);
+        }
     }
 }
