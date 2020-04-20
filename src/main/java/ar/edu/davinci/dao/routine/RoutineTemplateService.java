@@ -44,6 +44,8 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
                 }
         );
 
+        // TODO Validar que pasa si no tengo objetivo
+
         return rtSorted.get(0);
     }
 }
