@@ -3,6 +3,7 @@ package ar.edu.davinci.domain.model.routine;
 import ar.edu.davinci.domain.FitmeEntity;
 import ar.edu.davinci.domain.model.routine.detail.MealNutrition;
 import ar.edu.davinci.domain.model.routine.detail.WorkoutExercise;
+import ar.edu.davinci.domain.types.GoalType;
 import ar.edu.davinci.domain.types.ScoringType;
 import lombok.*;
 
@@ -39,25 +40,28 @@ public class RoutineTemplate extends FitmeEntity<Long> {
     @Column(name = "scoring")
     private ScoringType scoringSystem; // Dado por el sistema
 
+    @Column(name = "goal_type")
+    private GoalType goalType;
 
-    public RoutineTemplate(String name, String description, ScoringType scoringSystem, Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions) {
+    public RoutineTemplate(String name, String description, ScoringType scoringSystem, Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions, GoalType goalType) {
         this.name = name;
         this.description = description;
         this.scoringSystem = scoringSystem;
         this.workoutExercises = workoutExercises;
         this.mealNutritions = mealNutritions;
-        this.scoringSystem = scoringSystem;
+        this.scoringSystem = scoringSystem == null ? ScoringType.UNKNOWN : scoringSystem;
+        this.goalType = goalType;
     }
 
-    public RoutineTemplate(Long id, String name, String description, ScoringType scoringSystem, Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions) {
-
+    public RoutineTemplate(Long id, String name, String description, ScoringType scoringSystem, Set<WorkoutExercise> workoutExercises, Set<MealNutrition> mealNutritions, GoalType goalType) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.scoringSystem = scoringSystem;
         this.workoutExercises = workoutExercises;
         this.mealNutritions = mealNutritions;
-        this.scoringSystem = scoringSystem;
+        this.scoringSystem = scoringSystem == null ? ScoringType.UNKNOWN : scoringSystem;
+        this.goalType = goalType;
     }
 
 }

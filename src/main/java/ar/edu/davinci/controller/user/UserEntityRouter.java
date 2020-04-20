@@ -4,6 +4,7 @@ import ar.edu.davinci.controller.FitmeRouter;
 import ar.edu.davinci.dao.routine.RoutineTemplateService;
 import ar.edu.davinci.dao.user.UserEntityService;
 import ar.edu.davinci.dao.user.detail.UserExperienceService;
+import ar.edu.davinci.dao.user.detail.UserGoalService;
 import ar.edu.davinci.dao.user.detail.UserInfoService;
 import ar.edu.davinci.dao.user.detail.UserRoutineService;
 import ar.edu.davinci.domain.FitmeRoles;
@@ -15,6 +16,7 @@ import ar.edu.davinci.domain.dto.fitme.user.UserSessionDTO;
 import ar.edu.davinci.domain.model.routine.RoutineTemplate;
 import ar.edu.davinci.domain.model.user.UserEntity;
 import ar.edu.davinci.domain.model.user.detail.UserExperience;
+import ar.edu.davinci.domain.model.user.detail.UserGoal;
 import ar.edu.davinci.domain.model.user.detail.UserInfo;
 import ar.edu.davinci.domain.model.user.detail.UserRoutine;
 import ar.edu.davinci.infraestructure.security.session.UserSessionFactory;
@@ -34,6 +36,7 @@ import spark.RouteGroup;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,6 +49,7 @@ public class UserEntityRouter extends FitmeRouter {
     private JsonTransformer jsonTransformer;
     private UserSessionFactory userSessionFactory;
     private UserEntityService userEntityService;
+    private UserGoalService userGoalService;
     private UserInfoService userInfoService;
     private UserRoutineService userRoutineService;
     private UserExperienceService userExperienceService;
@@ -57,6 +61,7 @@ public class UserEntityRouter extends FitmeRouter {
                             SessionFactory sessionFactory,
                             UserSessionFactory userSessionFactory,
                             UserInfoService userInfoService,
+                            UserGoalService userGoalService,
                             UserRoutineService userRoutineService,
                             UserExperienceService userExperienceService,
                             RoutineTemplateService routineTemplateService,
@@ -65,6 +70,7 @@ public class UserEntityRouter extends FitmeRouter {
         this.userEntityService = userEntityService;
         this.userRoutineService = userRoutineService;
         this.userSessionFactory = userSessionFactory;
+        this.userGoalService = userGoalService;
         this.userInfoService = userInfoService;
         this.userExperienceService = userExperienceService;
         this.routineTemplateService = routineTemplateService;
@@ -90,7 +96,7 @@ public class UserEntityRouter extends FitmeRouter {
             patch("/:id_user/info", updateUserInfo, jsonTransformer);
 
             get("/:id_user/user-routine", getListUserRoutines, jsonTransformer);
-            put("/:id_user/user-routine", setUserRoutine, jsonTransformer);
+            patch("/:id_user/user-routine", setUserRoutine, jsonTransformer);
 
             get("/:id_user/user-routine/:id_user_routine", getUserRoutine, jsonTransformer);
             get("/:id_user/user-routine/:id_user_routine/user-experience", getUserExperiencesFromUserRoutine, jsonTransformer);
@@ -111,15 +117,20 @@ public class UserEntityRouter extends FitmeRouter {
         ListRoutineTemplateDTO req = (ListRoutineTemplateDTO) jsonTransformer.asJson(request.body(), ListRoutineTemplateDTO.class);
         UserEntity userEntity = userEntityService.get(request.params("id_user"));
 
-        for (Long id : req.getRoutine_template_ids()) {
+        List<Long> routinesTemplatesReq = req.getRoutine_template_ids();
+        for (Long id : routinesTemplatesReq) {
             RoutineTemplate routineTemplate = routineTemplateService.get(id);
             UserRoutine userRoutine = userRoutineService.create(new UserRoutine(routineTemplate));
             userEntity.addUserRoutine(userRoutine);
         }
 
-        userEntityService.update(userEntity);
+        if (routinesTemplatesReq.size() == 0) {
+            RoutineTemplate routineOptimized = routineTemplateService.getBestRoutineForMyGoalType(userEntity.getUserInfo());
+            UserRoutine userRoutine = userRoutineService.create(new UserRoutine(routineOptimized));
+            userEntity.addUserRoutine(userRoutine);
+        }
 
-        return "";
+        return userEntityService.update(userEntity);
     });
 
     private final Route getUser = doInTransaction(true, (Request request, Response response) ->
@@ -138,6 +149,12 @@ public class UserEntityRouter extends FitmeRouter {
                 userInfo.setHeight(userInfoRequest.getHeight());
                 userInfo.setCurrentFat(userInfoRequest.getCurrentFat());
                 userInfo.setFrecuencyExercise(userInfoRequest.getFrecuencyExercise());
+
+                UserGoal userGoalUpdated = userGoalService.update(new UserGoal(userInfo.getId(),
+                        userInfoRequest.getUserGoal().getType(),
+                        userInfoRequest.getUserGoal().getGoalFat()
+                ));
+                userInfo.setUserGoal(userGoalUpdated);
 
                 return userInfoService.update(userInfo);
             }

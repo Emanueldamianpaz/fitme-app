@@ -9,7 +9,6 @@ import ar.edu.davinci.domain.dto.ResponseBody;
 import ar.edu.davinci.domain.model.routine.RoutineTemplate;
 import ar.edu.davinci.domain.model.routine.detail.MealNutrition;
 import ar.edu.davinci.domain.model.routine.detail.WorkoutExercise;
-import ar.edu.davinci.domain.types.ScoringType;
 import ar.edu.davinci.infraestructure.utils.JsonTransformer;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
@@ -91,9 +90,10 @@ public class RoutineTemplateRouter extends FitmeRouter {
                 RoutineTemplate newRoutineTemplate = new RoutineTemplate(
                         routineTemplateRequest.getName(),
                         routineTemplateRequest.getDescription(),
-                        ScoringType.UNKNOWN,
+                        routineTemplateRequest.getScoringSystem(),
                         workoutExercises,
-                        mealNutritions
+                        mealNutritions,
+                        routineTemplateRequest.getGoalType()
                 );
 
                 return routineTemplateService.create(newRoutineTemplate);
@@ -113,13 +113,15 @@ public class RoutineTemplateRouter extends FitmeRouter {
                 for (WorkoutExercise we : routineTemplateRequest.getWorkoutExercises())
                     workoutExercises.add(workoutExerciseService.get(we.getId()));
 
+
                 RoutineTemplate updateRoutineTemplate = new RoutineTemplate(
                         Long.parseLong(request.params("id")),
                         routineTemplateRequest.getName(),
                         routineTemplateRequest.getDescription(),
-                        ScoringType.UNKNOWN,
+                        routineTemplateRequest.getScoringSystem(),
                         workoutExercises,
-                        mealNutritions
+                        mealNutritions,
+                        routineTemplateRequest.getGoalType()
                 );
 
                 return routineTemplateService.update(updateRoutineTemplate);

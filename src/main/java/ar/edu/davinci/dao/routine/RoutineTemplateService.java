@@ -1,17 +1,17 @@
 package ar.edu.davinci.dao.routine;
 
-import ar.edu.davinci.domain.model.routine.RoutineTemplate;
-import ar.edu.davinci.domain.model.routine.detail.MealNutrition;
-import ar.edu.davinci.domain.model.user.detail.UserInfo;
-import ar.edu.davinci.infraestructure.exception.FitmeException;
 import ar.edu.davinci.dao.FitmeService;
+import ar.edu.davinci.domain.model.routine.RoutineTemplate;
+import ar.edu.davinci.domain.model.user.detail.UserInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
+@Slf4j
 public class RoutineTemplateService extends FitmeService<RoutineTemplate, RoutineTemplate> {
 
 
@@ -25,36 +25,25 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
         return super.findAll();
     }
 
-    public RoutineTemplate getOptimizedRoutineTemplate(UserInfo user) {
+    public RoutineTemplate getBestRoutineForMyGoalType(UserInfo userInfo) {
 
-        Double gatAbsolute = Math.abs(user.getUserGoal().getGoalFat() - user.getCurrentFat());
+        List<RoutineTemplate> routineTemplateList = this.findAll();
+        List<RoutineTemplate> rtSorted = routineTemplateList
+                .stream()
+                .filter(routine -> routine.getGoalType().equals(userInfo.getUserGoal().getType()))
+                .collect(Collectors.toList());
 
-        this.findAll().stream().map(routine -> {
+        Collections.sort(
+                rtSorted,
+                (routineTemplate1, routineTemplate2) -> {
+                    if (routineTemplate1.getScoringSystem() == routineTemplate2.getScoringSystem()) {
+                        return routineTemplate1.getName().compareTo(routineTemplate2.getName());
+                    } else {
+                        return routineTemplate1.getScoringSystem().compareTo(routineTemplate2.getScoringSystem());
+                    }
+                }
+        );
 
-            Stream<MealNutrition> nutritionStream = routine.getMealNutritions().stream();
-            MealNutrition optimizedMealNutrition;
-            switch (user.getUserGoal().getType()) {
-                case GAIN_WEIGHT:
-
-                    // TODO Implementar como ganar peso
-                    optimizedMealNutrition = nutritionStream
-                            .min(Comparator.comparingDouble(i -> Math.abs(i.getCalories() - gatAbsolute)))
-                            .orElseThrow(() -> new FitmeException("No value present"));
-
-
-                    break;
-
-                case LOSS_WEIGHT:
-                    optimizedMealNutrition = nutritionStream
-                            .min(Comparator.comparingDouble(i -> Math.abs(i.getCalories() - gatAbsolute)))
-                            .orElseThrow(() -> new FitmeException("No value present"));
-
-
-            }
-
-            return routine;
-        });
-
-        return new RoutineTemplate();
+        return rtSorted.get(0);
     }
 }
