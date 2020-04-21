@@ -9,7 +9,6 @@ import ar.edu.davinci.dao.user.detail.UserInfoService;
 import ar.edu.davinci.dao.user.detail.UserRoutineService;
 import ar.edu.davinci.domain.FitmeRoles;
 import ar.edu.davinci.domain.dto.fitme.routine.ListRoutineTemplateDTO;
-import ar.edu.davinci.domain.dto.fitme.scoring.CoachTipDTO;
 import ar.edu.davinci.domain.dto.fitme.user.UserInfoLightRequestDTO;
 import ar.edu.davinci.domain.dto.fitme.user.UserInfoRequestDTO;
 import ar.edu.davinci.domain.dto.fitme.user.UserSessionDTO;
@@ -96,14 +95,13 @@ public class UserEntityRouter extends FitmeRouter {
             patch("/:id_user/info", updateUserInfo, jsonTransformer);
 
             get("/:id_user/user-routine", getListUserRoutines, jsonTransformer);
+            get("/:id_user/user-routine/:id_user_routine", getUserRoutine, jsonTransformer);
             patch("/:id_user/user-routine", setUserRoutine, jsonTransformer);
 
-            get("/:id_user/user-routine/:id_user_routine", getUserRoutine, jsonTransformer);
             get("/:id_user/user-routine/:id_user_routine/user-experience", getUserExperiencesFromUserRoutine, jsonTransformer);
-            get("/:id_user/user-routine/:id_user_routine/user-experience/:id_user_experience", getUserExperienceFromUserRoutine, jsonTransformer);
+            post("/:id_user/user-routine/:id_user_routine/user-experience", createUserExperienceForUserRoutine, jsonTransformer);
 
             get("/:id_user/user-routine/:id_user_routine/user-experience/:id_user_experience", getUserExperienceFromUserRoutine, jsonTransformer);
-            post("/:id_user/user-routine/:id_user_routine/user-experience/:id_user_experience", setUserExperienceFromUserRoutine, jsonTransformer);
             post("/:id_user/user-routine/:id_user_routine/user-experience/:id_user_experience/coach-tip", setCoachTipUserExperienceFromUserRoutine, jsonTransformer);
 
         };
@@ -207,29 +205,25 @@ public class UserEntityRouter extends FitmeRouter {
         return getUserExperienceFromUserRoutine(userRoutine, Long.parseLong(request.params("id_user_experience")));
     });
 
-    private final Route setUserExperienceFromUserRoutine = doInTransaction(true, (Request request, Response response) ->
+    private final Route createUserExperienceForUserRoutine = doInTransaction(true, (Request request, Response response) ->
     {
         UserRoutine userRoutine = getUserRoutineFromUser(request.params("id_user"), Long.parseLong(request.params("id_user_routine")));
         UserExperience req = (UserExperience) jsonTransformer.asJson(request.body(), UserExperience.class);
 
         userRoutine.addUserExperience(userExperienceService.create(req));
-        userRoutineService.update(userRoutine);
 
-        return "";
+        return userRoutineService.update(userRoutine);
     });
 
     private final Route setCoachTipUserExperienceFromUserRoutine = doInTransaction(true, (Request request, Response response) ->
     {
-        CoachTipDTO tip = (CoachTipDTO) jsonTransformer.asJson(request.body(), CoachTipDTO.class);
-
         UserRoutine userRoutine = getUserRoutineFromUser(request.params("id_user"), Long.parseLong(request.params("id_user_routine")));
+        UserExperience req = (UserExperience) jsonTransformer.asJson(request.body(), UserExperience.class);
+
         UserExperience userExperience = getUserExperienceFromUserRoutine(userRoutine, Long.parseLong(request.params("id_user_experience")));
+        userExperience.setCoachTip(req.getCoachTip());
 
-        userExperience.setCoachTip(tip.getTip());
-
-        userExperienceService.update(userExperience);
-
-        return "";
+        return userExperienceService.update(userExperience);
 
     });
 
