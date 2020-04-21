@@ -34,4 +34,10 @@ public class MealNutrition extends FitmeEntity<Long> {
         this.type = mealNutrition.getType();
         this.calories = mealNutrition.getCalories();
     }
+
+    public MealNutrition(String name, MealNutritionType type, Double calories) {
+        this.name = name;
+        this.type = type;
+        this.calories = calories;
+    }
 }
