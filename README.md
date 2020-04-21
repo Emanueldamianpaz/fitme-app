@@ -1,5 +1,4 @@
-# Fit Me - Application
-
+# FitMe 
 
 ##### Proyecto final de la carrera Analista de Sistemas
 
@@ -21,4 +20,3 @@
 
 ##### Shutdown
     Automatico
-   
