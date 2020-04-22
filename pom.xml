@@ -49,7 +49,6 @@
         <jwks-rsa.version>0.3.0</jwks-rsa.version>
         <HikariCP.version>2.7.1</HikariCP.version>
         <postgresql.version>42.1.4</postgresql.version>
-        <junit.version>4.12</junit.version>
         <mvc-auth-commons.version>1.0.3</mvc-auth-commons.version>
     </properties>
 
@@ -320,9 +319,15 @@
 
         <!-- Testing -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.5.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.4.2</version>
             <scope>test</scope>
         </dependency>
 

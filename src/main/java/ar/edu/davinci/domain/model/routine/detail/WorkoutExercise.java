@@ -39,4 +39,11 @@ public class WorkoutExercise extends FitmeEntity<Long> {
         this.description = workoutExercise.getDescription();
         this.difficulty = workoutExercise.getDifficulty();
     }
+
+    public WorkoutExercise(String name, WorkoutExerciseType type, String description, DifficultyType difficulty) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.difficulty = difficulty;
+    }
 }
