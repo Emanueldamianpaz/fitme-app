@@ -1,6 +1,9 @@
-package ar.edu.davinci.util
+package ar.edu.davinci.http
 
-import com.google.gson.Gson
+import ar.edu.davinci.domain.dto.ResponseError
+import ar.edu.davinci.infraestructure.exception.FitmeException
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import okhttp3._
 
 import scala.util.{Failure, Success, Try}
@@ -9,7 +12,9 @@ class HttpClient[T](endpoint: String, token: String) {
 
   private val httpClient = new OkHttpClient()
   private val JSON = MediaType.get("application/json; charset=utf-8")
-  private val objectMapper = new Gson()
+  private val objectMapper = new GsonBuilder().serializeNulls.create
+  val typeGeneric = new TypeToken[T]() {}.getType()
+
 
   def get[T](path: String) = {
     val request = new Request.Builder()
@@ -33,23 +38,21 @@ class HttpClient[T](endpoint: String, token: String) {
     doRequest[T](request)
   }
 
-  private def doRequest[T](request: Request)
-
-  = {
+  private def doRequest[T](request: Request) = {
     Try(httpClient.newCall(request).execute()) match {
       case Success(response: Response) => handleResponse[T](response)
-      case Failure(_) => Left(ResponseResult.FAILURE)
+      case Failure(error) => throw error
     }
   }
 
   private def handleResponse[T](response: Response) = {
-    if (response.isSuccessful)
-      Right(ResponseResult.SUCCESS)
-    else
-      Left(ResponseResult.FAILURE)
-  }
-}
 
-object ResponseResult extends Enumeration {
-  val SUCCESS, FAILURE = Value
+    if (response.isSuccessful)
+      Success(objectMapper.fromJson[T](response.body().string(), typeGeneric))
+    else {
+      val error = objectMapper.fromJson(response.body().string(), classOf[ResponseError])
+      Failure(throw new FitmeException(error.getDescription))
+    }
+  }
+
 }
