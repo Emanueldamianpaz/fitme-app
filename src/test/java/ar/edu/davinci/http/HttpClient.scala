@@ -46,7 +46,6 @@ class HttpClient[T](endpoint: String, token: String) {
   }
 
   private def handleResponse[T](response: Response) = {
-
     if (response.isSuccessful)
       Success(objectMapper.fromJson[T](response.body().string(), typeGeneric))
     else {

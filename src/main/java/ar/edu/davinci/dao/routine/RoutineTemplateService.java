@@ -51,4 +51,10 @@ public class RoutineTemplateService extends FitmeService<RoutineTemplate, Routin
             return rtFiltered.get(0);
         }
     }
+
+
+    public RoutineTemplate createBestRoutineForMyGoalType(UserInfo userInfo) {
+
+        return null;
+    }
 }

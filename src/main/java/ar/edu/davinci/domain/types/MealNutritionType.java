@@ -5,7 +5,7 @@ public enum MealNutritionType {
     // The first meal of the day. Usually around 6am-9am.
 
     BRUNCH,
-    // A meal eaten in the late morning, instead of BReakfast and lUNCH. (informal)
+    // A meal eaten in the late morning, instead of Breakfast and Lunch. (informal)
 
     ELEVENSES,
     // A snack (for example, biscuits and coffee). Around 11am. (BrE, informal)

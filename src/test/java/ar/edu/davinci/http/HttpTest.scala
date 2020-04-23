@@ -32,7 +32,7 @@ class HttpTest[T] {
   @ParameterizedTest
   @MethodSource(Array(
     "ar.edu.davinci.http.entities.EntitiesStore#mealNutritions",
-    "ar.edu.davinci.http.entities.EntitiesStore#workoutExercises"
+    "ar.edu.davinci.http.entities.EntitiesStore#workoutExercises",
   ))
   def post(entity: EntitiesWithLink[T]): Unit = {
 
@@ -47,12 +47,4 @@ class HttpTest[T] {
     })
   }
 
-  @ParameterizedTest
-  @MethodSource(Array(
-    "ar.edu.davinci.http.entities.EntitiesStore#mealNutritions",
-    "ar.edu.davinci.http.entities.EntitiesStore#workoutExercises"
-  ))
-  def patch(entity: EntitiesWithLink[T]): Unit = {
-    log.info(entity.toString)
-  }
 }
