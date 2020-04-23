@@ -16,7 +16,7 @@
     mvn heroku:deploy
 
 ##### Startup
-    heroku ps:scale web 1
+     heroku ps:scale -a fitme-app web 1
 
 ##### Shutdown
     Automatico
