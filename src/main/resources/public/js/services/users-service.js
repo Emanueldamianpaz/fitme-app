@@ -1,51 +1,42 @@
 fitme.service('UsersService', function ($http) {
 
-    var pathUsers = '/fitme/user';
-    var pathUsersInfo = api + '/user_info';
+    var path = '/fitme/user';
 
-    this.getListUsersInfo = function () {
-        return $http(getListUsersInfo());
-    }
-
-    function getListUsersInfo() {
-        return req = {
+    this.getListUsers = function () {
+        return $http({
             method: 'get',
-            url: pathUsers
-        }
-    };
-
-    this.setRoutines = function (userId, routineIds) {
-        return $http(setRoutines(userId, routineIds))
+            url: path
+        });
     }
 
-    function setRoutines(userId, routineIds) {
-        return req = {
-            method: 'put',
-            url: pathUsers + '/' + userId + '/routines',
-            data: {routines: routineIds}
-        }
-    }
-
-    this.getDetailUser = function (id) {
-        return $http(getDetailUser(id));
-    }
-
-    function getDetailUser(id) {
-        return req = {
+    this.getUser = function (idUser) {
+        return $http({
             method: 'get',
-            url: pathUsers + '/' + id + '/info',
-        }
-    };
-
-    this.sendMessage = function (message, id) {
-        return $http(sendMessage(message, id));
+            url: `${path}/${idUser}`
+        });
     }
 
-    function sendMessage(message, id) {
-        return req = {
-            method: 'post',
-            url: pathUsers + '/' + id + '/message',
-            data: {tip: message}
-        }
-    };
+    this.getUserLight = function (idUser) {
+        return $http({
+            method: 'get',
+            url: `${path}/${idUser}/light`
+        });
+    }
+
+    this.getUserInfo = function (idUser) {
+        return $http({
+            method: 'get',
+            url: `${path}/${idUser}/info`
+        });
+    }
+
+    this.updateUserInfo = function (idUser, userInfo) {
+        return $http({
+            method: 'patch',
+            url: `${path}/${idUser}/info`,
+            body: userInfo
+        });
+    }
+
+
 })

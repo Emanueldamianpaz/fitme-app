@@ -1,6 +1,6 @@
 fitme.service('WorkoutExerciseService', function ($http) {
 
-    var path = api + '/workout-exercise';
+    var path = `${api}/workout-exercise`;
 
     this.getWorkoutExercises = function () {
         return $http({
@@ -20,7 +20,7 @@ fitme.service('WorkoutExerciseService', function ($http) {
     this.updateWorkoutExercise = function (exercise, id) {
         return $http({
             method: 'patch',
-            url: path + '/' + id,
+            url: `${path}/${id}`,
             data: exercise
         });
     }
@@ -28,7 +28,7 @@ fitme.service('WorkoutExerciseService', function ($http) {
     this.deleteWorkoutExercise = function (id) {
         return $http({
             method: 'delete',
-            url: path + '/' + id
+            url: `${path}/${id}`
         });
     }
 

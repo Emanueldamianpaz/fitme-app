@@ -1,5 +1,5 @@
 fitme.controller('routinesController', function ($rootScope, $scope,
-                                                 RoutinesService,
+                                                 UserRoutinesService,
                                                  WorkoutExerciseService,
                                                  NutritionsService,
                                                  RoutineTemplatesService,

@@ -1,6 +1,6 @@
 fitme.service('RoutineTemplatesService', function ($http) {
 
-    var path = api + '/routine-template';
+    var path = `${api}/routine-template`;
 
     this.getRoutinesTemplates = function () {
         return $http({
@@ -20,7 +20,7 @@ fitme.service('RoutineTemplatesService', function ($http) {
     this.updateRoutineTemplate = function (routineTemplate, id) {
         return $http({
             method: 'patch',
-            url: path + '/' + id,
+            url: `${path}/${id}`,
             data: routineTemplate
         });
     }
@@ -28,8 +28,7 @@ fitme.service('RoutineTemplatesService', function ($http) {
     this.deleteRoutineTemplate = function (routineTemplate, id) {
         return $http({
             method: 'delete',
-            url: path + '/' + id,
-            data: routineTemplate
+            url: `${path}/${id}`
         });
     }
 })

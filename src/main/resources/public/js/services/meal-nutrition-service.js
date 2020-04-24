@@ -1,6 +1,6 @@
 fitme.service('MealNutritionService', function ($http) {
 
-    var path = api + '/meal-nutrition';
+    var path = `${api}/meal-nutrition`;
 
     this.getMealNutritions = function () {
         return $http({
@@ -21,7 +21,7 @@ fitme.service('MealNutritionService', function ($http) {
     this.updateMealNutrition = function (nutrition, id) {
         return $http({
             method: 'patch',
-            url: path + '/' + id,
+            url: `${path}/${id}`,
             data: nutrition
         });
     }
@@ -29,7 +29,7 @@ fitme.service('MealNutritionService', function ($http) {
     this.deleteMealNutrition = function (id) {
         return $http({
             method: 'delete',
-            url: path + '/' + id
+            url: `${path}/${id}`
         });
     }
 })
