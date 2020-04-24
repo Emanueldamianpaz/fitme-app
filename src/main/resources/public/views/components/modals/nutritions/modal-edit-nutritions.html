@@ -40,8 +40,13 @@
                         <i class="fa fa-info"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" ng-model="nutritionModelEdit.type"
-                           placeholder="{{ 'commons.insert-type' | translate}}">
+
+                    <select class="form-control" ng-model="nutritionModelEdit.type">
+                        <option value="{{ item }}" ng-repeat="item in nutritionType">
+                            {{ 'meal-nutrition.'+item | translate }}
+                        </option>
+                    </select>
+
                 </div>
 
             </div>

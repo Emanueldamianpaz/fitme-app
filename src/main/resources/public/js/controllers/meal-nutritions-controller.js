@@ -1,22 +1,31 @@
-fitme.controller('nutritionsController', function ($rootScope, $scope, NutritionsService, MessageNotification, $filter) {
+fitme.controller('nutritionsController', function ($rootScope, $scope, MealNutritionService, MessageNotification, $filter) {
 
     $rootScope.stateCurrent = "nutritions";
 
-    $scope.nutritionSelected = {};
-    $scope.nutritionModelAdd = {
-        name: '',
-        type: '',
-        calories: 0
-    };
-    $scope.nutritionModelEdit = {
-        name: '',
-        type: '',
-        calories: 0
-    };
+    $scope.nutritionType = mealNutritionTypesEnum;
 
-    NutritionsService.getNutritions().then(function (response) {
-        $scope.nutritionList = response.data;
-    });
+    $scope.nutritionSelected = {};
+    $scope.nutritionModelAdd = null;
+    $scope.nutritionModelEdit = null;
+
+    $scope.refreshData = function () {
+        MealNutritionService.getMealNutritions().then(response => {
+            $scope.nutritionList = response.data
+        });
+
+        $scope.nutritionModelAdd = {
+            name: '',
+            type: '',
+            calories: 0
+        };
+        $scope.nutritionModelEdit = {
+            name: '',
+            type: '',
+            calories: 0
+        };
+
+        $scope.nutritionSelected = {};
+    };
 
     $scope.setNutritionSelected = function (nutrition) {
         $scope.nutritionSelected = Object.create(nutrition);
@@ -30,13 +39,11 @@ fitme.controller('nutritionsController', function ($rootScope, $scope, Nutrition
             calories: $scope.nutritionModelAdd.calories
         };
 
-        NutritionsService.createNutrition(dataNutrition).then(function (response) {
-            MessageNotification.showMessage($filter('translate')('responses.create-nutrition'));
-
-            NutritionsService.getNutritions().then(function (response) {
-                $scope.nutritionList = response.data;
-            });
-        })
+        MealNutritionService.createMealNutrition(dataNutrition)
+            .then(x => {
+                MessageNotification.showMessage($filter('translate')('responses.create-nutrition'));
+                $scope.refreshData();
+            }).catch(error => console.error(error))
     }
 
     $scope.updateNutrition = function () {
@@ -46,23 +53,23 @@ fitme.controller('nutritionsController', function ($rootScope, $scope, Nutrition
             calories: $scope.nutritionModelEdit.calories
         };
 
-        NutritionsService.updateNutrition(dataNutrition, $scope.nutritionModelEdit.id).then(function (response) {
-            MessageNotification.showMessage($filter('translate')('responses.create-nutrition'));
-
-            NutritionsService.getNutritions().then(function (response) {
-                $scope.nutritionList = response.data;
-            });
-        })
+        MealNutritionService.updateMealNutrition(dataNutrition, $scope.nutritionModelEdit.id)
+            .then(x => {
+                MessageNotification.showMessage($filter('translate')('responses.create-nutrition'));
+                $scope.refreshData();
+            })
+            .catch(error => console.error(error))
     }
 
     $scope.deleteNutrition = function () {
-        NutritionsService.deleteNutrition($scope.nutritionSelected.id).then(function (response) {
-            MessageNotification.showMessage($filter('translate')('responses.create-nutrition'));
-
-            NutritionsService.getNutritions().then(function (response) {
-                $scope.nutritionList = response.data;
-            });
-        })
+        MealNutritionService.deleteMealNutrition($scope.nutritionSelected.id)
+            .then(x => {
+                MessageNotification.showMessage($filter('translate')('responses.create-nutrition'))
+                $scope.refreshData()
+            })
+            .catch(error => console.error(error))
     }
+
+    $scope.refreshData();
 })
 

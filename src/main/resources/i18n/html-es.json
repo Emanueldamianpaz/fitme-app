@@ -117,6 +117,15 @@
     "exercise": "Ejercicios",
     "nutrition": "Dietas"
   },
+  "meal-nutrition": {
+    "BREAKFAST": "Desayuno",
+    "BRUNCH": "Brunch",
+    "ELEVENSES": "Colación",
+    "LUNCH": "Almuerzo",
+    "TEA": "Te",
+    "SUPPER": "Precena",
+    "DINNER": "Cena"
+  },
   "responses": {
     "create-routine": "Se ha creado la rutina"
   }

@@ -25,7 +25,7 @@ fitme.service('RoutineTemplatesService', function ($http) {
         });
     }
 
-    this.deleteRoutineTemplate = function (routineTemplate, id) {
+    this.deleteRoutineTemplate = function (id) {
         return $http({
             method: 'delete',
             url: `${path}/${id}`

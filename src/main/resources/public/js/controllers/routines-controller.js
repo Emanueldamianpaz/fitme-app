@@ -1,8 +1,8 @@
 fitme.controller('routinesController', function ($rootScope, $scope,
-                                                 UserRoutinesService,
-                                                 WorkoutExerciseService,
-                                                 NutritionsService,
                                                  RoutineTemplatesService,
+                                                 WorkoutExerciseService,
+                                                 MealNutritionService,
+                                                 UserRoutinesService,
                                                  MessageNotification,
                                                  $filter) {
 
@@ -142,6 +142,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
             })
         }
     }
+
     $scope.removeNutrition = function (nutritionId, typeOperation) {
         if (typeOperation == 'edit') {
             $scope.routineModelEdit.routineTemplate.nutritions = $scope.routineModelEdit.routineTemplate.nutritions.filter(function (nut) {
@@ -184,6 +185,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
             }
         }
     }
+
     $scope.addExercise = function (typeOperation) {
         if (typeOperation == 'edit') {
 
@@ -308,13 +310,10 @@ fitme.controller('routinesController', function ($rootScope, $scope,
     }
 
     $scope.deleteRoutine = function () {
-        RoutinesService.deleteRoutine($scope.routineSelected.id).then(function (response) {
-
-            RoutinesService.getRoutines().then(function (response) {
-                $scope.routineList = response.data;
-            });
-        })
-    }
+        RoutineTemplatesService.deleteRoutineTemplate($scope.routineSelected.id)
+            .then($scope.refreshData())
+            .catch(error => console.error(error)) //MessageNotification.showMessage(error)
+    };
 
 })
 

@@ -33,7 +33,7 @@ fitme.config(function ($stateProvider) {
 
         .state('app.nutritions', {
             url: '/nutritions',
-            templateUrl: 'views/app/nutritions/nutritions.html',
+            templateUrl: 'views/app/nutritions/meal-nutritions.html',
             controller: 'nutritionsController'
         })
 

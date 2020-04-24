@@ -9,7 +9,6 @@ fitme.service('MealNutritionService', function ($http) {
         });
     }
 
-
     this.createMealNutrition = function (nutrition) {
         return $http({
             method: 'post',
