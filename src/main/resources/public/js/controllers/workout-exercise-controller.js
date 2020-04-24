@@ -2,28 +2,33 @@ fitme.controller('exercisesController', function ($rootScope, $scope, $filter, W
 
     $rootScope.stateCurrent = "exercises";
 
+    $scope.workoutExercisesType = workoutExerciseTypeEnum;
+    $scope.difficultyType = difficultyTypeEnum;
+
     $scope.exerciseSelected = {};
-    $scope.exerciseModelAdd = {
-        name: '',
-        type: '',
-        difficulty: '',
-        description: ''
-    };
-    $scope.exerciseModelEdit = {
-        name: '',
-        type: '',
-        difficulty: '',
-        description: ''
-    };
+    $scope.exerciseModelAdd = null;
+    $scope.exerciseModelEdit = null;
 
+    $scope.refreshData = function () {
+        WorkoutExerciseService.getWorkoutExercises()
+            .then(response => $scope.exerciseList = response.data)
+            .catch(error => console.error(error))
 
-    $scope.refreshWorkoutExercises = function () {
-        WorkoutExerciseService.getWorkoutExercises().then(function (response) {
-            $scope.exerciseList = response.data;
-        });
+        $scope.exerciseModelAdd = {
+            name: '',
+            type: '',
+            difficulty: '',
+            description: ''
+        };
+        $scope.exerciseModelEdit = {
+            name: '',
+            type: '',
+            difficulty: '',
+            description: ''
+        };
+        $scope.exerciseSelected = {};
+
     };
-
-    $scope.refreshWorkoutExercises();
 
     $scope.setExerciseSelected = function (exercise) {
         $scope.exerciseSelected = Object.create(exercise);
@@ -40,7 +45,7 @@ fitme.controller('exercisesController', function ($rootScope, $scope, $filter, W
 
         WorkoutExerciseService.createWorkoutExercise(dataExercise).then(function () {
             MessageNotification.showMessage($filter('translate')('responses.create-exercise'));
-            $scope.refreshWorkoutExercises();
+            $scope.refreshData();
         })
     }
 
@@ -52,20 +57,26 @@ fitme.controller('exercisesController', function ($rootScope, $scope, $filter, W
             description: $scope.exerciseModelEdit.description
         };
 
-        WorkoutExerciseService.updateWorkoutExercise(dataExercise, $scope.exerciseModelEdit.id).then(function () {
-            MessageNotification.showMessage($filter('translate')('responses.create-exercise'));
+        WorkoutExerciseService.updateWorkoutExercise(dataExercise, $scope.exerciseModelEdit.id)
+            .then(x => {
+                MessageNotification.showMessage($filter('translate')('responses.create-nutrition'));
+                $scope.refreshData();
+            })
+            .catch(error => console.error(error))
 
-            $scope.refreshWorkoutExercises();
-        })
     };
 
     $scope.deleteExercise = function () {
-        WorkoutExerciseService.deleteWorkoutExercise($scope.exerciseSelected.id).then(function () {
-            MessageNotification.showMessage($filter('translate')('responses.create-exercise'));
+        WorkoutExerciseService.deleteWorkoutExercise($scope.exerciseSelected.id)
+            .then(x => {
+                MessageNotification.showMessage($filter('translate')('responses.create-exercise'));
+                $scope.refreshData();
+            })
+            .catch(error => console.error(error))
+    };
 
-            $scope.refreshWorkoutExercises();
-        })
-    }
+    $scope.refreshData();
+
 
 })
 

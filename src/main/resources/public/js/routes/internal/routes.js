@@ -27,7 +27,7 @@ fitme.config(function ($stateProvider) {
 
         .state('app.exercises', {
             url: '/exercises',
-            templateUrl: 'views/app/exercises/exercises.html',
+            templateUrl: 'views/app/exercises/workout-exercises.html',
             controller: 'exercisesController'
         })
 

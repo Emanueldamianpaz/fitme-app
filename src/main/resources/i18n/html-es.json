@@ -126,6 +126,18 @@
     "SUPPER": "Precena",
     "DINNER": "Cena"
   },
+  "workout-exercise": {
+    "AEROBIC": "Aeróbico",
+    "FLEXIBILITY": "Flexibilidad",
+    "STRENGTH": "Fuerza"
+  },
+  "difficulty": {
+    "BEGINNER": "Principiante",
+    "BASIC": "Facil",
+    "INTERMEDIATE": "Intermedio",
+    "ADVANCED": "Avanzado",
+    "EXPERT": "Experto"
+  },
   "responses": {
     "create-routine": "Se ha creado la rutina"
   }

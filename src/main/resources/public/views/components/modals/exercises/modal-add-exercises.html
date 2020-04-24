@@ -18,7 +18,45 @@
                     <input type="text" class="form-control" ng-model="exerciseModelAdd.name"
                            placeholder="{{ 'commons.insert-name' | translate}}">
                 </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>{{ 'commons.difficulty' | translate }}</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                            </div>
 
+                            <select class="form-control" ng-model="exerciseModelAdd.difficulty">
+                                <option value="{{ item }}" ng-repeat="item in difficultyType">
+                                    {{ 'difficulty.'+item | translate }}
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>{{ 'commons.type' | translate }}</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                            </div>
+
+
+                            <select class="form-control" ng-model="exerciseModelAdd.type">
+                                <option value="{{ item }}" ng-repeat="item in workoutExercisesType">
+                                    {{ 'workout-exercise.'+item | translate }}
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
                 <br>
 
                 <h5>{{ 'commons.description' | translate }}</h5>
@@ -26,28 +64,6 @@
                           class="form-control" placeholder="{{ 'commons.insert-description' | translate }}"
                           style="margin-top: 0px; margin-bottom: 0px; height: 196px;"></textarea>
 
-                <br>
-                <h5>{{ 'commons.difficulty' | translate }}</h5>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                        <i class="fa fa-info"></i>
-                        </span>
-                    </div>
-                    <input type="text" class="form-control" ng-model="exerciseModelAdd.difficulty"
-                           placeholder="{{ 'commons.insert-difficulty' | translate}}">
-                </div>
-                <br>
-                <h5>{{ 'commons.type' | translate }}</h5>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                        <i class="fa fa-info"></i>
-                        </span>
-                    </div>
-                    <input type="text" class="form-control" ng-model="exerciseModelAdd.type"
-                           placeholder="{{ 'commons.insert-type' | translate}}">
-                </div>
 
             </div>
             <div class="modal-footer">
