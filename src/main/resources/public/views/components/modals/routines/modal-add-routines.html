@@ -28,7 +28,82 @@
 
 
                 <hr>
-                <div ng-include="'views/components/fragments/create-select-routine-template.html'"></div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>{{ 'commons.goal-type' | translate }}</h5>
+                        <select class="form-control" ng-model="routineModelAdd.goalType">
+                            <option value="{{ item }}" ng-repeat="item in goalType">
+                                {{ 'goal-type.'+item | translate }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>{{ 'commons.scoring-type' | translate }}</h5>
+
+                        <select class="form-control" ng-model="routineModelAdd.scoringSystem">
+                            <option value="{{ item }}" ng-repeat="item in scoringType">
+                                {{ 'scoring-type.'+item | translate }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4> {{ 'commons.exercises' | translate }} </h4>
+                        <div class="input-group">
+                            <select class="form-control" ng-model="routineAdd.workoutExercises">
+                                <option value={{exerciseItem}} ng-repeat="exerciseItem in exerciseList">
+                                    {{exerciseItem.name}}
+                                </option>
+                            </select>
+                            <button type="button" class="btn btn-primary" ng-click="addExercise('create')">
+                                <li class="fa fa-plus"></li>
+                            </button>
+
+                        </div>
+                        <br>
+
+                        <div class="container">
+                            <div class="row">
+                                <button type="button" class="btn btn-sm btn-outline-primary margin-light"
+                                        ng-repeat="exerciseItem in routineModelAdd.workoutExercises"
+                                        ng-click="removeExercise(exerciseItem.id, 'create')">
+                                    {{ exerciseItem.name | cut:true:20:'...' }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4> {{ 'commons.nutritions' | translate }}</h4>
+                        <div class="input-group">
+                            <select class="form-control" ng-model="routineAdd.mealNutritions">
+                                <option value={{nutritionItem}} ng-repeat="nutritionItem in nutritionList ">
+                                    {{nutritionItem.name}}
+                                </option>
+                            </select>
+                            <button type="button" class="btn btn-success" ng-click="addNutrition('create')">
+                                <li class="fa fa-plus"></li>
+                            </button>
+
+                        </div>
+                        <br>
+
+                        <div class="container">
+                            <div class="row">
+                                <button type="button" class="btn btn-sm btn-outline-success margin-light"
+                                        ng-repeat="nutritionItem in routineModelAdd.mealNutritions"
+                                        ng-click="removeNutrition(nutritionItem.id, 'create')">
+                                    {{ nutritionItem.name | cut:true:20:'...'}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>

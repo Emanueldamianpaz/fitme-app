@@ -71,10 +71,6 @@
 
                         </tbody>
                     </table>
-                    <div class="alert alert-light text-center" role="alert"
-                         ng-if="nutritionList.length <= 0 && cfpLoadingBar.complete()">
-                        <h2>{{ 'commons.no-results' | translate}}</h2>
-                    </div>
                 </div>
                 <div class="col-sm-12 text-center" ng-if="nutritionList.length < 1">
                     <div ng-include="'views/components/fragments/no-result.html'"></div>

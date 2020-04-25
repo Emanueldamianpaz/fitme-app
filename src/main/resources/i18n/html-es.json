@@ -11,6 +11,8 @@
     "accept": "Aceptar",
     "back": "Atrás",
     "fields": "Campos",
+    "goal-type": "Objetivo",
+    "scoring-type": "Puntuación",
     "remove": "Quitar",
     "show": "Ver",
     "logout": "Salir",
@@ -125,6 +127,17 @@
     "TEA": "Te",
     "SUPPER": "Precena",
     "DINNER": "Cena"
+  },
+  "goal-type": {
+    "UNKNOWN": "Desconocido",
+    "GAIN_WEIGHT": "Ganar peso",
+    "LOSS_WEIGHT": "Perder peso"
+  },
+  "scoring-type": {
+    "GOOD": "Bueno",
+    "REGULAR": "Regular",
+    "BAD": "Malo",
+    "UNKNOWN": "Desconocido"
   },
   "workout-exercise": {
     "AEROBIC": "Aeróbico",
