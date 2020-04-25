@@ -15,7 +15,9 @@
     "scoring-type": "Puntuación",
     "remove": "Quitar",
     "show": "Ver",
+    "goal": "Objetivo",
     "logout": "Salir",
+    "frecuency-exercise": "Frecuencia de ejercicio",
     "are-you-sure": "¿Está seguro?",
     "yes-no": {
       "true": "Si",

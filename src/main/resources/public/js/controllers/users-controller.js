@@ -1,4 +1,4 @@
-fitme.controller('usersController', function ($rootScope, $scope, UsersService, UserRoutinesService, MessageNotification, $filter) {
+fitme.controller('usersController', function ($rootScope, $scope, UsersService, UserRoutinesService, TrainningService, MessageNotification, $filter) {
 
     $rootScope.stateCurrent = "users";
 
@@ -9,28 +9,90 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
     $scope.routinesToAdd = [];
 
     $scope.userSelected = {};
-    $scope.userSelectedDetail = {};
+    $scope.userSelectedDetail = {
+        "id": "",
+        "userInfo": {
+            "id": "",
+            "initialWeight": 0,
+            "height": 0,
+            "currentFat": 0,
+            "frecuencyExercise": "",
+            "userGoal": {
+                "type": "",
+                "goalFat": 0
+            },
+            "trainingSession": []
+        },
+        "userRoutines": [],
+        "name": "",
+        "lastName": "",
+        "email": "",
+        "picture": "",
+        "nickname": "",
+        "genre": null,
+        "role": ""
+    };
+
+
     $scope.userTip = {id: '', message: ''};
 
-    $scope.refreshList = function () {
-        UsersService.getListUsersInfo().then(function (response) {
+    $scope.refreshData = function () {
+        UsersService.getListUsers().then(function (response) {
             $scope.userList = response.data;
         });
     }
 
-    $scope.refreshList();
+    $scope.showDetailUser = function (user) {
+        $scope.setUserSelected(user);
+        UsersService.getUser($scope.userSelected.id).then(function (response) {
+            $scope.userSelectedDetail = response.data;
+            $scope.getUserInfoParsed();
+            $scope.getPercentGoalCompleted();
+        })
+    }
 
-    RoutinesService.getRoutinesLight().then(function (response) {
-        $scope.routineList = response.data;
-    });
+    $scope.getPercentGoalCompleted = function () {
+        let parsed = {
+            initial: $scope.userSelectedDetail.userInfo.initialWeight,
+            current: $scope.userSelectedDetail.userInfo.currentFat,
+            goal: $scope.userSelectedDetail.userInfo.userGoal.goalFat,
+            completed: 0
+        };
+
+        parsed.completed = ((parsed.initial - parsed.current) * 100) / (parsed.initial - parsed.goal)
+
+        parsed.completed = parsed.completed < 0 ? 0 : parsed.completed;
+        parsed.completed = parsed.completed > 100 ? 100 : parsed.completed;
+
+        return parsed
+
+    };
+
+    $scope.getUserInfoParsed = function () {
+        let goalInfo = null;
+
+        if ($scope.userSelectedDetail.userInfo.userGoal) {
+            goalInfo = {
+                type: $filter('translate')(`goal-type.${$scope.userSelectedDetail.userInfo.userGoal.type}`),
+                goalFat: $scope.userSelectedDetail.userInfo.userGoal.goalFat
+            }
+        } else {
+            goalInfo = {
+                type: 'n/a',
+                goalFat: 'n/a'
+            }
+        }
+        return {
+            initialWeight: $scope.userSelectedDetail.userInfo.initialWeight ? `${$scope.userSelectedDetail.userInfo.initialWeight}kg.` : 'n/a',
+            height: $scope.userSelectedDetail.userInfo.height ? `${$scope.userSelectedDetail.userInfo.height}m.` : 'n/a',
+            currentFat: $scope.userSelectedDetail.userInfo.currentFat ? `${$scope.userSelectedDetail.userInfo.currentFat}kg.` : 'n/a',
+            goal: goalInfo
+        }
+    }
 
     $scope.setUserSelected = function (user) {
         $scope.userSelected = Object.create(user);
     };
-
-    $scope.changeSelectedItem = function () {
-        console.log($scope.routineToAdd);
-    }
 
     $scope.addRoutineToUser = function () {
         var routineItem = $scope.routineToAdd.object;
@@ -57,11 +119,6 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
         });
     }
 
-    $scope.getDetailUser = function () {
-        UsersService.getDetailUser($scope.userSelected.id).then(function (response) {
-            $scope.userSelectedDetail = response.data;
-        })
-    }
 
     $scope.addRoutinesToUser = function () {
 
@@ -80,6 +137,8 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
         UsersService.sendMessage($scope.userTip.message, $scope.userTip.id)
 
     };
+
+    $scope.refreshData();
 
 
 })
