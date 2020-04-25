@@ -1,8 +1,8 @@
-fitme.service('TrainningService', function ($http) {
+fitme.service('TrainingService', function ($http) {
 
-    var path = `${api}/trainning-session`;
+    var path = `${api}/training-session`;
 
-    this.getTrainningSession = function (idUser) {
+    this.getTrainingSession = function (idUser) {
         return $http({
             method: 'get',
             url: `${path}/${idUser}/info`
