@@ -16,11 +16,11 @@ fitme.service('UserRoutinesService', function ($http) {
         });
     }
 
-    this.addUserRoutine = function (idUser, idUserRoutine, userRoutine) {
+    this.addUserRoutine = function (idUser, userRoutine) {
         return $http({
             method: 'patch',
-            url: `${path}/${idUser}/user-routine/${idUserRoutine}`,
-            body: userRoutine
+            url: `${path}/${idUser}/user-routine`,
+            data: userRoutine
         });
     }
 
@@ -42,7 +42,7 @@ fitme.service('UserRoutinesService', function ($http) {
         return $http({
             method: 'post',
             url: `${path}/${idUser}/user-routine/${idUserRoutine}/user-experience/${idUserExperience}`,
-            body: coachTip
+            data: coachTip
         });
     }
 

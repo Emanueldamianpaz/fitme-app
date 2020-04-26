@@ -38,6 +38,7 @@
     "search": "Buscar",
     "errors": "Errores",
     "training-session": "Entrenamiento",
+    "assign": "Asignar",
     "info": "Info",
     "information": "Información",
     "distance-covered-total": "Distancia recorrida total",
@@ -128,7 +129,9 @@
   "routine": {
     "info": "Información de la rutina",
     "exercise": "Ejercicios",
-    "nutrition": "Dietas"
+    "nutrition": "Dietas",
+    "assign-routine": "Seleccione las rutinas para asignar",
+    "assign-routine-automatic": "Si no selecciona ninguno, el sistema asignará una rutina automáticamente"
   },
   "meal-nutrition": {
     "BREAKFAST": "Desayuno",

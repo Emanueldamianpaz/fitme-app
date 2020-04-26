@@ -1,4 +1,5 @@
-fitme.controller('usersController', function ($rootScope, $scope, UsersService, UserRoutinesService, TrainingService, MessageNotification, $filter) {
+fitme.controller('usersController', function ($rootScope, $scope, UsersService, UserRoutinesService,
+                                              RoutineTemplatesService, TrainingService, MessageNotification, $filter) {
 
     $rootScope.stateCurrent = "users";
 
@@ -36,9 +37,8 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
     $scope.userTip = {id: '', message: ''};
 
     $scope.refreshData = function () {
-        UsersService.getListUsers().then(function (response) {
-            $scope.userList = response.data;
-        });
+        UsersService.getListUsers()
+            .then(response => $scope.userList = response.data);
     }
 
     $scope.showDetailUser = function (user) {
@@ -48,46 +48,28 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
             $scope.getUserInfoParsed();
             $scope.getPercentGoalCompleted();
         })
-    }
-
-    $scope.setUserSelected = function (user) {
-        $scope.userSelected = Object.create(user);
     };
 
-    $scope.addRoutineToUser = function () {
-        var routineItem = $scope.routineToAdd.object;
-        console.log(routineItem);
+    $scope.showUserExperiences = function (user) {
+        $scope.setUserSelected(user);
+        UsersService.getUser($scope.userSelected.id).then(function (response) {
+            $scope.userSelectedDetail = response.data;
+        })
+    };
 
-        var existsInArray = false;
-
-        $scope.routinesToAdd.map(function (routine) {
-            if (routine == routineItem) {
-                existsInArray = true;
-            }
-        });
-
-        if (!existsInArray) {
-            $scope.routinesToAdd.push(routineItem);
-            console.log(routineItem);
-
-        }
-    }
-
-    $scope.removeRoutine = function (routineId) {
-        $scope.routinesToAdd = $scope.routinesToAdd.filter(function (nut) {
-            return nut.id != routineId
-        });
+    $scope.showRoutinesForAssign = function (user) {
+        $scope.setUserSelected(user);
+        RoutineTemplatesService.getRoutinesTemplates()
+            .then(response => $scope.routineList = response.data)
     }
 
     $scope.addRoutinesToUser = function () {
+        let routinesIDList = {
+            routine_template_ids: $scope.routinesToAdd.map(x => x.id)
+        }
 
-        var routinesIDList = $scope.routinesToAdd.map(function (x) {
-            return x.id
-        });
-
-        UsersService.setRoutines($scope.userSelected.id, routinesIDList).then(function (response) {
-            console.log("funciono");
-        })
+        UserRoutinesService.addUserRoutine($scope.userSelected.id, routinesIDList)
+            .then(x => console.log(x))
     }
 
     $scope.sendTip = function () {
@@ -153,6 +135,26 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
 
     };
 
+    $scope.setUserSelected = function (user) {
+        $scope.userSelected = Object.create(user);
+    };
+
+    $scope.addRoutineToUser = function () {
+        var routineItem = $scope.routineToAdd.object;
+        var existsInArray = false;
+
+        $scope.routinesToAdd.map(r => r == routineItem ? existsInArray = true : existsInArray = false);
+
+        if (!existsInArray) {
+            $scope.routinesToAdd.push(routineItem);
+            console.log(routineItem);
+
+        }
+    }
+
+    $scope.removeRoutine = function (routineId) {
+        $scope.routinesToAdd = $scope.routinesToAdd.filter(nut => nut.id != routineId);
+    }
 
 })
 

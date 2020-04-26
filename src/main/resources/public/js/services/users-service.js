@@ -34,7 +34,7 @@ fitme.service('UsersService', function ($http) {
         return $http({
             method: 'patch',
             url: `${path}/${idUser}/info`,
-            body: userInfo
+            data: userInfo
         });
     }
 

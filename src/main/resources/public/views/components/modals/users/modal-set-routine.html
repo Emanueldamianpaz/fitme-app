@@ -9,7 +9,14 @@
 
             <div class="modal-body">
 
-
+                <div class="text-center">
+                    <h4>
+                        {{'routine.assign-routine' | translate }}
+                    </h4>
+                    <p>
+                        {{'routine.assign-routine-automatic' | translate }}
+                    </p>
+                </div>
                 <div class="input-group">
                     <select class="form-control" ng-model="routineToAdd.object"
                             ng-options="i as i.name for i in routineList">
@@ -19,6 +26,7 @@
                     </button>
 
                 </div>
+
                 <br>
 
                 <div class="container">
@@ -30,14 +38,15 @@
                         </button>
                     </div>
 
+                    <br>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         {{ 'commons.close' | translate }}
                     </button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="addRoutinesToUser()">
-                        {{ 'commons.send' | translate }}
+                    <button type="button" class="btn btn-dark" data-dismiss="modal" ng-click="addRoutinesToUser()">
+                        {{ 'commons.assign' | translate }}
                     </button>
 
                 </div>
