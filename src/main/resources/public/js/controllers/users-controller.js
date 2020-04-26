@@ -33,7 +33,6 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
         "role": ""
     };
 
-
     $scope.userTip = {id: '', message: ''};
 
     $scope.refreshData = function () {
@@ -49,45 +48,6 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
             $scope.getUserInfoParsed();
             $scope.getPercentGoalCompleted();
         })
-    }
-
-    $scope.getPercentGoalCompleted = function () {
-        let parsed = {
-            initial: $scope.userSelectedDetail.userInfo.initialWeight,
-            current: $scope.userSelectedDetail.userInfo.currentFat,
-            goal: $scope.userSelectedDetail.userInfo.userGoal.goalFat,
-            completed: 0
-        };
-
-        parsed.completed = ((parsed.initial - parsed.current) * 100) / (parsed.initial - parsed.goal)
-
-        parsed.completed = parsed.completed < 0 ? 0 : parsed.completed;
-        parsed.completed = parsed.completed > 100 ? 100 : parsed.completed;
-
-        return parsed
-
-    };
-
-    $scope.getUserInfoParsed = function () {
-        let goalInfo = null;
-
-        if ($scope.userSelectedDetail.userInfo.userGoal) {
-            goalInfo = {
-                type: $filter('translate')(`goal-type.${$scope.userSelectedDetail.userInfo.userGoal.type}`),
-                goalFat: $scope.userSelectedDetail.userInfo.userGoal.goalFat
-            }
-        } else {
-            goalInfo = {
-                type: 'n/a',
-                goalFat: 'n/a'
-            }
-        }
-        return {
-            initialWeight: $scope.userSelectedDetail.userInfo.initialWeight ? `${$scope.userSelectedDetail.userInfo.initialWeight}kg.` : 'n/a',
-            height: $scope.userSelectedDetail.userInfo.height ? `${$scope.userSelectedDetail.userInfo.height}m.` : 'n/a',
-            currentFat: $scope.userSelectedDetail.userInfo.currentFat ? `${$scope.userSelectedDetail.userInfo.currentFat}kg.` : 'n/a',
-            goal: goalInfo
-        }
     }
 
     $scope.setUserSelected = function (user) {
@@ -119,7 +79,6 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
         });
     }
 
-
     $scope.addRoutinesToUser = function () {
 
         var routinesIDList = $scope.routinesToAdd.map(function (x) {
@@ -140,6 +99,30 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
 
     $scope.refreshData();
 
+    // ---------------------------------------------------------------------------- Interno para manejo de la UI
+
+    $scope.getUserInfoParsed = function () {
+        let goalInfo = null;
+
+        if ($scope.userSelectedDetail.userInfo.userGoal) {
+            goalInfo = {
+                type: $filter('translate')(`goal-type.${$scope.userSelectedDetail.userInfo.userGoal.type}`),
+                goalFat: $scope.userSelectedDetail.userInfo.userGoal.goalFat
+            }
+        } else {
+            goalInfo = {
+                type: 'n/a',
+                goalFat: 'n/a'
+            }
+        }
+        return {
+            initialWeight: $scope.userSelectedDetail.userInfo.initialWeight ? `${$scope.userSelectedDetail.userInfo.initialWeight}kg.` : 'n/a',
+            height: $scope.userSelectedDetail.userInfo.height ? `${$scope.userSelectedDetail.userInfo.height}m.` : 'n/a',
+            currentFat: $scope.userSelectedDetail.userInfo.currentFat ? `${$scope.userSelectedDetail.userInfo.currentFat}kg.` : 'n/a',
+            goal: goalInfo
+        }
+    }
+
     $scope.getTotalParsed = function (training) {
 
         let totalCalories = 0;
@@ -152,6 +135,24 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
             meters: (Math.round(totalMeters * 100) / 100),
         }
     }
+
+    $scope.getPercentGoalCompleted = function () {
+        let parsed = {
+            initial: $scope.userSelectedDetail.userInfo.initialWeight,
+            current: $scope.userSelectedDetail.userInfo.currentFat,
+            goal: $scope.userSelectedDetail.userInfo.userGoal.goalFat,
+            completed: 0
+        };
+
+        parsed.completed = ((parsed.initial - parsed.current) * 100) / (parsed.initial - parsed.goal)
+
+        parsed.completed = parsed.completed < 0 ? 0 : parsed.completed;
+        parsed.completed = parsed.completed > 100 ? 100 : parsed.completed;
+
+        return parsed
+
+    };
+
 
 })
 
