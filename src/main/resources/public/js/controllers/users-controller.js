@@ -33,8 +33,7 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
         "genre": null,
         "role": ""
     };
-
-    $scope.userTip = {id: '', message: ''};
+    $scope.coachTip = [''];
 
     $scope.refreshData = function () {
         UsersService.getListUsers()
@@ -72,11 +71,13 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
             .then(x => console.log(x))
     }
 
-    $scope.sendTip = function () {
-        $scope.userTip.id = $scope.userSelected.id;
+    $scope.sendTip = function (userRoutineId, userExperienceId) {
+        let coachTip = {
+            coachTip: $scope.coachTip[userExperienceId]
+        }
 
-        UsersService.sendMessage($scope.userTip.message, $scope.userTip.id)
-
+        UserRoutinesService.setCoachTip($scope.userSelectedDetail.id, userRoutineId, userExperienceId, coachTip)
+            .then(x => console.log(x))
     };
 
     $scope.refreshData();

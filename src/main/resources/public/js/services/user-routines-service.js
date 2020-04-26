@@ -41,7 +41,7 @@ fitme.service('UserRoutinesService', function ($http) {
     this.setCoachTip = function (idUser, idUserRoutine, idUserExperience, coachTip) {
         return $http({
             method: 'post',
-            url: `${path}/${idUser}/user-routine/${idUserRoutine}/user-experience/${idUserExperience}`,
+            url: `${path}/${idUser}/user-routine/${idUserRoutine}/user-experience/${idUserExperience}/coach-tip`,
             data: coachTip
         });
     }
