@@ -111,7 +111,7 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="routines" role="tabpanel"
-                                 style="height: 300px; overflow-y: scroll">
+                                 style="height: 500px; overflow-y: scroll">
                                 <div class="col-lg-12"
                                      ng-repeat="item in userSelectedDetail.userRoutines">
                                     <div>
@@ -155,14 +155,165 @@
 
 
                             </div>
-                            <div class="tab-pane" id="training-session" role="tabpanel"
-                                 style="height: 300px; overflow-y: scroll">
-                                2. Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <div class="tab-pane" id="training-session" role="tabpanel" style="height: 500px;
+                            overflow-y: scroll">
+
+                                <div class="accordion" id="accordion" role="tablist">
+                                    <div class="card mb-0"
+                                         ng-repeat="item in userSelectedDetail.userInfo.trainingSession">
+                                        <div class="card-header" role="tab">
+                                            <h5 class="mb-0">
+                                                <a data-toggle="collapse" href="#{{item.id}}"
+                                                   aria-expanded="true" aria-controls="collapseOne">
+                                                    {{item.date}}
+                                                    <div class="pull-right">
+                                                        {{ getTotalParsed(item).calories}}cal /
+                                                        {{ getTotalParsed(item).meters}}m
+                                                    </div>
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div class="collapse" id="{{item.id}}" role="tabpanel"
+                                             aria-labelledby="headingOne" data-parent="#accordion" style="">
+                                            <div class="card-body">
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 text-center">
+                                                            <h5>
+                                                                {{'commons.nutrition' | translate}}
+                                                            </h5>
+                                                            <hr>
+                                                            <h5>
+                                                                {{'commons.calories-total' | translate}}
+                                                            </h5>
+                                                            <strong>
+                                                                {{ getTotalParsed(item).calories}}
+                                                            </strong>
+                                                            <hr>
+                                                            <div class="text-capitalize"
+                                                                 ng-repeat="nutrition in item.nutritionSessions">
+                                                                <strong>
+                                                                    ({{'meal-nutrition.'+nutrition.type | translate }})
+                                                                </strong>
+                                                                {{ nutrition.name }} - {{ nutrition.calories }}cal
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-lg-6 text-center">
+                                                            <h5>
+                                                                {{'commons.running-session' | translate}}
+                                                            </h5>
+                                                            <hr>
+                                                            <h5>
+                                                                {{'commons.distance-covered-total' | translate }}:
+                                                            </h5>
+                                                            <strong>
+                                                                {{ getTotalParsed(item).meters}}
+                                                            </strong>
+                                                            <hr>
+                                                            <div class="text-capitalize"
+                                                                 ng-repeat="running in item.runningSessions">
+
+                                                                <strong>
+                                                                    {{ running.timestamp }} -
+                                                                    ({{'scoring-type.'+running.scoring | translate }})
+                                                                </strong>
+
+                                                                {{'commons.distance-covered' | translate }}:
+
+                                                                <strong>
+                                                                    {{ running.runningSession.distanceCovered }}m
+                                                                </strong>
+
+                                                                <br>
+                                                                {{'commons.total-time-walk' | translate }}:
+                                                                {{ running.runningSession.totalTimeWalk }}s
+                                                                <br>
+
+                                                                {{'commons.speed-avg' | translate }}:
+                                                                {{ running.runningSession.speedAvg }}m/s
+
+                                                                <br>
+
+                                                                {{'commons.pace' | translate }}:
+                                                                {{ running.runningSession.pace }}
+                                                                <hr>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <!--    <div class="nav-tabs-boxed nav-tabs-boxed-left">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item"
+                                            ng-repeat="item in userSelectedDetail.userInfo.trainingSession">
+                                            <a class="nav-link active"
+                                               data-toggle="tab" href="#{{item.id}}" role="tab" aria-controls="home"
+                                               aria-selected="true">
+                                                {{item.date}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active"
+                                             ng-repeat="item in userSelectedDetail.userInfo.trainingSession"
+                                             id="{{item.id}}" role="tabpanel">
+
+
+                                            <div class="margin-light"
+                                                 ng-repeat="nutrition in item.nutritionSessions">
+                                                <i class="fa fa-circle text-info"></i>&nbsp;
+                                                {{ nutrition}}
+                                            </div>
+                                            <div class="margin-light"
+                                                 ng-repeat="running in item.runningSessions">
+                                                <i class="fa fa-circle text-success"></i>&nbsp;
+                                                {{running}}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                                                <div class="col-lg-12"
+                                                                     ng-repeat="item in userSelectedDetail.userInfo.trainingSession">
+                                                                    <div>
+                                                                        <h5 class="text-capitalize">
+                                                                            #{{item.id}} - {{item.date}}
+                                                                        </h5>
+                                                                        <hr>
+                                                                        <div class="col-lg-12">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    {{'commons.nutrition' | translate}}
+                                                                                    <div class="margin-light"
+                                                                                         ng-repeat="nutrition in item.nutritionSessions">
+                                                                                        <i class="fa fa-circle text-info"></i>&nbsp;
+                                                                                        {{ nutrition}}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    {{'commons.running-session' | translate}}
+
+                                                                                    <div class="margin-light"
+                                                                                         ng-repeat="running in item.runningSessions">
+                                                                                        <i class="fa fa-circle text-success"></i>&nbsp;
+                                                                                        {{running}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                </div>-->
+
                             </div>
                         </div>
                     </div>

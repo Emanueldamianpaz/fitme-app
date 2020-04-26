@@ -140,6 +140,18 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
 
     $scope.refreshData();
 
+    $scope.getTotalParsed = function (training) {
+
+        let totalCalories = 0;
+        let totalMeters = 0;
+        training.nutritionSessions.map(n => totalCalories = totalCalories + n.calories);
+        training.runningSessions.map(r => totalMeters = totalMeters + r.runningSession.distanceCovered);
+
+        return {
+            calories: (Math.round(totalCalories * 100) / 100),
+            meters: (Math.round(totalMeters * 100) / 100),
+        }
+    }
 
 })
 
