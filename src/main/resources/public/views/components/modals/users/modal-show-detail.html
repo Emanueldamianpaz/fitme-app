@@ -107,7 +107,12 @@
                                     {{ 'commons.training-session' | translate }}
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#progress" role="tab"
+                                   aria-controls="profile" aria-selected="false">
+                                    {{ 'commons.progress' | translate }}
+                                </a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="routines" role="tabpanel"
@@ -152,18 +157,15 @@
                                     </div>
                                     <br>
                                 </div>
-
-
                             </div>
                             <div class="tab-pane" id="training-session" role="tabpanel" style="height: 400px;
                             overflow-y: scroll">
-
                                 <div class="accordion" id="accordion" role="tablist">
                                     <div class="card mb-0"
                                          ng-repeat="item in userSelectedDetail.userInfo.trainingSession">
                                         <div class="card-header" role="tab">
                                             <h5 class="mb-0">
-                                                <a data-toggle="collapse" href="#{{item.id}}"
+                                                <a data-toggle="collapse" href="#training-session-{{item.id}}"
                                                    aria-expanded="true" aria-controls="collapseOne">
                                                     {{item.date}}
                                                     <div class="pull-right">
@@ -173,7 +175,7 @@
                                                 </a>
                                             </h5>
                                         </div>
-                                        <div class="collapse" id="{{item.id}}" role="tabpanel"
+                                        <div class="collapse" id="training-session-{{item.id}}" role="tabpanel"
                                              aria-labelledby="headingOne" data-parent="#accordion" style="">
                                             <div class="card-body">
                                                 <div class="col-lg-12">
@@ -248,7 +250,21 @@
                                     </div>
 
                                 </div>
-
+                            </div>
+                            <div class="tab-pane active" id="progress" role="tabpanel"
+                                 style="height: 400px; overflow-y: scroll">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <canvas id="progressRunning" width="300"
+                                                    height="300"></canvas>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <canvas id="progressNutrition" width="300" height="300"></canvas>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
                             </div>
                         </div>
                     </div>

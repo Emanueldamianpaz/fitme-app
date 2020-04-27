@@ -46,6 +46,7 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
             $scope.userSelectedDetail = response.data;
             $scope.getUserInfoParsed();
             $scope.getPercentGoalCompleted();
+            $scope.renderProgressChart();
         })
     };
 
@@ -114,6 +115,7 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
         training.runningSessions.map(r => totalMeters = totalMeters + r.runningSession.distanceCovered);
 
         return {
+            date: training.date,
             calories: (Math.round(totalCalories * 100) / 100),
             meters: (Math.round(totalMeters * 100) / 100),
         }
@@ -156,6 +158,88 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
     $scope.removeRoutine = function (routineId) {
         $scope.routinesToAdd = $scope.routinesToAdd.filter(nut => nut.id != routineId);
     }
+
+
+    $scope.renderProgressChart = function () {
+
+        let total = $scope.userSelectedDetail.userInfo.trainingSession
+            .map(training => $scope.getTotalParsed(training))
+
+        let labels = total.map(x => x.date)
+        let optionsRunning = {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Running'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: true
+            },
+            annotation: {
+                annotations: [{
+                    type: 'line',
+                    mode: 'horizontal',
+                    scaleID: 'y-axis-0',
+                    value: 5,
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 4,
+                }]
+            }
+        }
+        let optionsNutrition = {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Nutricion'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: true
+            },
+            annotation: {
+                annotations: [{
+                    type: 'line',
+                    mode: 'horizontal',
+                    scaleID: 'y-axis-0',
+                    value: 5,
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 4,
+                }]
+            }
+        }
+
+        new Chart(document.getElementById('progressRunning'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Metros recorridos',
+                    borderColor: 'rgb(54, 162, 235)',
+                    borderWidth: 2,
+                    fill: false,
+                    data: total.map(x => x.meters)
+                }]
+            },
+            options: optionsRunning
+        });
+
+        new Chart(document.getElementById('progressNutrition'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Calorias ingeridas',
+                    borderColor: 'rgb(54, 162, 235)',
+                    borderWidth: 2,
+                    fill: false,
+                    data: total.map(x => x.calories)
+                }]
+            },
+            options: optionsNutrition
+        });
+    };
+
 
 })
 
