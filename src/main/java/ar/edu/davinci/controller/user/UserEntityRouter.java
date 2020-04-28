@@ -92,6 +92,8 @@ public class UserEntityRouter extends FitmeRouter {
             get("/:id_user/light", getUserLight, jsonTransformer);
 
             get("/:id_user/info", getUserInfo, jsonTransformer);
+            get("/:id_user/info/training", getTotalProgressTraining, jsonTransformer);
+
             patch("/:id_user/info", updateUserInfo, jsonTransformer);
 
             get("/:id_user/user-routine", getListUserRoutines, jsonTransformer);
@@ -99,9 +101,9 @@ public class UserEntityRouter extends FitmeRouter {
             patch("/:id_user/user-routine", setUserRoutine, jsonTransformer);
 
             get("/:id_user/user-routine/:id_user_routine/user-experience", getUserExperiencesFromUserRoutine, jsonTransformer);
+            get("/:id_user/user-routine/:id_user_routine/user-experience/:id_user_experience", getUserExperienceFromUserRoutine, jsonTransformer);
             post("/:id_user/user-routine/:id_user_routine/user-experience", createUserExperienceForUserRoutine, jsonTransformer);
 
-            get("/:id_user/user-routine/:id_user_routine/user-experience/:id_user_experience", getUserExperienceFromUserRoutine, jsonTransformer);
             post("/:id_user/user-routine/:id_user_routine/user-experience/:id_user_experience/coach-tip", setCoachTipUserExperienceFromUserRoutine, jsonTransformer);
 
         };
@@ -136,6 +138,10 @@ public class UserEntityRouter extends FitmeRouter {
     );
     private final Route getUserInfo = doInTransaction(true, (Request request, Response response) ->
             userEntityService.get(request.params("id_user")).getUserInfo()
+    );
+
+    private final Route getTotalProgressTraining = doInTransaction(true, (Request request, Response response) ->
+            userEntityService.getTotalProgressTraining(request.params("id_user"))
     );
 
     private final Route updateUserInfo = doInTransaction(true, (Request request, Response response) ->
