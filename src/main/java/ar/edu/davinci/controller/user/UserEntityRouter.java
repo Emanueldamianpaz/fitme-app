@@ -218,6 +218,7 @@ public class UserEntityRouter extends FitmeRouter {
 
         userRoutine.addUserExperience(userExperienceService.create(req));
 
+        userRoutineService.checkScoringFromUserRoutine(userRoutine);
         return userRoutineService.update(userRoutine);
     });
 
