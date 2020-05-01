@@ -16,6 +16,9 @@ import spark.Route;
 import spark.RouteGroup;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -57,8 +60,14 @@ public class TrainingSessionRouter extends FitmeRouter {
     }
 
 
-    private final Route getExerciseSessions = doInTransaction(false, (Request request, Response response) ->
-            userInfoService.get(request.params("id_user")).getTrainingSession()
+    private final Route getExerciseSessions = doInTransaction(false, (Request request, Response response) -> userInfoService.get(request.params("id_user"))
+            .getTrainingSession()
+            .stream()
+            .sorted((e1, e2) -> {
+                LocalDate date1 = LocalDate.parse(e1.getDate(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+                LocalDate date2 = LocalDate.parse(e2.getDate(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+                return date2.compareTo(date1);
+            }).collect(Collectors.toList())
     );
 
 
