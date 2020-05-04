@@ -1,10 +1,12 @@
 package ar.edu.davinci;
 
 import ar.edu.davinci.domain.dto.ResponseError;
+import ar.edu.davinci.infraestructure.Router;
 import ar.edu.davinci.infraestructure.exception.FitmeException;
 import ar.edu.davinci.infraestructure.exception.runtime.*;
-import ar.edu.davinci.infraestructure.Router;
 import ar.edu.davinci.infraestructure.security.SecurityHandler;
+import ar.edu.davinci.infraestructure.security.filters.ClientFilter;
+import ar.edu.davinci.infraestructure.security.filters.CoachFilter;
 import com.github.racc.tscg.TypesafeConfig;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +28,11 @@ public class AppContext {
     private final String apiPath;
     private String url;
     private SecurityHandler securityHandler;
+    private CoachFilter coachFilter;
+    private ClientFilter clientFilter;
+
     private Gson jsonTransformer;
+
     private final Set<Router> routers;
 
     @Inject
@@ -35,6 +41,8 @@ public class AppContext {
             @TypesafeConfig("app.api") String apiPath,
             @TypesafeConfig("app.context") String basePath,
             @TypesafeConfig("app.url") String url,
+            CoachFilter coachFilter,
+            ClientFilter clientFilter,
             Gson jsonTransformer,
             Set<Router> routers,
             SecurityHandler securityHandler
@@ -48,6 +56,8 @@ public class AppContext {
         this.routers = routers;
         this.url = url;
         this.securityHandler = securityHandler;
+        this.clientFilter = clientFilter;
+        this.coachFilter = coachFilter;
     }
 
     void init() {
@@ -70,7 +80,6 @@ public class AppContext {
     private void configureAuth() {
         //  before(basePath + "/*", securityFilter, roleAssignedFilter, readOnlyFilter);
         before(basePath + "/*", securityHandler);
-
     }
 
     private void configureCors() {
@@ -101,8 +110,8 @@ public class AppContext {
     private void configureContentTypes() {
         Filter contentTypeFilter = (req, resp) -> resp.type("application/json");
 
-        afterAfter(apiPath + "/*", contentTypeFilter);
-        afterAfter( "/user*", contentTypeFilter);
+        afterAfter(basePath + apiPath + "/*", contentTypeFilter);
+        afterAfter(basePath + "/user*", contentTypeFilter);
 
     }
 
