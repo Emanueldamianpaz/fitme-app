@@ -33,30 +33,35 @@
                                  aria-labelledby="headingOne" data-parent="#accordion" style="">
                                 <div class="card-body">
                                     <div class="col-lg-12" ng-repeat="ux in item.userExperiences | orderBy: 'id'">
+
                                         <div class="row">
                                             <div class="col-lg-12">
+                                                <div ng-form="formValidation[item.id + ux.id]">
 
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend col-lg-2">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend col-lg-2">
                                                         <span class="input-group-text">
                                                             #{{ux.id}} - {{'scoring-type.'+ux.scoring | translate}}
                                                         </span>
-                                                    </div>
-                                                    <input class="form-control col-lg-8" type="text"
-                                                           ng-model="coachTip[ux.id]"
-                                                           placeholder="{{ 'commons.insert-tip' | translate }}">
-                                                    <span class="input-group-append col-lg-2">
+                                                        </div>
+                                                        <input class="form-control col-lg-8" type="text"
+                                                               ng-model="coachTip[ux.id]" required
+                                                               placeholder="{{ 'commons.insert-tip' | translate }}">
+                                                        <span class="input-group-append col-lg-2">
                                                         <button class="btn btn-primary"
+                                                                ng-disabled="formValidation[{{item.id + ux.id}}].$invalid"
+
                                                                 ng-click="sendTip(item.id, ux.id)" type="button">
                                                             {{ 'commons.send' | translate }}
                                                         </button>
                                                     </span>
+                                                    </div>
+
                                                 </div>
 
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <hr>
+                                                <div class="col-lg-12">
+                                                    <hr>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
