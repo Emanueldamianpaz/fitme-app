@@ -8,53 +8,56 @@
             </div>
 
             <div class="modal-body">
+                <div ng-form="formValidation">
 
-                <div class="input-group">
-                    <div class="input-group-prepend">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
                         <span class="input-group-text">
                         <i class="fa fa-info"></i>
                         </span>
+                        </div>
+                        <input type="text" class="form-control" ng-model="nutritionModelAdd.name" required
+                               placeholder="{{ 'commons.insert-name' | translate}}">
                     </div>
-                    <input type="text" class="form-control" ng-model="nutritionModelAdd.name"
-                           placeholder="{{ 'commons.insert-name' | translate}}">
-                </div>
 
-                <br>
+                    <br>
 
-                <h5>{{ 'commons.calories' | translate }}</h5>
-                <div class="input-group">
-                    <div class="input-group-prepend">
+                    <h5>{{ 'commons.calories' | translate }}</h5>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
                         <span class="input-group-text">
                         <i class="fa fa-info"></i>
                         </span>
+                        </div>
+                        <input type="number" class="form-control" ng-model="nutritionModelAdd.calories" min="0" required
+                               placeholder="{{ 'commons.insert-calories' | translate}}">
                     </div>
-                    <input type="number" class="form-control" ng-model="nutritionModelAdd.calories" min="0"
-                           placeholder="{{ 'commons.insert-calories' | translate}}">
-                </div>
-                <br>
-                <h5>{{ 'commons.type' | translate }}</h5>
-                <div class="input-group">
-                    <div class="input-group-prepend">
+                    <br>
+                    <h5>{{ 'commons.type' | translate }}</h5>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
                         <span class="input-group-text">
                         <i class="fa fa-info"></i>
                         </span>
+                        </div>
+
+
+                        <select class="form-control" ng-model="nutritionModelAdd.type" required>
+                            <option value="{{ item }}" ng-repeat="item in nutritionType">
+                                {{ 'meal-nutrition.'+item | translate }}
+                            </option>
+                        </select>
+
                     </div>
-
-
-                    <select class="form-control" ng-model="nutritionModelAdd.type">
-                        <option value="{{ item }}" ng-repeat="item in nutritionType">
-                            {{ 'meal-nutrition.'+item | translate }}
-                        </option>
-                    </select>
-
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     {{ 'commons.close' | translate }}
                 </button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="createNutrition()">
+                <button type="button" class="btn btn-success"
+                        ng-disabled="formValidation.$invalid"
+                        data-dismiss="modal" ng-click="createNutrition()">
                     {{ 'commons.add' | translate }}
                 </button>
 

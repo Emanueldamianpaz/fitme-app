@@ -8,69 +8,73 @@
             </div>
 
             <div class="modal-body">
+                <div ng-form="formValidation">
 
-                <div class="input-group">
-                    <div class="input-group-prepend">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
                         <span class="input-group-text">
                         <i class="fa fa-info"></i>
                         </span>
-                    </div>
-                    <input type="text" class="form-control" ng-model="exerciseModelAdd.name"
-                           placeholder="{{ 'commons.insert-name' | translate}}">
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h5>{{ 'commons.difficulty' | translate }}</h5>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                        <span class="input-group-text">
-                        <i class="fa fa-info"></i>
-                        </span>
-                            </div>
-
-                            <select class="form-control" ng-model="exerciseModelAdd.difficulty">
-                                <option value="{{ item }}" ng-repeat="item in difficultyType">
-                                    {{ 'difficulty.'+item | translate }}
-                                </option>
-                            </select>
-
                         </div>
+                        <input type="text" class="form-control" ng-model="exerciseModelAdd.name" required
+                               placeholder="{{ 'commons.insert-name' | translate}}">
                     </div>
-                    <div class="col-lg-6">
-                        <h5>{{ 'commons.type' | translate }}</h5>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h5>{{ 'commons.difficulty' | translate }}</h5>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
                         <span class="input-group-text">
                         <i class="fa fa-info"></i>
                         </span>
+                                </div>
+
+                                <select class="form-control" ng-model="exerciseModelAdd.difficulty" required>
+                                    <option value="{{ item }}" ng-repeat="item in difficultyType">
+                                        {{ 'difficulty.'+item | translate }}
+                                    </option>
+                                </select>
+
                             </div>
-
-
-                            <select class="form-control" ng-model="exerciseModelAdd.type">
-                                <option value="{{ item }}" ng-repeat="item in workoutExercisesType">
-                                    {{ 'workout-exercise.'+item | translate }}
-                                </option>
-                            </select>
-
                         </div>
+                        <div class="col-lg-6">
+                            <h5>{{ 'commons.type' | translate }}</h5>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fa fa-info"></i>
+                        </span>
+                                </div>
+
+
+                                <select class="form-control" ng-model="exerciseModelAdd.type" required>
+                                    <option value="{{ item }}" ng-repeat="item in workoutExercisesType">
+                                        {{ 'workout-exercise.'+item | translate }}
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+
                     </div>
+                    <br>
+
+                    <h5>{{ 'commons.description' | translate }}</h5>
+                    <textarea id="textarea-input" name="textarea-input" ng-model="exerciseModelAdd.description" rows="9"
+                              required maxlength="255"
+                              class="form-control" placeholder="{{ 'commons.insert-description' | translate }}"
+                              style="margin-top: 0px; margin-bottom: 0px; height: 196px;"></textarea>
 
                 </div>
-                <br>
-
-                <h5>{{ 'commons.description' | translate }}</h5>
-                <textarea id="textarea-input" name="textarea-input" ng-model="exerciseModelAdd.description" rows="9"
-                          class="form-control" placeholder="{{ 'commons.insert-description' | translate }}"
-                          style="margin-top: 0px; margin-bottom: 0px; height: 196px;"></textarea>
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     {{ 'commons.close' | translate }}
                 </button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="createExercise()">
+                <button type="button" class="btn btn-success"
+                        ng-disabled="formValidation.$invalid"
+                        data-dismiss="modal" ng-click="createExercise()">
                     {{ 'commons.add' | translate }}
                 </button>
 
