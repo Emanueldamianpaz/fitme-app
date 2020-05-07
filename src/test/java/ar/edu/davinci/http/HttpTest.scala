@@ -10,7 +10,7 @@ import scala.util.{Failure, Success}
 class HttpTest[T] {
   val log = org.slf4j.LoggerFactory.getLogger(classOf[HttpTest[_]])
 
-  private val endpoint = "http://localhost:4567/fitme/api"
+  private val endpoint = "https://fitme-app.herokuapp.com/fitme/api"
   private val token = "asfa"
   private val httpClient = new HttpClient[T](endpoint, token)
 
