@@ -38,7 +38,7 @@ public class UserInfo extends FitmeEntity<String> {
     private UserGoal userGoal;
 
     @OneToMany
-    @JoinColumn(name = "id_user_fit", referencedColumnName = "id")
+    @JoinColumn(name = "userfit_id", referencedColumnName = "id")
     private Set<TrainingSession> trainingSession;
 
     public UserInfo(String id, UserGoal userGoal) {

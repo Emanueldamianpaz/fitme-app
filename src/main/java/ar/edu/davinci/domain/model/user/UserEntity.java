@@ -28,7 +28,7 @@ public class UserEntity extends FitmeEntity<String> {
     private UserInfo userInfo;
 
     @OneToMany
-    @JoinColumn(name = "id_user_routine", referencedColumnName = "id")
+    @JoinColumn(name = "userroutine_id", referencedColumnName = "id")
     private Set<UserRoutine> userRoutines;
 
     @Column(name = "name")

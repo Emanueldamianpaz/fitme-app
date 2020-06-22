@@ -30,11 +30,11 @@ public class RoutineTemplate extends FitmeEntity<Long> {
     private String description;
 
     @ManyToMany
-    @JoinColumn(name = "id_exercise")
+    @JoinColumn(name = "workoutexercise_id")
     private Set<WorkoutExercise> workoutExercises;
 
     @ManyToMany
-    @JoinColumn(name = "id_nutrition")
+    @JoinColumn(name = "mealnutrition_id")
     private Set<MealNutrition> mealNutritions;
 
     @Column(name = "scoring")

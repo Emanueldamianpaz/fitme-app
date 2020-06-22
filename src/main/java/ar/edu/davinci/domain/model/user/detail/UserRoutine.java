@@ -21,11 +21,11 @@ public class UserRoutine extends FitmeEntity<Long> {
     private Long id;
 
     @OneToMany
-    @JoinColumn(name = "id_user_experience")
+    @JoinColumn(name = "userexperience_id")
     private Set<UserExperience> userExperiences;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_routine_template")
+    @JoinColumn(name = "routinetemplate_id")
     private RoutineTemplate routineTemplate;
 
     public UserRoutine(RoutineTemplate routineTemplate) {
