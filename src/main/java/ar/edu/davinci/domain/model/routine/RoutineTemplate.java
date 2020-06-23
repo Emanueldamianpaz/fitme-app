@@ -30,11 +30,16 @@ public class RoutineTemplate extends FitmeEntity<Long> {
     private String description;
 
     @ManyToMany
-    @JoinColumn(name = "workoutexercise_id")
+    @Column(name = "workoutexercise_id")
+    @JoinTable(name = "routine_template_workout_exercise",
+            joinColumns = {@JoinColumn(name = "routinetemplate_id")},
+            inverseJoinColumns = {@JoinColumn(name = "workoutexercise_id")})
     private Set<WorkoutExercise> workoutExercises;
 
     @ManyToMany
-    @JoinColumn(name = "mealnutrition_id")
+    @JoinTable(name = "routine_template_meal_nutrition",
+            joinColumns = {@JoinColumn(name = "routinetemplate_id")},
+            inverseJoinColumns = {@JoinColumn(name = "mealnutrition_id")})
     private Set<MealNutrition> mealNutritions;
 
     @Column(name = "scoring")
