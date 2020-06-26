@@ -62,6 +62,11 @@
                                 </button>
 
                             </div>
+                            <div ng-show="routineModelEdit.workoutExercises.length < 1">
+                                <small class="text-danger">
+                                    <strong>Importante,</strong> está dejando la rutina sin ejercicios.
+                                </small>
+                            </div>
                             <br>
 
                             <div class="container">
@@ -86,6 +91,11 @@
                                     <li class="fa fa-plus"></li>
                                 </button>
 
+                            </div>
+                            <div ng-show="routineModelEdit.mealNutritions.length < 1">
+                                <small class="text-danger">
+                                    <strong>Importante,</strong> está dejando la rutina sin dietas.
+                                </small>
                             </div>
                             <br>
 
