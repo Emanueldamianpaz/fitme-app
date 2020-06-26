@@ -25,6 +25,11 @@
                                         ng-repeat="exerciseItem in routineSelected.workoutExercises">
                                     {{ exerciseItem.name | cut:true:20:'...' }}
                                 </button>
+                                <div ng-show="routineSelected.workoutExercises.length < 1">
+                                    <strong class="text-danger">
+                                        No posee ejercicios
+                                    </strong>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -38,7 +43,11 @@
                                         ng-repeat="nutritionItem in routineSelected.mealNutritions">
                                     {{ nutritionItem.name | cut:true:20:'...' }}
                                 </button>
-
+                                <div ng-show="routineSelected.mealNutritions.length < 1">
+                                    <strong class="text-danger">
+                                        No posee dietas
+                                    </strong>
+                                </div>
                             </div>
                         </div>
                     </div>

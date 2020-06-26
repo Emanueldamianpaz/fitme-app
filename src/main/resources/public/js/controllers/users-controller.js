@@ -148,8 +148,22 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
 
         $scope.routinesToAdd.map(r => r == routineItem ? existsInArray = true : existsInArray = false);
 
+
         if (!existsInArray) {
-            $scope.routinesToAdd.push(routineItem);
+
+            if (routineItem.mealNutritions.length < 1 && routineItem.workoutExercises.length < 1) {
+                if (confirm("La rutina seleccionada no posee dietas y ejercicios, ¿desea asignarla de todas formas?")) {
+                    $scope.routinesToAdd.push(routineItem);
+                }
+            } else if (routineItem.mealNutritions.length == 0) {
+                if (confirm("La rutina seleccionada no posee dietas, ¿desea asignarla de todas formas?")) {
+                    $scope.routinesToAdd.push(routineItem);
+                }
+            } else if (routineItem.workoutExercises.length == 0) {
+                if (confirm("La rutina seleccionada no posee ejercicios, ¿desea asignarla de todas formas?")) {
+                    $scope.routinesToAdd.push(routineItem);
+                }
+            }
             console.log(routineItem);
 
         }
