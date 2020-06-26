@@ -18,6 +18,12 @@
 
                     <br>
                     <div class="accordion col-lg-12" id="accordion" role="tablist">
+
+
+                        <div class="col-sm-12 text-center" ng-if="userSelectedDetail.userRoutines.length < 1">
+                            <div ng-include="'views/components/fragments/no-result.html'"></div>
+                        </div>
+
                         <div class="card mb-0" ng-repeat="item in userSelectedDetail.userRoutines | orderBy: 'id'"
                              ng-show="item.userExperiences.length>0">
                             <div class="card-header" role="tab">
