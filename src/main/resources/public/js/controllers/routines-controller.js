@@ -45,6 +45,26 @@ fitme.controller('routinesController', function ($rootScope, $scope,
 
     }
 
+    $scope.cleanModal = function () {
+        $scope.routineModelAdd = {
+            name: '',
+            description: '',
+            workoutExercises: [],
+            mealNutritions: [],
+            goalType: '',
+            scoringSystem: ''
+        };
+
+        $scope.routineModelEdit = {
+            name: '',
+            description: '',
+            workoutExercises: [],
+            mealNutritions: [],
+            goalType: '',
+            scoringSystem: ''
+        };
+    }
+
     $scope.createRoutine = function () {
         var dataRoutine = {
             name: $scope.routineModelAdd.name,
@@ -102,6 +122,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
     // ---------------------------------------------------------------------------- Interno para manejo de la UI
 
     $scope.setRoutineSelected = function (routine) {
+        $scope.cleanModal();
         $scope.routineSelected = Object.create(routine);
         $scope.routineModelEdit = Object.create(routine);
     };
