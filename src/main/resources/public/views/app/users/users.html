@@ -64,11 +64,11 @@
                                          alt="{{userItem.email}}">
                                     {{ userItem.name }} <i>({{userItem.role}})</i>
                                 </td>
-                                <td>{{ userItem.genre }}</td>
-                                <td>{{ userItem.userInfo.height }}</td>
-                                <td>{{ userItem.userInfo.initialWeight }}</td>
-                                <td>{{ userItem.userInfo.currentFat }}</td>
-                                <td>{{ userItem.userInfo.frecuencyExercise }}</td>
+                                <td>{{ userItem.genre ? userItem.genre : 'N/A'}}</td>
+                                <td>{{ userItem.userInfo.height ? userItem.userInfo.height : 'N/A'}}</td>
+                                <td>{{ userItem.userInfo.initialWeight ? userItem.userInfo.initialWeight : 'N/A' }}</td>
+                                <td>{{ userItem.userInfo.currentFat ? userItem.userInfo.currentFat : 'N/A'}}</td>
+                                <td>{{ userItem.userInfo.frecuencyExercise ? userItem.userInfo.frecuencyExercise : 'N/A'}}</td>
 
                                 <td>
                                     <a class="btn btn-outline-success" href="#" data-toggle="modal"
