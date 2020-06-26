@@ -46,6 +46,9 @@ fitme.controller('routinesController', function ($rootScope, $scope,
     }
 
     $scope.cleanModal = function () {
+        $scope.routineEdit = {workoutExercises: [], mealNutritions: []};
+        $scope.routineAdd = {workoutExercises: [], mealNutritions: []};
+
         $scope.routineModelAdd = {
             name: '',
             description: '',
