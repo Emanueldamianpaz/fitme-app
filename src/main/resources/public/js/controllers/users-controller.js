@@ -51,6 +51,29 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
     };
 
     $scope.showUserExperiences = function (user) {
+        $scope.userSelectedDetail = {
+            "id": "",
+            "userInfo": {
+                "id": "",
+                "initialWeight": 0,
+                "height": 0,
+                "currentFat": 0,
+                "frecuencyExercise": "",
+                "userGoal": {
+                    "type": "",
+                    "goalFat": 0
+                },
+                "trainingSession": []
+            },
+            "userRoutines": [],
+            "name": "",
+            "lastName": "",
+            "email": "",
+            "picture": "",
+            "nickname": "",
+            "genre": null,
+            "role": ""
+        };
         $scope.setUserSelected(user);
         UsersService.getUser($scope.userSelected.id).then(function (response) {
             $scope.userSelectedDetail = response.data;
