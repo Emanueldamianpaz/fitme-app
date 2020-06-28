@@ -1,8 +1,8 @@
 package ar.edu.davinci.domain.model.user.detail;
 
 import ar.edu.davinci.domain.FitmeEntity;
-import ar.edu.davinci.domain.types.ScoringType;
 import ar.edu.davinci.domain.dto.fitme.scoring.UserExperienceDTO;
+import ar.edu.davinci.domain.types.ScoringType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +25,9 @@ public class UserExperience extends FitmeEntity<Long> {
 
     @Column(name = "coachTip")
     private String coachTip;
+
+    @Column(name = "user_message", columnDefinition = "TEXT")
+    private String userMessage;
 
     public UserExperience(UserExperienceDTO scoring) {
         this.scoring = scoring.getScoring();
