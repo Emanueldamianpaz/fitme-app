@@ -163,6 +163,8 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
                 if (confirm("La rutina seleccionada no posee ejercicios, ¿desea asignarla de todas formas?")) {
                     $scope.routinesToAdd.push(routineItem);
                 }
+            } else {
+                $scope.routinesToAdd.push(routineItem);
             }
             console.log(routineItem);
 
