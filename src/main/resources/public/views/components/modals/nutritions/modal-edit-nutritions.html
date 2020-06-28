@@ -20,7 +20,12 @@
                         <input type="text" class="form-control" ng-model="nutritionModelEdit.name"
                                placeholder="{{ 'commons.insert-name' | translate}}" required>
                     </div>
-
+                    <div class="pull-right"
+                         ng-show="!nutritionModelEdit.name || nutritionModelEdit.name == ''">
+                        <small class="text-warning">
+                            <strong>Obligatorio </strong>
+                        </small>
+                    </div>
                     <br>
 
                     <h5>{{ 'commons.calories' | translate }}</h5>
@@ -47,7 +52,11 @@
                                 {{ 'meal-nutrition.'+item | translate }}
                             </option>
                         </select>
-
+                    </div>
+                    <div class="pull-right" ng-show="!nutritionModelEdit.type || nutritionModelEdit.type == ''">
+                        <small class="text-warning">
+                            <strong>Obligatorio </strong>
+                        </small>
                     </div>
                 </div>
 

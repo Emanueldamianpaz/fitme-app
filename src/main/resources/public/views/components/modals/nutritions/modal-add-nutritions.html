@@ -19,6 +19,12 @@
                         <input type="text" class="form-control" ng-model="nutritionModelAdd.name" required
                                placeholder="{{ 'commons.insert-name' | translate}}">
                     </div>
+                    <div class="pull-right"
+                         ng-show="!nutritionModelAdd.name || nutritionModelAdd.name == ''">
+                        <small class="text-warning">
+                            <strong>Obligatorio </strong>
+                        </small>
+                    </div>
 
                     <br>
 
@@ -48,6 +54,12 @@
                             </option>
                         </select>
 
+                    </div>
+                    <div class="pull-right"
+                         ng-show="!nutritionModelAdd.type || nutritionModelAdd.type == ''">
+                        <small class="text-warning">
+                            <strong>Obligatorio </strong>
+                        </small>
                     </div>
                 </div>
             </div>
