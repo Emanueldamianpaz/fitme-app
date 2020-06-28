@@ -32,6 +32,9 @@ fitme.controller('routinesController', function ($rootScope, $scope,
         scoringSystem: 'UNKNOWN'
     };
 
+    $scope.$watch('routineModelAdd.name', function () {
+        console.log($scope.routineModelAdd.name);
+    })
     $scope.refreshData = function () {
         WorkoutExerciseService.getWorkoutExercises().then(function (response) {
             $scope.exerciseList = response.data;

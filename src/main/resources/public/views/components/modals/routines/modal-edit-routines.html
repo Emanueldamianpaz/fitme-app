@@ -18,6 +18,13 @@
                         </div>
                         <input type="text" class="form-control" ng-model="routineModelEdit.name" required>
                     </div>
+                    <div class="pull-right"
+                         ng-show="!routineModelEdit.name || routineModelEdit.name == ''">
+                        <small class="text-warning">
+                            <strong>Obligatorio </strong>
+                        </small>
+                    </div>
+
 
                     <br>
 
@@ -27,6 +34,13 @@
                               name="textarea-input" rows="9" ng-model="routineModelEdit.description"
                               class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 196px;">
                 </textarea>
+                    <div class="pull-right"
+                         ng-show="!routineModelEdit.description || routineModelEdit.description == ''">
+                        <small class="text-warning">
+                            <strong>Obligatorio </strong>
+                        </small>
+                    </div>
+                    <br>
 
                     <hr>
 
@@ -39,16 +53,14 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-lg-6">
-                            <h5>{{ 'commons.scoring-type' | translate }}</h5>
-
-                            <select class="form-control" ng-model="routineModelEdit.scoringSystem" required>
-                                <option value="{{ item }}" ng-repeat="item in scoringType">
-                                    {{ 'scoring-type.'+item | translate }}
-                                </option>
-                            </select>
+                        <div class="pull-right"
+                             ng-show="!routineModelEdit.goalType || routineModelEdit.goalType == ''">
+                            <small class="text-warning">
+                                <strong>Obligatorio </strong>
+                            </small>
                         </div>
-
+                    </div>
+                    <div class="row">
                         <div class="col-lg-6">
                             <h4> {{ 'commons.exercises' | translate }} </h4>
                             <div class="input-group">

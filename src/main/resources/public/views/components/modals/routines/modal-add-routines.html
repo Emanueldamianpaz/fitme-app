@@ -17,6 +17,12 @@
                         </div>
                         <input type="text" class="form-control" ng-model="routineModelAdd.name"
                                required placeholder="{{ 'commons.insert-name' | translate}}">
+
+                    </div>
+                    <div class="pull-right" ng-show="!routineModelAdd.name || routineModelAdd.name == ''">
+                        <small class="text-warning">
+                            <strong>Obligatorio</strong>
+                        </small>
                     </div>
 
                     <br>
@@ -26,8 +32,12 @@
                               required maxlength="255" class="form-control"
                               placeholder="{{ 'commons.insert-description' | translate }}"
                               style="margin-top: 0px; margin-bottom: 0px; height: 196px;"></textarea>
-
-
+                    <div class="pull-right" ng-show="!routineModelAdd.description || routineModelAdd.description == ''">
+                        <small class="text-warning">
+                            <strong>Obligatorio</strong>
+                        </small>
+                    </div>
+                    <br>
                     <hr>
 
                     <div class="row">
@@ -38,12 +48,15 @@
                                     {{ 'goal-type.'+item | translate }}
                                 </option>
                             </select>
+                            <div class="pull-right"
+                                 ng-show="!routineModelAdd.goalType || routineModelAdd.goalType == ''">
+                                <small class="text-warning">
+                                    <strong>Obligatorio </strong>
+                                </small>
+                            </div>
+
                         </div>
-                        <!-- TODO Agregar mensajes de requeridos -->
                     </div>
-
-
-                    <br>
 
                     <div class="row">
                         <div class="col-lg-6">
