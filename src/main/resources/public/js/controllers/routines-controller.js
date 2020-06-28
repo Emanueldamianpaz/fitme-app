@@ -21,7 +21,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
         workoutExercises: [],
         mealNutritions: [],
         goalType: '',
-        scoringSystem: ''
+        scoringSystem: 'UNKNOWN'
     };
     $scope.routineModelEdit = {
         name: '',
@@ -29,7 +29,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
         workoutExercises: [],
         mealNutritions: [],
         goalType: '',
-        scoringSystem: ''
+        scoringSystem: 'UNKNOWN'
     };
 
     $scope.refreshData = function () {
@@ -55,7 +55,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
             workoutExercises: [],
             mealNutritions: [],
             goalType: '',
-            scoringSystem: ''
+            scoringSystem: 'UNKNOWN'
         };
 
         $scope.routineModelEdit = {
@@ -64,7 +64,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
             workoutExercises: [],
             mealNutritions: [],
             goalType: '',
-            scoringSystem: ''
+            scoringSystem: 'UNKNOWN'
         };
     }
 
@@ -79,7 +79,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
                 id: x.id
             })),
             goalType: $scope.routineModelAdd.goalType,
-            scoringSystem: $scope.routineModelAdd.scoringSystem
+            scoringSystem: 'UNKNOWN'
         };
 
         RoutineTemplatesService.createRoutineTemplate(dataRoutine)
@@ -102,7 +102,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
                 id: x.id
             })),
             goalType: $scope.routineModelEdit.goalType,
-            scoringSystem: $scope.routineModelEdit.scoringSystem
+            scoringSystem: 'UNKNOWN'
         };
 
         RoutineTemplatesService.updateRoutineTemplate(dataRoutine, $scope.routineModelEdit.id)

@@ -39,15 +39,7 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-lg-6">
-                            <h5>{{ 'commons.scoring-type' | translate }}</h5>
-
-                            <select class="form-control" ng-model="routineModelAdd.scoringSystem" required>
-                                <option value="{{ item }}" ng-repeat="item in scoringType">
-                                    {{ 'scoring-type.'+item | translate }}
-                                </option>
-                            </select>
-                        </div>
+                        <!-- TODO Agregar mensajes de requeridos -->
                     </div>
 
 
