@@ -121,7 +121,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
     $scope.deleteRoutine = function () {
         RoutineTemplatesService.deleteRoutineTemplate($scope.routineSelected.id)
             .then($scope.refreshData())
-            .catch(error => console.error(error)) //MessageNotification.showMessage(error)
+            .catch(error => toastr.error("La rutina está siendo utilizada por usuarios. Desasignela para poder borrar"))
     };
 
 
