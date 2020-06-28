@@ -136,5 +136,4 @@ public class RoutineTemplateRouter extends FitmeRouter {
             }
     );
 
-
 }

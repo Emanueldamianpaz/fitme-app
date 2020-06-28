@@ -4,6 +4,7 @@ package ar.edu.davinci.controller;
 import ar.edu.davinci.infraestructure.Router;
 import ar.edu.davinci.infraestructure.exception.FitmeException;
 import ar.edu.davinci.infraestructure.exception.runtime.InternalServerErrorException;
+import ar.edu.davinci.infraestructure.exception.runtime.UnauthorizedOperationException;
 import com.google.gson.Gson;
 import lombok.Getter;
 import org.hibernate.Session;
@@ -15,6 +16,7 @@ import spark.Response;
 import spark.Route;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
@@ -48,6 +50,10 @@ public abstract class FitmeRouter extends Router {
                     transaction.ifPresent(EntityTransaction::commit);
 
                     return r;
+                } catch (PersistenceException e) {
+                    transaction.ifPresent(EntityTransaction::rollback);
+
+                    throw new UnauthorizedOperationException("Resource used by other entity");
 
                 } catch (FitmeException e) {
 
