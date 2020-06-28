@@ -68,7 +68,9 @@
                                 <td>{{ userItem.userInfo.height ? userItem.userInfo.height : 'N/A'}}</td>
                                 <td>{{ userItem.userInfo.initialWeight ? userItem.userInfo.initialWeight : 'N/A' }}</td>
                                 <td>{{ userItem.userInfo.currentFat ? userItem.userInfo.currentFat : 'N/A'}}</td>
-                                <td>{{ userItem.userInfo.frecuencyExercise ? userItem.userInfo.frecuencyExercise : 'N/A'}}</td>
+                                <td>{{ userItem.userInfo.frecuencyExercise ? userItem.userInfo.frecuencyExercise
+                                    :'N/A'}}
+                                </td>
 
                                 <td>
                                     <a class="btn btn-outline-success" href="#" data-toggle="modal"
@@ -85,12 +87,11 @@
                                     <a class="btn btn-outline-dark" href="#" data-toggle="modal"
                                        ng-click="showRoutinesForAssign(userItem)"
                                        data-target="#modal-set-routine">
-                                        <i class="fa fa-plus-square "></i>
+                                        <i class="fa fa fa-calendar"></i>
                                     </a>
+
                                 </td>
                             </tr>
-
-
                             </tbody>
                         </table>
                     </div>
@@ -99,8 +100,6 @@
                 <div class="col-sm-12 text-center" ng-if="userList.length < 1">
                     <div ng-include="'views/components/fragments/no-result.html'"></div>
                 </div>
-
-
             </div>
         </div>
     </div>

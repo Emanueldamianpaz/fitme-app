@@ -3,21 +3,20 @@
         <div class="modal-content modal-dark">
 
             <div class="modal-header">
-                <h4 class="modal-title">{{ 'commons.set-routine' | translate }}</h4>
+                <h4 class="modal-title">Administración de rutinas</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <div class="modal-body">
-
                 <div class="text-center">
                     <h4>
                         {{'routine.assign-routine' | translate }}
                     </h4>
-                    <p>
+                    <p ng-if="routineList.length > 0">
                         {{'routine.assign-routine-automatic' | translate }}
                     </p>
                 </div>
-                <div class="input-group">
+                <div class="input-group" ng-if="routineList.length > 0">
                     <select class="form-control" ng-model="routineToAdd.object"
                             ng-options="i as i.name for i in routineList">
                     </select>
@@ -27,30 +26,64 @@
 
                 </div>
 
-                <br>
-
                 <div class="container">
                     <div class="row">
                         <button type="button" class="btn btn-sm btn-outline-primary margin-light"
-                                ng-repeat="item in routinesToAdd"
-                                ng-click="removeRoutine(item.id)">
+                                ng-repeat="item in routinesToAdd" ng-click="removeRoutine(item.id)">
                             {{ item.name | cut:true:20:'...' }}
                         </button>
                     </div>
 
-                    <br>
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        {{ 'commons.close' | translate }}
-                    </button>
-                    <button type="button" class="btn btn-dark" data-dismiss="modal" ng-click="addRoutinesToUser()">
+
+                <p ng-if="routineList.length < 1" class="text-danger text-center">
+                    No hay más rutinas para asignar
+                </p>
+
+                <div class="text-center">
+                    <button type="button" class="btn btn-dark  btn-sm col-lg-5 margin-light"
+                            ng-disabled="routineList.length < 1"
+                            ng-click="addRoutinesToUser()">
                         {{ 'commons.assign' | translate }}
                     </button>
+                </div>
+
+
+                <hr>
+
+                <div class="text-center">
+                    <h4>
+                        Desasignación de rutina
+                    </h4>
+                    <div ng-if="userSelectedDetail.userRoutines.length > 0">
+                        <p>
+                            Seleccione la rutina que quiere desasignar al usuario
+                        </p>
+
+                        <button type="button" class="btn btn-danger btn-sm col-lg-5 margin-light"
+                                ng-click="deassignRoutine(item.id)"
+                                ng-repeat="item in userSelectedDetail.userRoutines | orderBy: 'id'">
+                                <span aria-hidden="true">
+                                    {{item.routineTemplate.name}}
+                                </span>
+                        </button>
+                    </div>
+                    <p ng-if="userSelectedDetail.userRoutines.length < 1" class="text-danger">
+                        No hay ninguna rutina asignada
+                    </p>
 
                 </div>
 
+
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {{ 'commons.close' | translate }}
+                </button>
+
+            </div>
+
         </div>
     </div>
+</div>

@@ -81,9 +81,43 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
     };
 
     $scope.showRoutinesForAssign = function (user) {
+        $scope.routinesToAdd = [];
+
+        $scope.userSelectedDetail = {
+            "id": "",
+            "userInfo": {
+                "id": "",
+                "initialWeight": 0,
+                "height": 0,
+                "currentFat": 0,
+                "frecuencyExercise": "",
+                "userGoal": {
+                    "type": "",
+                    "goalFat": 0
+                },
+                "trainingSession": []
+            },
+            "userRoutines": [],
+            "name": "",
+            "lastName": "",
+            "email": "",
+            "picture": "",
+            "nickname": "",
+            "genre": null,
+            "role": ""
+        };
         $scope.setUserSelected(user);
-        RoutineTemplatesService.getRoutinesTemplates()
-            .then(response => $scope.routineList = response.data)
+        UsersService.getUser($scope.userSelected.id).then(function (response) {
+            $scope.userSelectedDetail = response.data;
+
+            RoutineTemplatesService.getRoutinesTemplates()
+                .then(rr => {
+                    $scope.routineList = rr.data.filter(function (el) {
+                        return !$scope.userSelectedDetail.userRoutines.map(x => x.routineTemplate.id).find(r => r == el.id)
+                    });
+                })
+        })
+
     }
 
     $scope.addRoutinesToUser = function () {
@@ -92,9 +126,32 @@ fitme.controller('usersController', function ($rootScope, $scope, UsersService, 
         }
 
         UserRoutinesService.addUserRoutine($scope.userSelected.id, routinesIDList)
-            .then(x => console.log(x))
+            .then(x => UsersService.getUser($scope.userSelected.id).then(function (response) {
+                $scope.refreshAssign(response);
+            }))
     }
 
+    $scope.deassignRoutine = function (id) {
+        if (confirm("¿Está seguro de desasignar esta rutina?")) {
+            UserRoutinesService.deleteUserRoutine($scope.userSelected.id, id).then(x => {
+                console.log(x);
+                UsersService.getUser($scope.userSelected.id).then(function (response) {
+                    $scope.refreshAssign(response);
+                })
+            })
+        }
+    }
+
+    $scope.refreshAssign = function (response) {
+        $scope.userSelectedDetail = response.data;
+        $scope.routinesToAdd = [];
+        RoutineTemplatesService.getRoutinesTemplates()
+            .then(rr => {
+                $scope.routineList = rr.data.filter(function (el) {
+                    return !$scope.userSelectedDetail.userRoutines.map(x => x.routineTemplate.id).find(r => r == el.id)
+                });
+            })
+    }
     $scope.sendTip = function (userRoutineId, userExperienceId) {
         let coachTip = {
             coachTip: $scope.coachTip[userExperienceId]

@@ -99,6 +99,7 @@ public class UserEntityRouter extends FitmeRouter {
             get("/:id_user/user-routine", getListUserRoutines, jsonTransformer);
             get("/:id_user/user-routine/:id_user_routine", getUserRoutine, jsonTransformer);
             patch("/:id_user/user-routine", setUserRoutine, jsonTransformer);
+            delete("/:id_user/user-routine/:id_user_routine", removeUserRoutine, jsonTransformer);
 
             get("/:id_user/user-routine/:id_user_routine/user-experience", getUserExperiencesFromUserRoutine, jsonTransformer);
             get("/:id_user/user-routine/:id_user_routine/user-experience/:id_user_experience", getUserExperienceFromUserRoutine, jsonTransformer);
@@ -129,6 +130,16 @@ public class UserEntityRouter extends FitmeRouter {
             UserRoutine userRoutine = userRoutineService.create(new UserRoutine(routineOptimized));
             userEntity.addUserRoutine(userRoutine);
         }
+
+        return userEntityService.update(userEntity);
+    });
+
+    private final Route removeUserRoutine = doInTransaction(true, (Request request, Response response) -> {
+        Long idUserRoutineToDelete = Long.parseLong(request.params("id_user_routine"));
+        UserEntity userEntity = userEntityService.get(request.params("id_user"));
+
+        userEntity.removeUserRoutine(userRoutineService.get(idUserRoutineToDelete));
+
 
         return userEntityService.update(userEntity);
     });

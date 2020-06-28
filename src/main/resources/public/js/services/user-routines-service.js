@@ -24,6 +24,14 @@ fitme.service('UserRoutinesService', function ($http) {
         });
     }
 
+    this.deleteUserRoutine = function (idUser, userRoutineId) {
+        return $http({
+            method: 'delete',
+            url: `${path}/${idUser}/user-routine/${userRoutineId}`
+        });
+    }
+
+
     this.getListUserExperiences = function (idUser, idUserRoutine) {
         return $http({
             method: 'get',
