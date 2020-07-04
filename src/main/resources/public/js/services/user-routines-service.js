@@ -9,10 +9,10 @@ fitme.service('UserRoutinesService', function ($http) {
         });
     }
 
-    this.getUserRoutine = function (idUser, idUserRoutine) {
+    this.getUserRoutines = function (routineTemplateId) {
         return $http({
             method: 'get',
-            url: `${path}/${idUser}/user-routine/${idUserRoutine}`
+            url: `/fitme/api/user-routine?routine_template_id=${routineTemplateId}`
         });
     }
 

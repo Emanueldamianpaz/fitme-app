@@ -8,6 +8,7 @@ fitme.controller('routinesController', function ($rootScope, $scope,
 
     $rootScope.stateCurrent = "routines";
     $scope.routineSelected = {};
+    $scope.userExperiences = [];
 
     $scope.goalType = goalTypeEnum;
     $scope.scoringType = scoringTypeEnum;
@@ -127,6 +128,13 @@ fitme.controller('routinesController', function ($rootScope, $scope,
 
     // ---------------------------------------------------------------------------- Interno para manejo de la UI
 
+    $scope.showDetail = function (routine) {
+        UserRoutinesService.getUserRoutines(routine.id).then(x => {
+            $scope.userExperiences = x.data;
+        });
+        $scope.setRoutineSelected(routine);
+    }
+
     $scope.setRoutineSelected = function (routine) {
         $scope.cleanModal();
         $scope.routineSelected = Object.create(routine);
@@ -233,6 +241,22 @@ fitme.controller('routinesController', function ($rootScope, $scope,
         }
     }
 
+    $scope.getBadgeExperience = function (scoring) {
+        switch (scoring) {
+            case 'GOOD':
+                return 'badge-success'
+                break;
+            case 'REGULAR':
+                return 'badge-warning'
+                break;
+            case 'BAD':
+                return 'badge-danger'
+                break;
+            case 'UNKNOWN':
+                return 'badge-dark'
+                break;
+        }
+    }
     $scope.refreshData();
 })
 

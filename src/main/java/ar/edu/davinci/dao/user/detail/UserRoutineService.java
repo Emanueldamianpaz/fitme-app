@@ -2,8 +2,10 @@ package ar.edu.davinci.dao.user.detail;
 
 import ar.edu.davinci.dao.FitmeService;
 import ar.edu.davinci.dao.routine.RoutineTemplateService;
+import ar.edu.davinci.domain.model.user.detail.UserExperience;
 import ar.edu.davinci.domain.model.user.detail.UserRoutine;
 import ar.edu.davinci.domain.types.ScoringType;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 
@@ -26,6 +28,7 @@ public class UserRoutineService extends FitmeService<UserRoutine, UserRoutine> {
 
     public void checkScoringFromUserRoutine(UserRoutine userRoutine) {
 
+        // TODO findByRoutineTemplate(routineTemplateId) modificar segun el global de experiencias
         List<ScoringType> scoring = userRoutine.getUserExperiences()
                 .stream().map(ux -> ux.getScoring()).collect(Collectors.toList());
 
@@ -52,4 +55,17 @@ public class UserRoutineService extends FitmeService<UserRoutine, UserRoutine> {
         routineTemplateService.update(userRoutine.getRoutineTemplate());
 
     }
+
+    public List<UserExperience> getUserExperiencesFromRoutineTemplate(Long routineTemplateId) {
+
+        List<UserExperience> userExperiencesFromRoutine = findAll()
+                .stream()
+                .filter(userRoutine -> userRoutine.getRoutineTemplate().getId().equals(routineTemplateId))
+                .map(userRoutine -> Lists.newArrayList(userRoutine.getUserExperiences()))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
+        return userExperiencesFromRoutine;
+    }
+
 }

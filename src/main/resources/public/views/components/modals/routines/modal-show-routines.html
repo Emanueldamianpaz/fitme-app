@@ -10,10 +10,21 @@
             </div>
 
             <div class="modal-body">
-
                 {{ routineSelected.description }}
-
+                <br>
+                <br>
+                <div ng-show="userExperiences.length >0">
+                    <h6>Experiencias de usuarios: </h6>
+                    <div>
+                    <span class="badge {{getBadgeExperience(item.scoring)}} margin-light"
+                          ng-repeat="item in userExperiences | orderBy: 'scoring'">
+                        {{ 'scoring-type.'+item.scoring | translate }}
+                    </span>
+                    </div>
+                </div>
                 <hr>
+
+
                 <div class="row">
                     <div class="col-lg-6">
                         <h4> {{ 'commons.exercises' | translate }}</h4>
