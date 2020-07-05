@@ -28,9 +28,10 @@ public class UserRoutineService extends FitmeService<UserRoutine, UserRoutine> {
 
     public void checkScoringFromUserRoutine(UserRoutine userRoutine) {
 
-        // TODO findByRoutineTemplate(routineTemplateId) modificar segun el global de experiencias
-        List<ScoringType> scoring = userRoutine.getUserExperiences()
-                .stream().map(ux -> ux.getScoring()).collect(Collectors.toList());
+        List<ScoringType> scoring = getUserExperiencesFromRoutineTemplate(userRoutine.getRoutineTemplate().getId())
+                .stream()
+                .map(ux -> ux.getScoring())
+                .collect(Collectors.toList());
 
         List<ScoringType> scoringBad = scoring.stream()
                 .filter(s -> s.equals(ScoringType.BAD)).collect(Collectors.toList());
