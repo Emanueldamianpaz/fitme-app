@@ -67,7 +67,7 @@ fitme.controller('nutritionsController', function ($rootScope, $scope, MealNutri
                 MessageNotification.showMessage($filter('translate')('responses.create-nutrition'))
                 $scope.refreshData()
             })
-            .catch(error => console.error(error))
+            .catch(error => toastr.error("La dieta está siendo utilizada por una rutina. Desasignela para poder borrar"))
     }
 
     $scope.refreshData();

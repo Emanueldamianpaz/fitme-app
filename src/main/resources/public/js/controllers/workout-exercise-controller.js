@@ -72,7 +72,7 @@ fitme.controller('exercisesController', function ($rootScope, $scope, $filter, W
                 MessageNotification.showMessage($filter('translate')('responses.create-exercise'));
                 $scope.refreshData();
             })
-            .catch(error => console.error(error))
+            .catch(error => toastr.error("El ejercicio está siendo utilizada por una rutina. Desasignela para poder borrar"))
     };
 
     $scope.refreshData();
