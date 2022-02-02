@@ -48,7 +48,7 @@
         <java-jwt.version>3.3.0</java-jwt.version>
         <jwks-rsa.version>0.3.0</jwks-rsa.version>
         <HikariCP.version>2.7.1</HikariCP.version>
-        <postgresql.version>42.1.4</postgresql.version>
+        <postgresql.version>42.2.25</postgresql.version>
         <mvc-auth-commons.version>1.0.3</mvc-auth-commons.version>
     </properties>
 
